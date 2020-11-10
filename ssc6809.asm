@@ -5,10 +5,10 @@
 L0026 equ $0026
 L0025 equ $0025
 L0035 equ $0035
+RESET1 equ LF000
 ;**************************
 ; INT0 (reset) vector
 ;**************************
-RESET1
 RESET
 LF000
     lda #$4A            F000: 52 4A       MOV %>4A,B
@@ -213,19 +213,21 @@ LF0AE
     lda #$3C            F0AE: A2 3C 00    MOVP %>3C,P0          ; Memory mode: Single Chip
     sta 256+0
     andcc #$fe
-*****         ; INT3: Enable, clear
-*****         ; INT2: Enable, clear
-*****         ; INT1: Diable
+***** 										; INT3: Enable, clear
+***** 										; INT2: Enable, clear
+***** 										; INT1: Diable
     lda #$7F            F0B1: A2 7F 08    MOVP %>7F,P8          ; Write $7f to C data port
     sta 256+8
     andcc #$fe
+***** 										; Select nothing, host not busy.
     lda #$FF            F0B4: A2 FF 09    MOVP %>FF,P9          ; Port C DDR: All output
     sta 256+9
     andcc #$fe
     lda #$FF            F0B7: A2 FF 08    MOVP %>FF,P8          ; Write $ff to C data port
     sta 256+8
     andcc #$fe
-    lda #$FF            F0BA: A2 FF 02    MOVP %>FF,P2          ; Load timer 1 reg with $ff
+***** 										; Select nothing, host busy
+    lda #$FF            F0BA: A2 FF 02    MOVP %>FF,P2          ; Load timer 1 reload register with $ff
     sta 256+2
     andcc #$fe
     lda #$9F            F0BD: A2 9F 03    MOVP %>9F,P3          ; Reload prescaler & decrementer & begin decrememnting
@@ -687,16 +689,16 @@ INT1
     anda <0
     bne LF23F
 LF231
-    lda #$FF            F231: A2 FF 0B    MOVP %>FF,P11
+    lda #$FF            F231: A2 FF 0B    MOVP %>FF,P11		; Set port D to output
     sta 256+11
     andcc #$fe
-    lda <0              F234: 82 0A       MOVP A,P10
+    lda <0              F234: 82 0A       MOVP A,P10		; Write Reg A to port D (data bus)
     sta 256+10
     andcc #$fe
-    lda #$DF            F236: A2 DF 08    MOVP %>DF,P8
+    lda #$DF            F236: A2 DF 08    MOVP %>DF,P8		; Signal SPO256 a byte is available
     sta 256+8
     andcc #$fe
-    lda #$FF            F239: A2 FF 08    MOVP %>FF,P8
+    lda #$FF            F239: A2 FF 08    MOVP %>FF,P8		; select no devices
     sta 256+8
     andcc #$fe
     jmp LF02C           F23C: 8C F0 2C    BR $F02C          ; Restore stack and RETI
@@ -736,7 +738,7 @@ LF25D
     sta <5
     andcc #$fe
 LF260
-    lda #$14            F260: A3 14 00    ANDP %>14,P0
+    lda #$14            F260: A3 14 00    ANDP %>14,P0		; Clear INT1 and INT2. Enable all interrupts
     anda 256+0
     sta 256+0
     andcc #$fe
