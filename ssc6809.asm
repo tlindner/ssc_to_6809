@@ -1,7 +1,27 @@
-	org $e000
-	setdp 0
-	PRAGMA autobranchlength
-	PRAGMA noforwardrefmax
+ org $e000
+ setdp 0
+ PRAGMA autobranchlength
+ PRAGMA noforwardrefmax
+tdec MACRO
+ orcc #1
+ lda <\1
+ bne @skip
+ andcc #$fe
+@skip deca
+ sta <\1
+ ENDM
+tdecd MACRO
+ ldd <\1-1
+ pshs a
+ subd 1
+ std <\1-1
+ orcc #1
+ puls a
+ tsta
+ bne @skip
+ andcc #$fe
+@skip deca
+ ENDM
 L0026 equ $0026
 L0025 equ $0025
 L0035 equ $0035
@@ -93,7 +113,7 @@ LF03A
     abx
     lda ,x
     sta <0
-    dec <0              F03D: B2          DEC A                 ; Set r0 == r0 - 1
+    tdec 0              F03D: B2          DEC A                 ; Set r0 == r0 - 1
     bcs LF047           F03E: E3 07       JHS $F047             ; Jump to $f047 if carry set
     lda <71             F040: 46 47 3B 06 BTJO R71,R59,$F04A
     anda <59
@@ -180,9 +200,7 @@ LF093
     sta <0
     andcc #$fe
     bsr TRAP_7          F097: F8          TRAP 7                ; Load PSG, A = Address, R60 = data
-    lda <22             F098: D5 16       CLR R22
-    suba #1
-    sta <22
+    clr <22             F098: D5 16       CLR R22
     rts                 F09A: 0A          RETS
 LF09B
     lda #$D             F09B: 2D 0D       CMP %>D,A
@@ -236,17 +254,11 @@ LF0AE
 *****                                         ; Timer source: internal clock
 *****                                         ; Prescale reload reg: $1f
     bsr LF1AF           F0C0: 8E F1 AF    CALL $F1AF
-    lda <8              F0C3: D5 08       CLR R8
-    suba #1
-    sta <8
-    lda <9              F0C5: D5 09       CLR R9
-    suba #1
-    sta <9
+    clr <8              F0C3: D5 08       CLR R8
+    clr <9              F0C5: D5 09       CLR R9
     bsr LF0ED           F0C7: 8E F0 ED    CALL $F0ED
 LF0CA
-    lda <0              F0CA: B5          CLR A
-    suba #1
-    sta <0
+    clr <0              F0CA: B5          CLR A
     lda #$17            F0CB: 52 17       MOV %>17,B
     sta <1
     andcc #$fe
@@ -282,36 +294,20 @@ LF0DE
     sta ,x
     dec <1              F0E1: CA FB       DJNZ B,$F0DE          ; B--, Jump to $F0DE is zero, status bits not changed
     bne LF0DE
-    lda <14             F0E3: D5 0E       CLR R14
-    suba #1
-    sta <14
-    lda <15             F0E5: D5 0F       CLR R15
-    suba #1
-    sta <15
-    lda <67             F0E7: D5 43       CLR R67
-    suba #1
-    sta <67
+    clr <14             F0E3: D5 0E       CLR R14
+    clr <15             F0E5: D5 0F       CLR R15
+    clr <67             F0E7: D5 43       CLR R67
     lda #$7             F0E9: 22 07       MOV %>7,A
     sta <0
     andcc #$fe
     bsr TRAP_8          F0EB: F7          TRAP 8                ; Load PSG, A = Address, R60 = data
     rts                 F0EC: 0A          RETS
 LF0ED
-    lda <10             F0ED: D5 0A       CLR R10
-    suba #1
-    sta <10
-    lda <11             F0EF: D5 0B       CLR R11
-    suba #1
-    sta <11
-    lda <12             F0F1: D5 0C       CLR R12
-    suba #1
-    sta <12
-    lda <13             F0F3: D5 0D       CLR R13
-    suba #1
-    sta <13
-    lda <73             F0F5: D5 49       CLR R73
-    suba #1
-    sta <73
+    clr <10             F0ED: D5 0A       CLR R10
+    clr <11             F0EF: D5 0B       CLR R11
+    clr <12             F0F1: D5 0C       CLR R12
+    clr <13             F0F3: D5 0D       CLR R13
+    clr <73             F0F5: D5 49       CLR R73
     lda #$FF            F0F7: 72 FF 05    MOV %>FF,R5
     sta <5
     andcc #$fe
@@ -377,7 +373,7 @@ LF117
     adda #1
     sta <0
 LF126
-    dec <35             F126: D2 23       DEC R35
+    tdec 35             F126: D2 23       DEC R35
     ldx <35-1           F128: 9D 23       CMPA *R35
     lda <0
     cmpa ,x
@@ -527,28 +523,20 @@ LF195
     sta <21
     rts                 F1AE: 0A          RETS
 LF1AF
-    lda <7              F1AF: D5 07       CLR R7
-    suba #1
-    sta <7
-    lda <23             F1B1: D5 17       CLR R23
-    suba #1
-    sta <23
+    clr <7              F1AF: D5 07       CLR R7
+    clr <23             F1B1: D5 17       CLR R23
 LF1B3
     lda #$1             F1B3: 72 01 15    MOV %>1,R21
     sta <21
     andcc #$fe
 LF1B6
-    lda <22             F1B6: D5 16       CLR R22
-    suba #1
-    sta <22
+    clr <22             F1B6: D5 16       CLR R22
 LF1B8
     lda <7              F1B8: 77 20 07 02 BTJZ %>20,R7,$F1BE
     coma
     anda #$20
     bne LF1BE
-    lda <22             F1BC: D5 16       CLR R22
-    suba #1
-    sta <22
+    clr <22             F1BC: D5 16       CLR R22
 LF1BE
     rts                 F1BE: 0A          RETS
 LF1BF
@@ -589,9 +577,7 @@ LF1DB
     lda <23             F1DE: 42 17 12    MOV R23,R18
     sta <18
     andcc #$fe
-    lda <16             F1E1: D5 10       CLR R16
-    suba #1
-    sta <16
+    clr <16             F1E1: D5 10       CLR R16
     bsr TRAP_5          F1E3: FA          TRAP 5
     lda #$0             F1E4: 7D 00 03    CMP %>0,R3
     cmpa <3
@@ -706,14 +692,10 @@ LF23F
     lda <0              F23F: D0 05       MOV A,R5          ; Set "no more data" flag
     sta <5
     andcc #$fe
-    lda <6              F241: D5 06       CLR R6
-    suba #1
-    sta <6
+    clr <6              F241: D5 06       CLR R6
     jmp LF02C           F243: 8C F0 2C    BR $F02C          ; Restore stack and RETI
 LF246
-    lda <16             F246: D5 10       CLR R16
-    suba #1
-    sta <16
+    clr <16             F246: D5 10       CLR R16
     lda <5              F248: 42 05 04    MOV R5,R4
     sta <4
     andcc #$fe
@@ -757,9 +739,7 @@ TRAP_5
 ; TRAP 12
 ;**************************
 TRAP_12
-    lda <3              F26A: D5 03       CLR R3
-    suba #1
-    sta <3
+    clr <3              F26A: D5 03       CLR R3
     lda <4              F26C: 32 04       MOV R4,B
     sta <1
     andcc #$fe
@@ -791,7 +771,7 @@ TRAP_12
     coma
     anda #$8
     bne LF28B
-    dec <4              F287: D2 04       DEC R4
+    tdec 4              F287: D2 04       DEC R4
     bra LF2AC           F289: E0 21       JMP $F2AC
 LF28B
     lda #$40            F28B: 5C 40       MPY %>40,B
@@ -889,9 +869,7 @@ LF2C9
     lda <0              F2DF: 9B 1C       STA *R28
     ldx <28-1
     sta ,x
-    lda <0              F2E1: B5          CLR A
-    suba #1
-    sta <0
+    clr <0              F2E1: B5          CLR A
     lda <0              F2E2: 9B 1E       STA *R30
     ldx <30-1
     sta ,x
@@ -944,22 +922,10 @@ LF300
 LF309
     bsr LF36D           F309: 8E F3 6D    CALL $F36D
 LF30C
-    ldd <26-1           F30C: DB 1A       DECD R26
-    subd #1
-    std <26-1
-    tsta
-    ldd <32-1           F30E: DB 20       DECD R32
-    subd #1
-    std <32-1
-    tsta
-    ldd <28-1           F310: DB 1C       DECD R28
-    subd #1
-    std <28-1
-    tsta
-    ldd <30-1           F312: DB 1E       DECD R30
-    subd #1
-    std <30-1
-    tsta
+    tdecd 26            F30C: DB 1A       DECD R26
+    tdecd 32            F30E: DB 20       DECD R32
+    tdecd 28            F310: DB 1C       DECD R28
+    tdecd 30            F312: DB 1E       DECD R30
     ror <70             F314: DC 46       RR R70
     dec <24             F316: DA 18 AC    DJNZ R24,$F2C5
     bne LF2C5
@@ -985,10 +951,7 @@ LF31F
     sta <14
     andcc #$fe
 LF329
-    ldd <32-1           F329: DB 20       DECD R32
-    subd #1
-    std <32-1
-    tsta
+    tdecd 32            F329: DB 20       DECD R32
     dec <1              F32B: CA F2       DJNZ B,$F31F
     bne LF31F
     rts                 F32D: 0A          RETS
@@ -1008,9 +971,7 @@ LF32E
     lda <0              F338: D0 12       MOV A,R18
     sta <18
     andcc #$fe
-    lda <16             F33A: D5 10       CLR R16
-    suba #1
-    sta <16
+    clr <16             F33A: D5 10       CLR R16
     bsr TRAP_5          F33C: FA          TRAP 5
     lda #$FF            F33D: 2D FF       CMP %>FF,A
     cmpa <0
@@ -1197,7 +1158,7 @@ LF3C2
     lda #$5             F3D0: 7D 05 18    CMP %>5,R24
     cmpa <24
     beq LF3DD           F3D3: E2 08       JEQ $F3DD
-    dec <63             F3D5: D2 3F       DEC R63
+    tdec 63             F3D5: D2 3F       DEC R63
     lda <63             F3D7: 12 3F       MOV R63,A
     sta <0
     andcc #$fe
@@ -1247,7 +1208,7 @@ LF401
     std <17-1
     andcc #$fe
     bsr TRAP_4          F408: FB          TRAP 4            ; turn off interrupts; Process data
-    dec <10             F409: D2 0A       DEC R10
+    tdec 10             F409: D2 0A       DEC R10
     lda #$18            F40B: 2D 18       CMP %>18,A
     cmpa <0
     bmi LF413           F40D: E1 04       JN $F413
@@ -1267,9 +1228,7 @@ LF413
     lda <0              F41C: D0 20       MOV A,R32
     sta <32
     andcc #$fe
-    lda <72             F41E: D5 48       CLR R72
-    suba #1
-    sta <72
+    clr <72             F41E: D5 48       CLR R72
     lda #$0             F420: 7D 00 07    CMP %>0,R7
     cmpa <7
     beq LF42A           F423: E2 05       JEQ $F42A
@@ -1312,9 +1271,7 @@ LF44B
     lda #$1             F44B: 72 01 48    MOV %>1,R72
     sta <72
     andcc #$fe
-    lda <73             F44E: D5 49       CLR R73
-    suba #1
-    sta <73
+    clr <73             F44E: D5 49       CLR R73
     rts                 F450: 0A          RETS
 LF451
     lda <10             F451: 4D 0A 0B    CMP R10,R11
@@ -1328,7 +1285,7 @@ LF451
     lda <11             F45B: 42 0B 0A    MOV R11,R10
     sta <10
     andcc #$fe
-    dec <10             F45E: D2 0A       DEC R10
+    tdec 10             F45E: D2 0A       DEC R10
     ldd #$0002          F460: 88 00 02 11 MOVD %>0002,R17
     std <17-1
     andcc #$fe
@@ -1354,9 +1311,7 @@ LF451
     cmpa <25
     bne LF451           F47C: E6 D3       JNZ $F451
 LF47E
-    lda <25             F47E: D5 19       CLR R25
-    suba #1
-    sta <25
+    clr <25             F47E: D5 19       CLR R25
     rts                 F480: 0A          RETS
 
 ;**************************
@@ -1446,9 +1401,7 @@ TRAP_13
     lda #$1             F4C2: 7D 01 19    CMP %>1,R25
     cmpa <25
     bne LF4D8           F4C5: E6 11       JNZ $F4D8
-    lda <1              F4C7: C5          CLR B
-    suba #1
-    sta <1
+    clr <1              F4C7: C5          CLR B
     lda #$41            F4C8: 2A 41       SUB %>41,A
     suba <0
     sta <0
@@ -1480,9 +1433,7 @@ LF4D8
 LF4DB
     bsr LF55A           F4DB: 8E F5 5A    CALL $F55A
     bcs LF523           F4DE: E3 43       JHS $F523
-    lda <30             F4E0: D5 1E       CLR R30
-    suba #1
-    sta <30
+    clr <30             F4E0: D5 1E       CLR R30
     bsr TRAP_15         F4E2: F0          TRAP 15
     bcs LF523           F4E3: E3 3E       JHS $F523
     bsr LF79B           F4E5: 8E F7 9B    CALL $F79B
@@ -1498,7 +1449,7 @@ LF4F1
     lda #$0             F4F1: 7D 00 1B    CMP %>0,R27
     cmpa <27
     beq LF4FC           F4F4: E2 06       JEQ $F4FC
-    dec <27             F4F6: D2 1B       DEC R27
+    tdec 27             F4F6: D2 1B       DEC R27
     lda <31             F4F8: D3 1F       INC R31
     adda #1
     sta <31
@@ -1516,9 +1467,7 @@ LF4FC
     bne LF506           F503: E6 01       JNZ $F506
     rts                 F505: 0A          RETS
 LF506
-    lda <28             F506: D5 1C       CLR R28
-    suba #1
-    sta <28
+    clr <28             F506: D5 1C       CLR R28
     ldx <62-1           F508: 9A 3E       LDA *R62
     lda ,x
     sta <0
@@ -1596,9 +1545,7 @@ LF540
 ; TRAP 16
 ;**************************
 TRAP_16
-    lda <28             F543: D5 1C       CLR R28
-    suba #1
-    sta <28
+    clr <28             F543: D5 1C       CLR R28
 LF545
     ldx <62-1           F545: 9A 3E       LDA *R62
     lda ,x
@@ -1628,12 +1575,8 @@ LF557
     bra LF545           F557: E0 EC       JMP $F545
     rts                 F559: 0A          RETS
 LF55A
-    lda <29             F55A: D5 1D       CLR R29
-    suba #1
-    sta <29
-    lda <27             F55C: D5 1B       CLR R27
-    suba #1
-    sta <27
+    clr <29             F55A: D5 1D       CLR R29
+    clr <27             F55C: D5 1B       CLR R27
     lda <31             F55E: 42 1F 18    MOV R31,R24
     sta <24
     andcc #$fe
@@ -1690,9 +1633,7 @@ LF584
     lda <0              F586: 3D 00       CMP R0,B
     cmpa <1
     beq LF58E           F588: E2 04       JEQ $F58E
-    lda <27             F58A: D5 1B       CLR R27
-    suba #1
-    sta <27
+    clr <27             F58A: D5 1B       CLR R27
     orcc #$01           F58C: 07          SETC
     rts                 F58D: 0A          RETS
 LF58E
@@ -1741,19 +1682,11 @@ LF5AD
     lda #$1             F5B2: 72 01 1D    MOV %>1,R29
     sta <29
     andcc #$fe
-    ldd <62-1           F5B5: DB 3E       DECD R62
-    subd #1
-    std <62-1
-    tsta
+    tdecd 62            F5B5: DB 3E       DECD R62
     rts                 F5B7: 0A          RETS
 LF5B8
-    lda <29             F5B8: D5 1D       CLR R29
-    suba #1
-    sta <29
-    ldd <62-1           F5BA: DB 3E       DECD R62
-    subd #1
-    std <62-1
-    tsta
+    clr <29             F5B8: D5 1D       CLR R29
+    tdecd 62            F5BA: DB 3E       DECD R62
     rts                 F5BC: 0A          RETS
 
 ;**************************
@@ -1762,9 +1695,7 @@ LF5B8
 TRAP_9
     lda <1              F5BD: C8          PUSH B
     pshs a
-    lda <1              F5BE: C5          CLR B
-    suba #1
-    sta <1
+    clr <1              F5BE: C5          CLR B
     bsr TRAP_10         F5BF: F5          TRAP 10
     lda #$61            F5C0: 2D 61       CMP %>61,A
     cmpa <0
@@ -1799,9 +1730,7 @@ LF5C6
     sta <1
     rts                 F5D6: 0A          RETS
 LF5D7
-    lda <0              F5D7: B5          CLR A
-    suba #1
-    sta <0
+    clr <0              F5D7: B5          CLR A
     puls a              F5D8: C9          POP B
     sta <1
     rts                 F5D9: 0A          RETS
@@ -1813,7 +1742,7 @@ LF5DA
     lda <1              F5DD: 66 FB       BTJO B,A,$F5DA
     anda <0
     bne LF5DA
-    dec <24             F5DF: D2 18       DEC R24
+    tdec 24             F5DF: D2 18       DEC R24
     bsr TRAP_17         F5E1: EE          TRAP 17
     rts                 F5E2: 0A          RETS
 LF5E3
@@ -1854,10 +1783,7 @@ LF616
     lda #$80            F616: 52 80       MOV %>80,B
     sta <1
     andcc #$fe
-    ldd <62-1           F618: DB 3E       DECD R62
-    subd #1
-    std <62-1
-    tsta
+    tdecd 62            F618: DB 3E       DECD R62
 LF61A
     ldx <62-1           F61A: 9A 3E       LDA *R62
     lda ,x
@@ -1869,10 +1795,7 @@ LF61A
     lda #$0             F61E: 7D 00 1E    CMP %>0,R30
     cmpa <30
     bne LF627           F621: E6 04       JNZ $F627
-    ldd <62-1           F623: DB 3E       DECD R62
-    subd #1
-    std <62-1
-    tsta
+    tdecd 62            F623: DB 3E       DECD R62
     bra LF62D           F625: E0 06       JMP $F62D
 LF627
     lda <62             F627: D3 3E       INC R62
@@ -1924,9 +1847,7 @@ LF64D
     cmpa <0
     bmi LF666           F651: E1 13       JN $F666
 LF653
-    lda <29             F653: D5 1D       CLR R29
-    suba #1
-    sta <29
+    clr <29             F653: D5 1D       CLR R29
     lda <0              F655: 4D 00 1A    CMP R0,R26
     cmpa <26
     beq LF65C           F658: E2 02       JEQ $F65C
@@ -2255,7 +2176,7 @@ LF78B
     lda <24             F78D: 42 18 0A    MOV R24,R10
     sta <10
     andcc #$fe
-    dec <10             F790: D2 0A       DEC R10
+    tdec 10             F790: D2 0A       DEC R10
     ldd #$0002          F792: 88 00 02 11 MOVD %>0002,R17
     std <17-1
     andcc #$fe
@@ -2275,10 +2196,7 @@ LF79B
     bne LF7A1
     rts                 F7A0: 0A          RETS
 LF7A1
-    ldd <62-1           F7A1: DB 3E       DECD R62
-    subd #1
-    std <62-1
-    tsta
+    tdecd 62            F7A1: DB 3E       DECD R62
     bra LF79B           F7A3: E0 F6       JMP $F79B
     rts                 F7A5: 0A          RETS
 
@@ -2292,10 +2210,7 @@ TRAP_17
     bsr LF5A7           F7AB: 8E F5 A7    CALL $F5A7
     rts                 F7AE: 0A          RETS
 LF7AF
-    ldd <62-1           F7AF: DB 3E       DECD R62
-    subd #1
-    std <62-1
-    tsta
+    tdecd 62            F7AF: DB 3E       DECD R62
     ldx <62-1           F7B1: 9A 3E       LDA *R62
     lda ,x
     sta <0
@@ -2316,9 +2231,7 @@ LF7AF
 LF7BF
     rts                 F7BF: 0A          RETS
 LF7C0
-    lda <29             F7C0: D5 1D       CLR R29
-    suba #1
-    sta <29
+    clr <29             F7C0: D5 1D       CLR R29
     lda <62             F7C2: D3 3E       INC R62
     adda #1
     sta <62
@@ -2339,7 +2252,7 @@ TRAP_18
     bsr LF5DA           F7CE: 8E F5 DA    CALL $F5DA
     rts                 F7D1: 0A          RETS
 LF7D2
-    dec <24             F7D2: D2 18       DEC R24
+    tdec 24             F7D2: D2 18       DEC R24
     lda #$21            F7D4: 7D 21 18    CMP %>21,R24
     cmpa <24
     beq LF7DC           F7D7: E2 03       JEQ $F7DC
@@ -2366,7 +2279,7 @@ TRAP_11
     sta <24
     rts                 F7E7: 0A          RETS
 LF7E8
-    dec <24             F7E8: D2 18       DEC R24
+    tdec 24             F7E8: D2 18       DEC R24
     rts                 F7EA: 0A          RETS
 
 ;**************************
@@ -2376,7 +2289,7 @@ TRAP_19
     lda #$0             F7EB: 7D 00 1E    CMP %>0,R30
     cmpa <30
     bne LF7F3           F7EE: E6 03       JNZ $F7F3
-    dec <24             F7F0: D2 18       DEC R24
+    tdec 24             F7F0: D2 18       DEC R24
     rts                 F7F2: 0A          RETS
 LF7F3
     lda <24             F7F3: D3 18       INC R24

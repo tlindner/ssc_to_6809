@@ -1,7 +1,27 @@
-0	org $e000
-0	setdp 0
-0	PRAGMA autobranchlength
-0	PRAGMA noforwardrefmax
+0	 org $e000
+0	 setdp 0
+0	 PRAGMA autobranchlength
+0	 PRAGMA noforwardrefmax
+0	tdec MACRO
+0	 orcc #1
+0	 lda <\1
+0	 bne @skip
+0	 andcc #$fe
+0	@skip deca
+0	 sta <\1
+0	 ENDM
+0	tdecd MACRO
+0	 ldd <\1-1
+0	 pshs a
+0	 subd 1
+0	 std <\1-1
+0	 orcc #1
+0	 puls a
+0	 tsta
+0	 bne @skip
+0	 andcc #$fe
+0	@skip deca
+0	 ENDM
 2	F7F6	FFCF
 3	FFD0
 1	ADD %>([0-9A-F]{1,2}),A	lda #\$$1\\nadda <0\\nsta <0
@@ -29,9 +49,9 @@
 1	BTJZ R(\d+),R(\d+),\$([0-9A-F]{4})	lda <$2\\ncoma\\nanda <$1\\nbne L$3	3
 1	BTJZ B,A,\$([0-9A-F]{4})	lda <0\\ncoma\\nanda <1\\nbne L$1	1
 1	CALL \$([0-9A-F]{4})	bsr L$1	1
-1	CLR A	lda <0\\nsuba #1\\nsta <0
-1	CLR B	lda <1\\nsuba #1\\nsta <1
-1	CLR R(\d+)	lda <$1\\nsuba #1\\nsta <$1
+1	CLR A	clr <0
+1	CLR B	clr <1
+1	CLR R(\d+)	clr <$1
 1	CLRC	andcc #\$fe
 1	SETC	orcc #\$01
 1	CMPA \*R(\d+)	ldx <$1-1\\nlda <0\\ncmpa ,x
@@ -41,10 +61,10 @@
 1	CMP R(\d+),A	lda <$1\\ncmpa <0
 1	CMP R(\d+),B	lda <$1\\ncmpa <1
 1	CMP R(\d+),R(\d+)	lda <$1\\ncmpa <$2
-1	DEC A	dec <0
-1	DEC B	dec <1
-1	DEC R(\d+)	dec <$1
-1	DECD R(\d+)	ldd <$1-1\\nsubd #1\\nstd <$1-1\\ntsta
+1	DEC A	tdec 0
+1	DEC B	tdec 1
+1	DEC R(\d+)	tdec $1
+1	DECD R(\d+)	tdecd $1
 1	DINT	orcc #\$50
 1	DJNZ A,\$([0-9A-F]{4})	dec <0\\nbne L$1	1
 1	DJNZ B,\$([0-9A-F]{4})	dec <1\\nbne L$1	1
