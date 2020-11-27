@@ -13,14 +13,14 @@
 0	tdecd MACRO
 0	 ldd <\1-1
 0	 pshs a
-0	 subd 1
+0	 subd #1
 0	 std <\1-1
 0	 orcc #1
 0	 puls a
 0	 tsta
 0	 bne @skip
 0	 andcc #$fe
-0	@skip deca
+0	@skip tst <\1-1
 0	 ENDM
 2	F7F6	FFCF
 3	FFD0

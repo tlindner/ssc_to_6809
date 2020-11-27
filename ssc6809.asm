@@ -13,7 +13,7 @@ tdec MACRO
 tdecd MACRO
  ldd <\1-1
  pshs a
- subd 1
+ subd #1
  std <\1-1
  orcc #1
  puls a
