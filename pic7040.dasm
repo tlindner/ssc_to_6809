@@ -147,7 +147,7 @@ F0F3: D5 0D       CLR R13
 F0F5: D5 49       CLR R73
 F0F7: 72 FF 05    MOV %>FF,R5
 F0FA: A2 FF 0B    MOVP %>FF,P11     ; D port DDR: All output
-F0FD: A2 00 0A    MOVP %>00,P10     ; D port: $ff
+F0FD: A2 00 0A    MOVP %>00,P10     ; D port: $00
 F100: A2 08 08    MOVP %>08,P8      ; Write $08 to C data port, Select: R, RAM, ALD, PSD
 F103: A2 FF 08    MOVP %>FF,P8      ; Write $ff to C data port, Select nothing
 F106: 0A          RETS

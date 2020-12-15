@@ -123,12 +123,12 @@
 1	PUSH R(\d+)	lda <$1\\npshs a
 1	RETI	rti
 1	RETS	rts
-1	RR A	ror <0
-1	RR B	ror <1
-1	RR R(\d+)	ror <$1
-1	RL A	rol <0
-1	RL B	rol <1
-1	RL R(\d+)	rol <$1
+1	RR A	lda <0\\ntfr a,b\\nrorb\\nrora\\nsta <0
+1	RR B	lda <1\\ntfr a,b\\nrorb\\nrora\\nsta <1
+1	RR R(\d+)	lda <$1\\ntfr a,b\\nrorb\\nrora\\nsta <$1
+1	RL A	lda <0\\ntfr a,b\\nrolb\\nrola\\nsta <0
+1	RL B	lda <1\\ntfr a,b\\nrolb\\nrola\\nsta <1
+1	RL R(\d+)	lda <$1\\ntfr a,b\\nrolb\\nrola\\nsta <$1
 1	SWAP A	lda <0\\nrora\\nrora\\nrora\\nrora\\nsta <0
 1	SWAP B	lda <1\\nrora\\nrora\\nrora\\nrora\\nsta <1
 1	SWAP R(\d+)	lda <$1\\nrola\\nrola\\nrola\\nrola\\nsta <$1

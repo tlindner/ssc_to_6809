@@ -20,7 +20,7 @@ tdecd MACRO
  tsta
  bne @skip
  andcc #$fe
-@skip deca
+@skip tst <\1-1
  ENDM
 L0026 equ $0026
 L0025 equ $0025
@@ -129,7 +129,11 @@ LF047
     abx
     sta ,x
 LF04A
-    ror <71             F04A: DC 47       RR R71
+    lda <71             F04A: DC 47       RR R71
+    tfr a,b
+    rorb
+    rora
+    sta <71
     dec <1              F04C: CA EC       DJNZ B,$F03A          ; Decrement r1, Jump to $f03a if not 0
     bne LF03A
     puls a              F04E: C9          POP B
@@ -314,7 +318,7 @@ LF0ED
     lda #$FF            F0FA: A2 FF 0B    MOVP %>FF,P11     ; D port DDR: All output
     sta 256+11
     andcc #$fe
-    lda #$00            F0FD: A2 00 0A    MOVP %>00,P10     ; D port: $ff
+    lda #$00            F0FD: A2 00 0A    MOVP %>00,P10     ; D port: $00
     sta 256+10
     andcc #$fe
     lda #$08            F100: A2 08 08    MOVP %>08,P8      ; Write $08 to C data port, Select: R, RAM, ALD, PSD
@@ -400,7 +404,11 @@ LF137
     lda <0              F139: 82 06       MOVP A,P6                 ; Put r0 on B data port (A0-A7 of static RAM)
     sta 256+6
     andcc #$fe
-    ror <17             F13B: DC 11       RR R17                    ; Rotate right, carry also gets bit 0
+    lda <17             F13B: DC 11       RR R17                    ; Rotate right, carry also gets bit 0
+    tfr a,b
+    rorb
+    rora
+    sta <17
     lda #$EC            F13D: 78 EC 11    ADD %>EC,R17
     adda <17
     sta <17
@@ -555,7 +563,11 @@ LF1BF
     ora <0
     sta <0
     andcc #$fe
-    rol <17             F1CB: DE 11       RL R17
+    lda <17             F1CB: DE 11       RL R17
+    tfr a,b
+    rolb
+    rola
+    sta <17
 LF1CD
     lda <7              F1CD: 77 08 07 07 BTJZ %>8,R7,$F1D8
     coma
@@ -912,7 +924,11 @@ LF300
     rora
     rora
     sta <0
-    ror <0              F303: BC          RR A
+    lda <0              F303: BC          RR A
+    tfr a,b
+    rorb
+    rora
+    sta <0
     lda <0              F304: B3          INC A
     adda #1
     sta <0
@@ -926,7 +942,11 @@ LF30C
     tdecd 32            F30E: DB 20       DECD R32
     tdecd 28            F310: DB 1C       DECD R28
     tdecd 30            F312: DB 1E       DECD R30
-    ror <70             F314: DC 46       RR R70
+    lda <70             F314: DC 46       RR R70
+    tfr a,b
+    rorb
+    rora
+    sta <70
     dec <24             F316: DA 18 AC    DJNZ R24,$F2C5
     bne LF2C5
     lda #$6             F319: 52 06       MOV %>6,B
@@ -1044,7 +1064,11 @@ LF36D
     rora
     rora
     sta <0
-    ror <0              F376: BC          RR A
+    lda <0              F376: BC          RR A
+    tfr a,b
+    rorb
+    rora
+    sta <0
     lda <0              F377: B3          INC A
     adda #1
     sta <0
@@ -1072,7 +1096,11 @@ LF38A
     puls a              F38A: B9          POP A
     sta <0
 LF38B
-    rol <34             F38B: DE 22       RL R34
+    lda <34             F38B: DE 22       RL R34
+    tfr a,b
+    rolb
+    rola
+    sta <34
     dec <0              F38D: BA FC       DJNZ A,$F38B
     bne LF38B
     orcc #$50           F38F: 06          DINT
