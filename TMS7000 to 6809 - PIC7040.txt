@@ -54,13 +54,13 @@
 1	CLR R(\d+)	clr <$1
 1	CLRC	andcc #\$fe
 1	SETC	orcc #\$01
-1	CMPA \*R(\d+)	ldx <$1-1\\nlda <0\\ncmpa ,x
-1	CMP %>([0-9A-F]{1,2}),A	lda #\$$1\\ncmpa <0
-1	CMP %>([0-9A-F]{1,2}),B	lda #\$$1\\ncmpa <1
-1	CMP %>([0-9A-F]{1,2}),R(\d+)	lda #\$$1\\ncmpa <$2
-1	CMP R(\d+),A	lda <$1\\ncmpa <0
-1	CMP R(\d+),B	lda <$1\\ncmpa <1
-1	CMP R(\d+),R(\d+)	lda <$1\\ncmpa <$2
+1	CMPA \*R(\d+)	ldx <$1-1\\nlda ,x\\ncmpa <0
+1	CMP %>([0-9A-F]{1,2}),A	lda <0\\ncmpa #\$$1
+1	CMP %>([0-9A-F]{1,2}),B	lda <1\\ncmpa #\$$1
+1	CMP %>([0-9A-F]{1,2}),R(\d+)	lda <$2\\ncmpa #\$$1
+1	CMP R(\d+),A	lda <0\\ncmpa <$1
+1	CMP R(\d+),B	lda <1\\ncmpa <$1
+1	CMP R(\d+),R(\d+)	lda <$2\\ncmpa <$1
 1	DEC A	tdec 0
 1	DEC B	tdec 1
 1	DEC R(\d+)	tdec $1
@@ -134,7 +134,7 @@
 1	SWAP R(\d+)	lda <$1\\nrola\\nrola\\nrola\\nrola\\nsta <$1
 1	STA \*R(\d+)	lda <0\\nldx <$1-1\\nsta ,x
 1	STA @>([0-9A-F]{4})\(b\)	lda <0\\nldx #L$1\\nldb <1\\nabx\\nsta ,x
-1	SUB R(\d+),A	lda <$1\\nsuba <0\\nsta <0
-1	SUB %>([0-9A-F]{1,2}),A	lda #\$$1\\nsuba <0\\nsta <0
-1	SUB %>([0-9A-F]{1,2}),B	lda #\$$1\\nsuba <1\\nsta <1
+1	SUB R(\d+),A	lda <0\\nsuba <$1\\nsta <0
+1	SUB %>([0-9A-F]{1,2}),A	lda <0\\nsuba #\$$1\\nsta <0
+1	SUB %>([0-9A-F]{1,2}),B	lda <1\\nsuba #\$$1\\nsta <1
 1	TRAP (\d+)	bsr TRAP_$1

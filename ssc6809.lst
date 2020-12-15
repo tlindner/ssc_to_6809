@@ -153,32 +153,32 @@ E0CF 8610             (      ssc6809.asm):00146             lda #$10            
 E0D1 BA0100           (      ssc6809.asm):00147             ora 256+0
 E0D4 B70100           (      ssc6809.asm):00148             sta 256+0
 E0D7 1CFE             (      ssc6809.asm):00149             andcc #$fe
-E0D9 9608             (      ssc6809.asm):00150             lda <8              F054: 4D 08 09    CMP R8,R9
-E0DB 9109             (      ssc6809.asm):00151             cmpa <9
+E0D9 9609             (      ssc6809.asm):00150             lda <9              F054: 4D 08 09    CMP R8,R9
+E0DB 9108             (      ssc6809.asm):00151             cmpa <8
 E0DD 10270097         (      ssc6809.asm):00152             beq LF0AD           F057: E2 54       JEQ $F0AD             ; If R8 = R9, return
 E0E1 CC0000           (      ssc6809.asm):00153             ldd #$0000          F059: 88 00 00 11 MOVD %>0000,R17       ; R16 = 0. R17 = 0
 E0E4 DD10             (      ssc6809.asm):00154             std <17-1
 E0E6 1CFE             (      ssc6809.asm):00155             andcc #$fe
 E0E8 170145           (      ssc6809.asm):00156             bsr TRAP_4          F05D: FB          TRAP 4                ; turn off interrupts; Process data
-E0EB 86AF             (      ssc6809.asm):00157             lda #$AF            F05E: 7D AF 07    CMP %>AF,R7
-E0ED 9107             (      ssc6809.asm):00158             cmpa <7
+E0EB 9607             (      ssc6809.asm):00157             lda <7              F05E: 7D AF 07    CMP %>AF,R7
+E0ED 81AF             (      ssc6809.asm):00158             cmpa #$AF
 E0EF 2737             (      ssc6809.asm):00159             beq LF083           F061: E2 20       JEQ $F083
-E0F1 8600             (      ssc6809.asm):00160             lda #$0             F063: 7D 00 07    CMP %>0,R7
-E0F3 9107             (      ssc6809.asm):00161             cmpa <7
+E0F1 9607             (      ssc6809.asm):00160             lda <7              F063: 7D 00 07    CMP %>0,R7
+E0F3 8100             (      ssc6809.asm):00161             cmpa #$0
 E0F5 2703             (      ssc6809.asm):00162             beq LF06B           F066: E2 03       JEQ $F06B
 E0F7 7EE2FE           (      ssc6809.asm):00163             jmp LF157           F068: 8C F1 57    BR $F157
 E0FA                  (      ssc6809.asm):00164         LF06B
-E0FA 8600             (      ssc6809.asm):00165             lda #$0             F06B: 2D 00       CMP %>0,A
-E0FC 9100             (      ssc6809.asm):00166             cmpa <0
+E0FA 9600             (      ssc6809.asm):00165             lda <0              F06B: 2D 00       CMP %>0,A
+E0FC 8100             (      ssc6809.asm):00166             cmpa #$0
 E0FE 1027FEFE         (      ssc6809.asm):00167             beq LF000           F06D: E2 91       JEQ $F000             ; Jump to reset
-E102 86C7             (      ssc6809.asm):00168             lda #$C7            F06F: 2D C7       CMP %>C7,A
-E104 9100             (      ssc6809.asm):00169             cmpa <0
+E102 9600             (      ssc6809.asm):00168             lda <0              F06F: 2D C7       CMP %>C7,A
+E104 81C7             (      ssc6809.asm):00169             cmpa #$C7
 E106 102700F9         (      ssc6809.asm):00170             beq LF0ED           F071: E2 7A       JEQ $F0ED
-E10A 86CF             (      ssc6809.asm):00171             lda #$CF            F073: 2D CF       CMP %>CF,A
-E10C 9100             (      ssc6809.asm):00172             cmpa <0
+E10A 9600             (      ssc6809.asm):00171             lda <0              F073: 2D CF       CMP %>CF,A
+E10C 81CF             (      ssc6809.asm):00172             cmpa #$CF
 E10E 1027009A         (      ssc6809.asm):00173             beq LF0CA           F075: E2 53       JEQ $F0CA
-E112 8680             (      ssc6809.asm):00174             lda #$80            F077: 2D 80       CMP %>80,A
-E114 9100             (      ssc6809.asm):00175             cmpa <0
+E112 9600             (      ssc6809.asm):00174             lda <0              F077: 2D 80       CMP %>80,A
+E114 8180             (      ssc6809.asm):00175             cmpa #$80
 E116 2B3A             (      ssc6809.asm):00176             bmi LF09B           F079: E1 20       JN $F09B
 E118 9600             (      ssc6809.asm):00177             lda <0              F07B: D0 07       MOV A,R7
 E11A 9707             (      ssc6809.asm):00178             sta <7
@@ -192,8 +192,8 @@ E128                  (      ssc6809.asm):00185         LF083
 E128 8601             (      ssc6809.asm):00186             lda #$1             F083: 76 01 16 0C BTJO %>1,R22,$F093    ; If bit 1 of R22 is 0 jump to $F093
 E12A 9416             (      ssc6809.asm):00187             anda <22
 E12C 2612             (      ssc6809.asm):00188             bne LF093
-E12E 86FF             (      ssc6809.asm):00189             lda #$FF            F087: 2D FF       CMP %>FF,A
-E130 9100             (      ssc6809.asm):00190             cmpa <0
+E12E 9600             (      ssc6809.asm):00189             lda <0              F087: 2D FF       CMP %>FF,A
+E130 81FF             (      ssc6809.asm):00190             cmpa #$FF
 E132 2603             (      ssc6809.asm):00191             bne LF08E           F089: E6 03       JNZ $F08E
 E134 7EE39F           (      ssc6809.asm):00192             jmp LF1AF           F08B: 8C F1 AF    BR $F1AF
 E137                  (      ssc6809.asm):00193         LF08E
@@ -213,8 +213,8 @@ E14C 1702EC           (      ssc6809.asm):00206             bsr TRAP_7          
 E14F 0F16             (      ssc6809.asm):00207             clr <22             F098: D5 16       CLR R22
 E151 39               (      ssc6809.asm):00208             rts                 F09A: 0A          RETS
 E152                  (      ssc6809.asm):00209         LF09B
-E152 860D             (      ssc6809.asm):00210             lda #$D             F09B: 2D 0D       CMP %>D,A
-E154 9100             (      ssc6809.asm):00211             cmpa <0
+E152 9600             (      ssc6809.asm):00210             lda <0              F09B: 2D 0D       CMP %>D,A
+E154 810D             (      ssc6809.asm):00211             cmpa #$D
 E156 2616             (      ssc6809.asm):00212             bne LF0A8           F09D: E6 09       JNZ $F0A8
 E158 8620             (      ssc6809.asm):00213             lda #$20            F09F: 22 20       MOV %>20,A            ; Jump if not zero
 E15A 9700             (      ssc6809.asm):00214             sta <0
@@ -355,8 +355,8 @@ E237 9610             (      ssc6809.asm):00348             lda <16             
 E239 43               (      ssc6809.asm):00349             coma
 E23A 84FF             (      ssc6809.asm):00350             anda #$FF
 E23C 2610             (      ssc6809.asm):00351             bne LF117
-E23E 8604             (      ssc6809.asm):00352             lda #$4             F10F: 7D 04 11    CMP %>4,R17               ; Compute R17 minus 4
-E240 9111             (      ssc6809.asm):00353             cmpa <17
+E23E 9611             (      ssc6809.asm):00352             lda <17             F10F: 7D 04 11    CMP %>4,R17               ; Compute R17 minus 4
+E240 8104             (      ssc6809.asm):00353             cmpa #$4
 E242 260A             (      ssc6809.asm):00354             bne LF117           F112: E6 03       JNZ $F117                 ; Jump to $f117 if r17 != 4
 E244 8603             (      ssc6809.asm):00355             lda #$03            F114: A4 03 00    ORP %>03,P0               ; Enable and clear INT1
 E246 BA0100           (      ssc6809.asm):00356             ora 256+0
@@ -391,8 +391,8 @@ E27A 1CFE             (             tdec):00004          andcc #$fe
 E27C 4A               (             tdec):00005         @skip deca
 E27D 9723             (             tdec):00006          sta <35
 E27F 9E22             (      ssc6809.asm):00381             ldx <35-1           F128: 9D 23       CMPA *R35
-E281 9600             (      ssc6809.asm):00382             lda <0
-E283 A184             (      ssc6809.asm):00383             cmpa ,x
+E281 A684             (      ssc6809.asm):00382             lda ,x
+E283 9100             (      ssc6809.asm):00383             cmpa <0
 E285 2776             (      ssc6809.asm):00384             beq LF156           F12A: E2 2A       JEQ $F156                 ; Jump to $f156 if r0 + 1 == r35 - 1
 E287 9610             (      ssc6809.asm):00385             lda <16             F12C: 77 FF 10 04 BTJZ %>FF,R16,$F134       ; If R16 contains any 0 bits jump to $F134
 E289 43               (      ssc6809.asm):00386             coma
@@ -457,8 +457,8 @@ E2FB 1CFE             (      ssc6809.asm):00444             andcc #$fe
 E2FD                  (      ssc6809.asm):00445         LF156
 E2FD 39               (      ssc6809.asm):00446             rts                 F156: 0A          RETS
 E2FE                  (      ssc6809.asm):00447         LF157
-E2FE 868F             (      ssc6809.asm):00448             lda #$8F            F157: 7D 8F 07    CMP %>8F,R7
-E300 9107             (      ssc6809.asm):00449             cmpa <7
+E2FE 9607             (      ssc6809.asm):00448             lda <7              F157: 7D 8F 07    CMP %>8F,R7
+E300 818F             (      ssc6809.asm):00449             cmpa #$8F
 E302 260A             (      ssc6809.asm):00450             bne LF160           F15A: E6 04       JNZ $F160
 E304 9600             (      ssc6809.asm):00451             lda <0              F15C: 82 02       MOVP A,P2                 ; Write timer reload register
 E306 B70102           (      ssc6809.asm):00452             sta 256+2
@@ -480,8 +480,8 @@ E324 1CFE             (      ssc6809.asm):00467             andcc #$fe
 E326                  (      ssc6809.asm):00468         LF16E
 E326 0316             (      ssc6809.asm):00469             com <22             F16E: D4 16       INV R22                   ; 1s complement
 E328                  (      ssc6809.asm):00470         LF170
-E328 8600             (      ssc6809.asm):00471             lda #$0             F170: 7D 00 16    CMP %>0,R22
-E32A 9116             (      ssc6809.asm):00472             cmpa <22
+E328 9616             (      ssc6809.asm):00471             lda <22             F170: 7D 00 16    CMP %>0,R22
+E32A 8100             (      ssc6809.asm):00472             cmpa #$0
 E32C 2616             (      ssc6809.asm):00473             bne LF17F           F173: E6 0A       JNZ $F17F
 E32E 8604             (      ssc6809.asm):00474             lda #$4             F175: 72 04 15    MOV %>4,R21
 E330 9715             (      ssc6809.asm):00475             sta <21
@@ -508,8 +508,8 @@ E356 9617             (      ssc6809.asm):00495             lda <23             
 E358 9712             (      ssc6809.asm):00496             sta <18
 E35A 1CFE             (      ssc6809.asm):00497             andcc #$fe
 E35C 1701A8           (      ssc6809.asm):00498             bsr TRAP_5          F18A: FA          TRAP 5
-E35F 8600             (      ssc6809.asm):00499             lda #$0             F18B: 7D 00 03    CMP %>0,R3
-E361 9103             (      ssc6809.asm):00500             cmpa <3
+E35F 9603             (      ssc6809.asm):00499             lda <3              F18B: 7D 00 03    CMP %>0,R3
+E361 8100             (      ssc6809.asm):00500             cmpa #$0
 E363 260C             (      ssc6809.asm):00501             bne LF195           F18E: E6 05       JNZ $F195
 E365 9617             (      ssc6809.asm):00502             lda <23             F190: D3 17       INC R23
 E367 8B01             (      ssc6809.asm):00503             adda #1
@@ -520,8 +520,8 @@ E36F 1CFE             (      ssc6809.asm):00507             andcc #$fe
 E371                  (      ssc6809.asm):00508         LF195
 E371 0A15             (      ssc6809.asm):00509             dec <21             F195: DA 15 20    DJNZ R21,$F1B8
 E373 2636             (      ssc6809.asm):00510             bne LF1B8
-E375 9613             (      ssc6809.asm):00511             lda <19             F198: 1D 13       CMP R19,A
-E377 9100             (      ssc6809.asm):00512             cmpa <0
+E375 9600             (      ssc6809.asm):00511             lda <0              F198: 1D 13       CMP R19,A
+E377 9113             (      ssc6809.asm):00512             cmpa <19
 E379 2724             (      ssc6809.asm):00513             beq LF1AF           F19A: E2 13       JEQ $F1AF
 E37B 9607             (      ssc6809.asm):00514             lda <7              F19C: 77 08 07 13 BTJZ %>8,R7,$F1B3
 E37D 43               (      ssc6809.asm):00515             coma
@@ -603,18 +603,18 @@ E3FB 9712             (      ssc6809.asm):00590             sta <18
 E3FD 1CFE             (      ssc6809.asm):00591             andcc #$fe
 E3FF 0F10             (      ssc6809.asm):00592             clr <16             F1E1: D5 10       CLR R16
 E401 170103           (      ssc6809.asm):00593             bsr TRAP_5          F1E3: FA          TRAP 5
-E404 8600             (      ssc6809.asm):00594             lda #$0             F1E4: 7D 00 03    CMP %>0,R3
-E406 9103             (      ssc6809.asm):00595             cmpa <3
+E404 9603             (      ssc6809.asm):00594             lda <3              F1E4: 7D 00 03    CMP %>0,R3
+E406 8100             (      ssc6809.asm):00595             cmpa #$0
 E408 2695             (      ssc6809.asm):00596             bne LF1AF           F1E7: E6 C6       JNZ $F1AF
-E40A 86FF             (      ssc6809.asm):00597             lda #$FF            F1E9: 2D FF       CMP %>FF,A
-E40C 9100             (      ssc6809.asm):00598             cmpa <0
+E40A 9600             (      ssc6809.asm):00597             lda <0              F1E9: 2D FF       CMP %>FF,A
+E40C 81FF             (      ssc6809.asm):00598             cmpa #$FF
 E40E 278F             (      ssc6809.asm):00599             beq LF1AF           F1EB: E2 C2       JEQ $F1AF
 E410 9600             (      ssc6809.asm):00600             lda <0              F1ED: D0 3F       MOV A,R63
 E412 973F             (      ssc6809.asm):00601             sta <63
 E414 1CFE             (      ssc6809.asm):00602             andcc #$fe
 E416 1700EE           (      ssc6809.asm):00603             bsr TRAP_5          F1EF: FA          TRAP 5
-E419 8600             (      ssc6809.asm):00604             lda #$0             F1F0: 7D 00 03    CMP %>0,R3
-E41B 9103             (      ssc6809.asm):00605             cmpa <3
+E419 9603             (      ssc6809.asm):00604             lda <3              F1F0: 7D 00 03    CMP %>0,R3
+E41B 8100             (      ssc6809.asm):00605             cmpa #$0
 E41D 2680             (      ssc6809.asm):00606             bne LF1AF           F1F3: E6 BA       JNZ $F1AF
 E41F 8602             (      ssc6809.asm):00607             lda #$2             F1F5: 78 02 17    ADD %>2,R23
 E421 9B17             (      ssc6809.asm):00608             adda <23
@@ -687,8 +687,8 @@ E482 9611             (      ssc6809.asm):00674             lda <17             
 E484 3402             (      ssc6809.asm):00675             pshs a
 E486 9610             (      ssc6809.asm):00676             lda <16             F220: D8 10       PUSH R16
 E488 3402             (      ssc6809.asm):00677             pshs a
-E48A 86FF             (      ssc6809.asm):00678             lda #$FF            F222: 7D FF 05    CMP %>FF,R5       ; r5, flag to determine if there is data to send?
-E48C 9105             (      ssc6809.asm):00679             cmpa <5
+E48A 9605             (      ssc6809.asm):00678             lda <5              F222: 7D FF 05    CMP %>FF,R5       ; r5, flag to determine if there is data to send?
+E48C 81FF             (      ssc6809.asm):00679             cmpa #$FF
 E48E 263C             (      ssc6809.asm):00680             bne LF246           F225: E6 1F       JNZ $F246
 E490 CC0004           (      ssc6809.asm):00681             ldd #$0004          F227: 88 00 04 11 MOVD %>0004,R17   ; Input to TRAP 6
 E493 DD10             (      ssc6809.asm):00682             std <17-1
@@ -730,14 +730,14 @@ E4DA 9606             (      ssc6809.asm):00717             lda <6              
 E4DC 8B01             (      ssc6809.asm):00718             adda #1
 E4DE 9706             (      ssc6809.asm):00719             sta <6
 E4E0 8D2C             (      ssc6809.asm):00720             bsr TRAP_12         F250: F3          TRAP 12
-E4E2 8600             (      ssc6809.asm):00721             lda #$0             F251: 7D 00 03    CMP %>0,R3
-E4E4 9103             (      ssc6809.asm):00722             cmpa <3
+E4E2 9603             (      ssc6809.asm):00721             lda <3              F251: 7D 00 03    CMP %>0,R3
+E4E4 8100             (      ssc6809.asm):00722             cmpa #$0
 E4E6 260C             (      ssc6809.asm):00723             bne LF25D           F254: E6 07       JNZ $F25D
 E4E8 9604             (      ssc6809.asm):00724             lda <4              F256: 42 04 05    MOV R4,R5
 E4EA 9705             (      ssc6809.asm):00725             sta <5
 E4EC 1CFE             (      ssc6809.asm):00726             andcc #$fe
-E4EE 86FF             (      ssc6809.asm):00727             lda #$FF            F259: 2D FF       CMP %>FF,A
-E4F0 9100             (      ssc6809.asm):00728             cmpa <0
+E4EE 9600             (      ssc6809.asm):00727             lda <0              F259: 2D FF       CMP %>FF,A
+E4F0 81FF             (      ssc6809.asm):00728             cmpa #$FF
 E4F2 26AE             (      ssc6809.asm):00729             bne LF231           F25B: E6 D4       JNZ $F231
 E4F4                  (      ssc6809.asm):00730         LF25D
 E4F4 86FF             (      ssc6809.asm):00731             lda #$FF            F25D: 72 FF 05    MOV %>FF,R5
@@ -775,8 +775,8 @@ E51E 863F             (      ssc6809.asm):00762             lda #$3F            
 E520 9412             (      ssc6809.asm):00763             anda <18
 E522 9712             (      ssc6809.asm):00764             sta <18
 E524 1CFE             (      ssc6809.asm):00765             andcc #$fe
-E526 863F             (      ssc6809.asm):00766             lda #$3F            F273: 7D 3F 12    CMP %>3F,R18
-E528 9112             (      ssc6809.asm):00767             cmpa <18
+E526 9612             (      ssc6809.asm):00766             lda <18             F273: 7D 3F 12    CMP %>3F,R18
+E528 813F             (      ssc6809.asm):00767             cmpa #$3F
 E52A 2B30             (      ssc6809.asm):00768             bmi LF28B           F276: E1 13       JN $F28B
 E52C 8610             (      ssc6809.asm):00769             lda #$10            F278: 76 10 04 30 BTJO %>10,R4,$F2AC
 E52E 9404             (      ssc6809.asm):00770             anda <4
@@ -880,8 +880,8 @@ E5EB 9446             (      ssc6809.asm):00861             anda <70
 E5ED 10260090         (      ssc6809.asm):00862             bne LF30C
 E5F1                  (      ssc6809.asm):00863         LF2C9
 E5F1 17012D           (      ssc6809.asm):00864             bsr LF32E           F2C9: 8E F3 2E    CALL $F32E
-E5F4 8600             (      ssc6809.asm):00865             lda #$0             F2CC: 7D 00 03    CMP %>0,R3
-E5F6 9103             (      ssc6809.asm):00866             cmpa <3
+E5F4 9603             (      ssc6809.asm):00865             lda <3              F2CC: 7D 00 03    CMP %>0,R3
+E5F6 8100             (      ssc6809.asm):00866             cmpa #$0
 E5F8 2738             (      ssc6809.asm):00867             beq LF2EA           F2CF: E2 19       JEQ $F2EA
 E5FA CC0006           (      ssc6809.asm):00868             ldd #$0006          F2D1: 88 00 06 11 MOVD %>0006,R17
 E5FD DD10             (      ssc6809.asm):00869             std <17-1
@@ -892,8 +892,8 @@ E605 9700             (      ssc6809.asm):00873             sta <0
 E607 9600             (      ssc6809.asm):00874             lda <0              F2D7: D0 0E       MOV A,R14
 E609 970E             (      ssc6809.asm):00875             sta <14
 E60B 1CFE             (      ssc6809.asm):00876             andcc #$fe
-E60D 960E             (      ssc6809.asm):00877             lda <14             F2D9: 4D 0E 0F    CMP R14,R15
-E60F 910F             (      ssc6809.asm):00878             cmpa <15
+E60D 960F             (      ssc6809.asm):00877             lda <15             F2D9: 4D 0E 0F    CMP R14,R15
+E60F 910E             (      ssc6809.asm):00878             cmpa <14
 E611 276E             (      ssc6809.asm):00879             beq LF30C           F2DC: E2 2E       JEQ $F30C
 E613 17FC1A           (      ssc6809.asm):00880             bsr TRAP_4          F2DE: FB          TRAP 4            ; turn off interrupts; Process data
 E616 9600             (      ssc6809.asm):00881             lda <0              F2DF: 9B 1C       STA *R28
@@ -914,19 +914,19 @@ E632                  (      ssc6809.asm):00895         LF2EA
 E632 963C             (      ssc6809.asm):00896             lda <60             F2EA: 12 3C       MOV R60,A
 E634 9700             (      ssc6809.asm):00897             sta <0
 E636 1CFE             (      ssc6809.asm):00898             andcc #$fe
-E638 8604             (      ssc6809.asm):00899             lda #$4             F2EC: 7D 04 18    CMP %>4,R24
-E63A 9118             (      ssc6809.asm):00900             cmpa <24
+E638 9618             (      ssc6809.asm):00899             lda <24             F2EC: 7D 04 18    CMP %>4,R24
+E63A 8104             (      ssc6809.asm):00900             cmpa #$4
 E63C 260E             (      ssc6809.asm):00901             bne LF2F7           F2EF: E6 06       JNZ $F2F7
 E63E 8660             (      ssc6809.asm):00902             lda #$60            F2F1: 23 60       AND %>60,A
 E640 9400             (      ssc6809.asm):00903             anda <0
 E642 9700             (      ssc6809.asm):00904             sta <0
 E644 1CFE             (      ssc6809.asm):00905             andcc #$fe
-E646 8660             (      ssc6809.asm):00906             lda #$60            F2F3: 2D 60       CMP %>60,A
-E648 9100             (      ssc6809.asm):00907             cmpa <0
+E646 9600             (      ssc6809.asm):00906             lda <0              F2F3: 2D 60       CMP %>60,A
+E648 8160             (      ssc6809.asm):00907             cmpa #$60
 E64A 2732             (      ssc6809.asm):00908             beq LF309           F2F5: E2 12       JEQ $F309
 E64C                  (      ssc6809.asm):00909         LF2F7
-E64C 8605             (      ssc6809.asm):00910             lda #$5             F2F7: 7D 05 18    CMP %>5,R24
-E64E 9118             (      ssc6809.asm):00911             cmpa <24
+E64C 9618             (      ssc6809.asm):00910             lda <24             F2F7: 7D 05 18    CMP %>5,R24
+E64E 8105             (      ssc6809.asm):00911             cmpa #$5
 E650 2606             (      ssc6809.asm):00912             bne LF300           F2FA: E6 04       JNZ $F300
 E652 8680             (      ssc6809.asm):00913             lda #$80            F2FC: 76 80 3C 09 BTJO %>80,R60,$F309
 E654 943C             (      ssc6809.asm):00914             anda <60
@@ -950,8 +950,8 @@ E66E 9700             (      ssc6809.asm):00931             sta <0
 E670 9600             (      ssc6809.asm):00932             lda <0              F304: B3          INC A
 E672 8B01             (      ssc6809.asm):00933             adda #1
 E674 9700             (      ssc6809.asm):00934             sta <0
-E676 9618             (      ssc6809.asm):00935             lda <24             F305: 1D 18       CMP R24,A
-E678 9100             (      ssc6809.asm):00936             cmpa <0
+E676 9600             (      ssc6809.asm):00935             lda <0              F305: 1D 18       CMP R24,A
+E678 9118             (      ssc6809.asm):00936             cmpa <24
 E67A 1026FF73         (      ssc6809.asm):00937             bne LF2C9           F307: E6 C0       JNZ $F2C9
 E67E                  (      ssc6809.asm):00938         LF309
 E67E 170126           (      ssc6809.asm):00939             bsr LF36D           F309: 8E F3 6D    CALL $F36D
@@ -1017,11 +1017,11 @@ E6EC                  (      ssc6809.asm):00958         LF31F
 E6EC 9E1F             (      ssc6809.asm):00959             ldx <32-1           F31F: 9A 20       LDA *R32
 E6EE A684             (      ssc6809.asm):00960             lda ,x
 E6F0 9700             (      ssc6809.asm):00961             sta <0
-E6F2 960F             (      ssc6809.asm):00962             lda <15             F321: 1A 0F       SUB R15,A
-E6F4 9000             (      ssc6809.asm):00963             suba <0
+E6F2 9600             (      ssc6809.asm):00962             lda <0              F321: 1A 0F       SUB R15,A
+E6F4 900F             (      ssc6809.asm):00963             suba <15
 E6F6 9700             (      ssc6809.asm):00964             sta <0
-E6F8 960E             (      ssc6809.asm):00965             lda <14             F323: 1D 0E       CMP R14,A
-E6FA 9100             (      ssc6809.asm):00966             cmpa <0
+E6F8 9600             (      ssc6809.asm):00965             lda <0              F323: 1D 0E       CMP R14,A
+E6FA 910E             (      ssc6809.asm):00966             cmpa <14
 E6FC 1FA8             (      ssc6809.asm):00967             tfr cc,a            F325: E4 02       JP $F329
 E6FE 840C             (      ssc6809.asm):00968             anda #$0C
 E700 2706             (      ssc6809.asm):00969             beq LF329
@@ -1047,8 +1047,8 @@ E721                  (      ssc6809.asm):00978         LF32E
 E721 9E1B             (      ssc6809.asm):00979             ldx <28-1           F32E: 9A 1C       LDA *R28
 E723 A684             (      ssc6809.asm):00980             lda ,x
 E725 9700             (      ssc6809.asm):00981             sta <0
-E727 86FF             (      ssc6809.asm):00982             lda #$FF            F330: 2D FF       CMP %>FF,A
-E729 9100             (      ssc6809.asm):00983             cmpa <0
+E727 9600             (      ssc6809.asm):00982             lda <0              F330: 2D FF       CMP %>FF,A
+E729 81FF             (      ssc6809.asm):00983             cmpa #$FF
 E72B 271D             (      ssc6809.asm):00984             beq LF341           F332: E2 0D       JEQ $F341
 E72D 9600             (      ssc6809.asm):00985             lda <0              F334: D0 04       MOV A,R4
 E72F 9704             (      ssc6809.asm):00986             sta <4
@@ -1061,16 +1061,16 @@ E73B 9712             (      ssc6809.asm):00992             sta <18
 E73D 1CFE             (      ssc6809.asm):00993             andcc #$fe
 E73F 0F10             (      ssc6809.asm):00994             clr <16             F33A: D5 10       CLR R16
 E741 17FDC3           (      ssc6809.asm):00995             bsr TRAP_5          F33C: FA          TRAP 5
-E744 86FF             (      ssc6809.asm):00996             lda #$FF            F33D: 2D FF       CMP %>FF,A
-E746 9100             (      ssc6809.asm):00997             cmpa <0
+E744 9600             (      ssc6809.asm):00996             lda <0              F33D: 2D FF       CMP %>FF,A
+E746 81FF             (      ssc6809.asm):00997             cmpa #$FF
 E748 2606             (      ssc6809.asm):00998             bne LF344           F33F: E6 03       JNZ $F344
 E74A                  (      ssc6809.asm):00999         LF341
 E74A 86FF             (      ssc6809.asm):01000             lda #$FF            F341: 72 FF 03    MOV %>FF,R3
 E74C 9703             (      ssc6809.asm):01001             sta <3
 E74E 1CFE             (      ssc6809.asm):01002             andcc #$fe
 E750                  (      ssc6809.asm):01003         LF344
-E750 8600             (      ssc6809.asm):01004             lda #$0             F344: 7D 00 03    CMP %>0,R3
-E752 9103             (      ssc6809.asm):01005             cmpa <3
+E750 9603             (      ssc6809.asm):01004             lda <3              F344: 7D 00 03    CMP %>0,R3
+E752 8100             (      ssc6809.asm):01005             cmpa #$0
 E754 2650             (      ssc6809.asm):01006             bne LF36C           F347: E6 23       JNZ $F36C
 E756 9600             (      ssc6809.asm):01007             lda <0              F349: D0 3C       MOV A,R60
 E758 973C             (      ssc6809.asm):01008             sta <60
@@ -1090,8 +1090,8 @@ E771 DD41             (      ssc6809.asm):01021             std <66-1
 E773 1CFE             (      ssc6809.asm):01022             andcc #$fe
 E775                  (      ssc6809.asm):01023         LF357
 E775 17FD8F           (      ssc6809.asm):01024             bsr TRAP_5          F357: FA          TRAP 5
-E778 8600             (      ssc6809.asm):01025             lda #$0             F358: 7D 00 03    CMP %>0,R3
-E77A 9103             (      ssc6809.asm):01026             cmpa <3
+E778 9603             (      ssc6809.asm):01025             lda <3              F358: 7D 00 03    CMP %>0,R3
+E77A 8100             (      ssc6809.asm):01026             cmpa #$0
 E77C 2628             (      ssc6809.asm):01027             bne LF36C           F35B: E6 0F       JNZ $F36C
 E77E 9600             (      ssc6809.asm):01028             lda <0              F35D: 9B 42       STA *R66
 E780 9E41             (      ssc6809.asm):01029             ldx <66-1
@@ -1123,8 +1123,8 @@ E7AD 8660             (      ssc6809.asm):01054             lda #$60            
 E7AF 9400             (      ssc6809.asm):01055             anda <0
 E7B1 9700             (      ssc6809.asm):01056             sta <0
 E7B3 1CFE             (      ssc6809.asm):01057             andcc #$fe
-E7B5 8660             (      ssc6809.asm):01058             lda #$60            F371: 2D 60       CMP %>60,A
-E7B7 9100             (      ssc6809.asm):01059             cmpa <0
+E7B5 9600             (      ssc6809.asm):01058             lda <0              F371: 2D 60       CMP %>60,A
+E7B7 8160             (      ssc6809.asm):01059             cmpa #$60
 E7B9 102700C1         (      ssc6809.asm):01060             beq LF3BF           F373: E2 4A       JEQ $F3BF
 E7BD 9600             (      ssc6809.asm):01061             lda <0              F375: B7          SWAP A
 E7BF 46               (      ssc6809.asm):01062             rora
@@ -1204,8 +1204,8 @@ E84B 861F             (      ssc6809.asm):01135             lda #$1F            
 E84D 9401             (      ssc6809.asm):01136             anda <1
 E84F 9701             (      ssc6809.asm):01137             sta <1
 E851 1CFE             (      ssc6809.asm):01138             andcc #$fe
-E853 8600             (      ssc6809.asm):01139             lda #$0             F3AC: 5D 00       CMP %>0,B
-E855 9101             (      ssc6809.asm):01140             cmpa <1
+E853 9601             (      ssc6809.asm):01139             lda <1              F3AC: 5D 00       CMP %>0,B
+E855 8100             (      ssc6809.asm):01140             cmpa #$0
 E857 270C             (      ssc6809.asm):01141             beq LF3B6           F3AE: E2 06       JEQ $F3B6
 E859 0322             (      ssc6809.asm):01142             com <34             F3B0: D4 22       INV R34
 E85B 9622             (      ssc6809.asm):01143             lda <34             F3B2: 13 22       AND R34,A
@@ -1251,8 +1251,8 @@ E8A3 17FB95           (      ssc6809.asm):01182             bsr TRAP_7          
 E8A6 9625             (      ssc6809.asm):01183             lda <37             F3CD: 42 25 3C    MOV R37,R60
 E8A8 973C             (      ssc6809.asm):01184             sta <60
 E8AA 1CFE             (      ssc6809.asm):01185             andcc #$fe
-E8AC 8605             (      ssc6809.asm):01186             lda #$5             F3D0: 7D 05 18    CMP %>5,R24
-E8AE 9118             (      ssc6809.asm):01187             cmpa <24
+E8AC 9618             (      ssc6809.asm):01186             lda <24             F3D0: 7D 05 18    CMP %>5,R24
+E8AE 8105             (      ssc6809.asm):01187             cmpa #$5
 E8B0 271A             (      ssc6809.asm):01188             beq LF3DD           F3D3: E2 08       JEQ $F3DD
                       (      ssc6809.asm):01189             tdec 63             F3D5: D2 3F       DEC R63
 E8B2 1A01             (             tdec):00001          orcc #1
@@ -1288,19 +1288,19 @@ E8EA                  (      ssc6809.asm):01213         LF3EA
 E8EA 39               (      ssc6809.asm):01214             rts                 F3EA: 0A          RETS
 E8EB 0A0103050C06     (      ssc6809.asm):01215             fcb $0a,$01,$03,$05,$0c,$06 original location F3EB-F3EF
 E8F1                  (      ssc6809.asm):01216         LF3F0
-E8F1 960A             (      ssc6809.asm):01217             lda <10             F3F0: 4D 0A 0B    CMP R10,R11
-E8F3 910B             (      ssc6809.asm):01218             cmpa <11
+E8F1 960B             (      ssc6809.asm):01217             lda <11             F3F0: 4D 0A 0B    CMP R10,R11
+E8F3 910A             (      ssc6809.asm):01218             cmpa <10
 E8F5 102700A1         (      ssc6809.asm):01219             beq LF44B           F3F3: E2 56       JEQ $F44B
 E8F9 960C             (      ssc6809.asm):01220             lda <12             F3F5: 12 0C       MOV R12,A
 E8FB 9700             (      ssc6809.asm):01221             sta <0
 E8FD 1CFE             (      ssc6809.asm):01222             andcc #$fe
-E8FF 960D             (      ssc6809.asm):01223             lda <13             F3F7: 1A 0D       SUB R13,A
-E901 9000             (      ssc6809.asm):01224             suba <0
+E8FF 9600             (      ssc6809.asm):01223             lda <0              F3F7: 1A 0D       SUB R13,A
+E901 900D             (      ssc6809.asm):01224             suba <13
 E903 9700             (      ssc6809.asm):01225             sta <0
 E905 2B0A             (      ssc6809.asm):01226             bmi LF401           F3F9: E1 06       JN $F401
 E907 2708             (      ssc6809.asm):01227             beq LF401           F3FB: E2 04       JEQ $F401
-E909 8632             (      ssc6809.asm):01228             lda #$32            F3FD: 2D 32       CMP %>32,A
-E90B 9100             (      ssc6809.asm):01229             cmpa <0
+E909 9600             (      ssc6809.asm):01228             lda <0              F3FD: 2D 32       CMP %>32,A
+E90B 8132             (      ssc6809.asm):01229             cmpa #$32
 E90D 102B0089         (      ssc6809.asm):01230             bmi LF44B           F3FF: E1 4A       JN $F44B
 E911                  (      ssc6809.asm):01231         LF401
 E911 8600             (      ssc6809.asm):01232             lda #$0             F401: 72 00 21    MOV %>0,R33
@@ -1317,15 +1317,15 @@ E925 2602             (             tdec):00003          bne @skip
 E927 1CFE             (             tdec):00004          andcc #$fe
 E929 4A               (             tdec):00005         @skip deca
 E92A 970A             (             tdec):00006          sta <10
-E92C 8618             (      ssc6809.asm):01240             lda #$18            F40B: 2D 18       CMP %>18,A
-E92E 9100             (      ssc6809.asm):01241             cmpa <0
+E92C 9600             (      ssc6809.asm):01240             lda <0              F40B: 2D 18       CMP %>18,A
+E92E 8118             (      ssc6809.asm):01241             cmpa #$18
 E930 2B03             (      ssc6809.asm):01242             bmi LF413           F40D: E1 04       JN $F413
 E932                  (      ssc6809.asm):01243         LF40F
 E932 8D6F             (      ssc6809.asm):01244             bsr LF451           F40F: 8E F4 51    CALL $F451
 E934 39               (      ssc6809.asm):01245             rts                 F412: 0A          RETS
 E935                  (      ssc6809.asm):01246         LF413
-E935 860D             (      ssc6809.asm):01247             lda #$D             F413: 2D 0D       CMP %>D,A
-E937 9100             (      ssc6809.asm):01248             cmpa <0
+E935 9600             (      ssc6809.asm):01247             lda <0              F413: 2D 0D       CMP %>D,A
+E937 810D             (      ssc6809.asm):01248             cmpa #$D
 E939 27F7             (      ssc6809.asm):01249             beq LF40F           F415: E2 F8       JEQ $F40F
 E93B 86FF             (      ssc6809.asm):01250             lda #$FF            F417: 72 FF 21    MOV %>FF,R33
 E93D 9721             (      ssc6809.asm):01251             sta <33
@@ -1337,8 +1337,8 @@ E947 9600             (      ssc6809.asm):01256             lda <0              
 E949 9720             (      ssc6809.asm):01257             sta <32
 E94B 1CFE             (      ssc6809.asm):01258             andcc #$fe
 E94D 0F48             (      ssc6809.asm):01259             clr <72             F41E: D5 48       CLR R72
-E94F 8600             (      ssc6809.asm):01260             lda #$0             F420: 7D 00 07    CMP %>0,R7
-E951 9107             (      ssc6809.asm):01261             cmpa <7
+E94F 9607             (      ssc6809.asm):01260             lda <7              F420: 7D 00 07    CMP %>0,R7
+E951 8100             (      ssc6809.asm):01261             cmpa #$0
 E953 2707             (      ssc6809.asm):01262             beq LF42A           F423: E2 05       JEQ $F42A
 E955 8608             (      ssc6809.asm):01263             lda #$8             F425: 76 08 07 01 BTJO %>8,R7,$F42A
 E957 9407             (      ssc6809.asm):01264             anda <7
@@ -1361,11 +1361,11 @@ E974 17FB90           (      ssc6809.asm):01280             bsr TRAP_5          
 E977 9604             (      ssc6809.asm):01281             lda <4              F437: 42 04 20    MOV R4,R32
 E979 9720             (      ssc6809.asm):01282             sta <32
 E97B 1CFE             (      ssc6809.asm):01283             andcc #$fe
-E97D 86FF             (      ssc6809.asm):01284             lda #$FF            F43A: 7D FF 03    CMP %>FF,R3
-E97F 9103             (      ssc6809.asm):01285             cmpa <3
+E97D 9603             (      ssc6809.asm):01284             lda <3              F43A: 7D FF 03    CMP %>FF,R3
+E97F 81FF             (      ssc6809.asm):01285             cmpa #$FF
 E981 2717             (      ssc6809.asm):01286             beq LF44B           F43D: E2 0C       JEQ $F44B
-E983 860D             (      ssc6809.asm):01287             lda #$D             F43F: 2D 0D       CMP %>D,A
-E985 9100             (      ssc6809.asm):01288             cmpa <0
+E983 9600             (      ssc6809.asm):01287             lda <0              F43F: 2D 0D       CMP %>D,A
+E985 810D             (      ssc6809.asm):01288             cmpa #$D
 E987 2711             (      ssc6809.asm):01289             beq LF44B           F441: E2 08       JEQ $F44B
 E989 1700F9           (      ssc6809.asm):01290             bsr TRAP_13         F443: F2          TRAP 13
 E98C 961F             (      ssc6809.asm):01291             lda <31             F444: 42 1F 49    MOV R31,R73
@@ -1382,8 +1382,8 @@ E99E 1CFE             (      ssc6809.asm):01301             andcc #$fe
 E9A0 0F49             (      ssc6809.asm):01302             clr <73             F44E: D5 49       CLR R73
 E9A2 39               (      ssc6809.asm):01303             rts                 F450: 0A          RETS
 E9A3                  (      ssc6809.asm):01304         LF451
-E9A3 960A             (      ssc6809.asm):01305             lda <10             F451: 4D 0A 0B    CMP R10,R11
-E9A5 910B             (      ssc6809.asm):01306             cmpa <11
+E9A3 960B             (      ssc6809.asm):01305             lda <11             F451: 4D 0A 0B    CMP R10,R11
+E9A5 910A             (      ssc6809.asm):01306             cmpa <10
 E9A7 2750             (      ssc6809.asm):01307             beq LF47E           F454: E2 28       JEQ $F47E
 E9A9 8601             (      ssc6809.asm):01308             lda #$1             F456: 72 01 48    MOV %>1,R72
 E9AB 9748             (      ssc6809.asm):01309             sta <72
@@ -1407,8 +1407,8 @@ E9CB 17F862           (      ssc6809.asm):01320             bsr TRAP_4          
 E9CE 3502             (      ssc6809.asm):01321             puls a              F465: D9 0A       POP R10
 E9D0 970A             (      ssc6809.asm):01322             sta <10
 E9D2 8D28             (      ssc6809.asm):01323             bsr TRAP_14         F467: F1          TRAP 14
-E9D4 8604             (      ssc6809.asm):01324             lda #$4             F468: 7D 04 19    CMP %>4,R25
-E9D6 9119             (      ssc6809.asm):01325             cmpa <25
+E9D4 9619             (      ssc6809.asm):01324             lda <25             F468: 7D 04 19    CMP %>4,R25
+E9D6 8104             (      ssc6809.asm):01325             cmpa #$4
 E9D8 261F             (      ssc6809.asm):01326             bne LF47E           F46B: E6 11       JNZ $F47E
 E9DA CC0002           (      ssc6809.asm):01327             ldd #$0002          F46D: 88 00 02 11 MOVD %>0002,R17
 E9DD DD10             (      ssc6809.asm):01328             std <17-1
@@ -1421,8 +1421,8 @@ E9EA 170098           (      ssc6809.asm):01334             bsr TRAP_13         
 E9ED 961F             (      ssc6809.asm):01335             lda <31             F476: 42 1F 0A    MOV R31,R10
 E9EF 970A             (      ssc6809.asm):01336             sta <10
 E9F1 1CFE             (      ssc6809.asm):01337             andcc #$fe
-E9F3 8604             (      ssc6809.asm):01338             lda #$4             F479: 7D 04 19    CMP %>4,R25
-E9F5 9119             (      ssc6809.asm):01339             cmpa <25
+E9F3 9619             (      ssc6809.asm):01338             lda <25             F479: 7D 04 19    CMP %>4,R25
+E9F5 8104             (      ssc6809.asm):01339             cmpa #$4
 E9F7 26AA             (      ssc6809.asm):01340             bne LF451           F47C: E6 D3       JNZ $F451
 E9F9                  (      ssc6809.asm):01341         LF47E
 E9F9 0F19             (      ssc6809.asm):01342             clr <25             F47E: D5 19       CLR R25
@@ -1432,16 +1432,16 @@ E9FB 39               (      ssc6809.asm):01343             rts                 
                       (      ssc6809.asm):01346         ; TRAP 14
                       (      ssc6809.asm):01347         ;**************************
 E9FC                  (      ssc6809.asm):01348         TRAP_14
-E9FC 8630             (      ssc6809.asm):01349             lda #$30            F481: 2D 30       CMP %>30,A
-E9FE 9100             (      ssc6809.asm):01350             cmpa <0
+E9FC 9600             (      ssc6809.asm):01349             lda <0              F481: 2D 30       CMP %>30,A
+E9FE 8130             (      ssc6809.asm):01350             cmpa #$30
 EA00 1FA8             (      ssc6809.asm):01351             tfr cc,a            F483: E5 02       JPZ $F487
 EA02 840C             (      ssc6809.asm):01352             anda #$0C
 EA04 8108             (      ssc6809.asm):01353             cmpa #$08
 EA06 2702             (      ssc6809.asm):01354             beq LF487
 EA08 206C             (      ssc6809.asm):01355             bra LF4B8           F485: E0 31       JMP $F4B8
 EA0A                  (      ssc6809.asm):01356         LF487
-EA0A 863A             (      ssc6809.asm):01357             lda #$3A            F487: 2D 3A       CMP %>3A,A
-EA0C 9100             (      ssc6809.asm):01358             cmpa <0
+EA0A 9600             (      ssc6809.asm):01357             lda <0              F487: 2D 3A       CMP %>3A,A
+EA0C 813A             (      ssc6809.asm):01358             cmpa #$3A
 EA0E 1FA8             (      ssc6809.asm):01359             tfr cc,a            F489: E5 06       JPZ $F491
 EA10 840C             (      ssc6809.asm):01360             anda #$0C
 EA12 8108             (      ssc6809.asm):01361             cmpa #$08
@@ -1451,16 +1451,16 @@ EA19 DD3D             (      ssc6809.asm):01364             std <62-1
 EA1B 1CFE             (      ssc6809.asm):01365             andcc #$fe
 EA1D 2056             (      ssc6809.asm):01366             bra LF4B7           F48F: E0 26       JMP $F4B7
 EA1F                  (      ssc6809.asm):01367         LF491
-EA1F 8641             (      ssc6809.asm):01368             lda #$41            F491: 2D 41       CMP %>41,A
-EA21 9100             (      ssc6809.asm):01369             cmpa <0
+EA1F 9600             (      ssc6809.asm):01368             lda <0              F491: 2D 41       CMP %>41,A
+EA21 8141             (      ssc6809.asm):01369             cmpa #$41
 EA23 1FA8             (      ssc6809.asm):01370             tfr cc,a            F493: E5 02       JPZ $F497
 EA25 840C             (      ssc6809.asm):01371             anda #$0C
 EA27 8108             (      ssc6809.asm):01372             cmpa #$08
 EA29 2702             (      ssc6809.asm):01373             beq LF497
 EA2B 2049             (      ssc6809.asm):01374             bra LF4B8           F495: E0 21       JMP $F4B8
 EA2D                  (      ssc6809.asm):01375         LF497
-EA2D 865B             (      ssc6809.asm):01376             lda #$5B            F497: 2D 5B       CMP %>5B,A
-EA2F 9100             (      ssc6809.asm):01377             cmpa <0
+EA2D 9600             (      ssc6809.asm):01376             lda <0              F497: 2D 5B       CMP %>5B,A
+EA2F 815B             (      ssc6809.asm):01377             cmpa #$5B
 EA31 1FA8             (      ssc6809.asm):01378             tfr cc,a            F499: E5 09       JPZ $F4A4
 EA33 840C             (      ssc6809.asm):01379             anda #$0C
 EA35 8108             (      ssc6809.asm):01380             cmpa #$08
@@ -1473,22 +1473,22 @@ EA42 9719             (      ssc6809.asm):01386             sta <25
 EA44 1CFE             (      ssc6809.asm):01387             andcc #$fe
 EA46 202D             (      ssc6809.asm):01388             bra LF4B7           F4A2: E0 13       JMP $F4B7
 EA48                  (      ssc6809.asm):01389         LF4A4
-EA48 8661             (      ssc6809.asm):01390             lda #$61            F4A4: 2D 61       CMP %>61,A
-EA4A 9100             (      ssc6809.asm):01391             cmpa <0
+EA48 9600             (      ssc6809.asm):01390             lda <0              F4A4: 2D 61       CMP %>61,A
+EA4A 8161             (      ssc6809.asm):01391             cmpa #$61
 EA4C 1FA8             (      ssc6809.asm):01392             tfr cc,a            F4A6: E5 02       JPZ $F4AA
 EA4E 840C             (      ssc6809.asm):01393             anda #$0C
 EA50 8108             (      ssc6809.asm):01394             cmpa #$08
 EA52 2702             (      ssc6809.asm):01395             beq LF4AA
 EA54 2020             (      ssc6809.asm):01396             bra LF4B8           F4A8: E0 0E       JMP $F4B8
 EA56                  (      ssc6809.asm):01397         LF4AA
-EA56 867B             (      ssc6809.asm):01398             lda #$7B            F4AA: 2D 7B       CMP %>7B,A
-EA58 9100             (      ssc6809.asm):01399             cmpa <0
+EA56 9600             (      ssc6809.asm):01398             lda <0              F4AA: 2D 7B       CMP %>7B,A
+EA58 817B             (      ssc6809.asm):01399             cmpa #$7B
 EA5A 1FA8             (      ssc6809.asm):01400             tfr cc,a            F4AC: E5 0A       JPZ $F4B8
 EA5C 840C             (      ssc6809.asm):01401             anda #$0C
 EA5E 8108             (      ssc6809.asm):01402             cmpa #$08
 EA60 2714             (      ssc6809.asm):01403             beq LF4B8
-EA62 8620             (      ssc6809.asm):01404             lda #$20            F4AE: 2A 20       SUB %>20,A
-EA64 9000             (      ssc6809.asm):01405             suba <0
+EA62 9600             (      ssc6809.asm):01404             lda <0              F4AE: 2A 20       SUB %>20,A
+EA64 8020             (      ssc6809.asm):01405             suba #$20
 EA66 9700             (      ssc6809.asm):01406             sta <0
 EA68 CCF83E           (      ssc6809.asm):01407             ldd #$F83E          F4B0: 88 F8 3E 3E MOVD %>F83E,R62
 EA6B DD3D             (      ssc6809.asm):01408             std <62-1
@@ -1512,12 +1512,12 @@ EA83 20F0             (      ssc6809.asm):01422             bra LF4B7           
                       (      ssc6809.asm):01426         ;**************************
 EA85                  (      ssc6809.asm):01427         TRAP_13
 EA85 17FF74           (      ssc6809.asm):01428             bsr TRAP_14         F4C1: F1          TRAP 14
-EA88 8601             (      ssc6809.asm):01429             lda #$1             F4C2: 7D 01 19    CMP %>1,R25
-EA8A 9119             (      ssc6809.asm):01430             cmpa <25
+EA88 9619             (      ssc6809.asm):01429             lda <25             F4C2: 7D 01 19    CMP %>1,R25
+EA8A 8101             (      ssc6809.asm):01430             cmpa #$1
 EA8C 2635             (      ssc6809.asm):01431             bne LF4D8           F4C5: E6 11       JNZ $F4D8
 EA8E 0F01             (      ssc6809.asm):01432             clr <1              F4C7: C5          CLR B
-EA90 8641             (      ssc6809.asm):01433             lda #$41            F4C8: 2A 41       SUB %>41,A
-EA92 9000             (      ssc6809.asm):01434             suba <0
+EA90 9600             (      ssc6809.asm):01433             lda <0              F4C8: 2A 41       SUB %>41,A
+EA92 8041             (      ssc6809.asm):01434             suba #$41
 EA94 9700             (      ssc6809.asm):01435             sta <0
 EA96 8602             (      ssc6809.asm):01436             lda #$2             F4CA: 2C 02       MPY %>2,A
 EA98 D600             (      ssc6809.asm):01437             ldb <0
@@ -1560,8 +1560,8 @@ EAE3 1CFE             (      ssc6809.asm):01473             andcc #$fe
 EAE5 170259           (      ssc6809.asm):01474             bsr TRAP_15         F4EE: F0          TRAP 15
 EAE8 10250084         (      ssc6809.asm):01475             bcs LF52E           F4EF: E3 3D       JHS $F52E
 EAEC                  (      ssc6809.asm):01476         LF4F1
-EAEC 8600             (      ssc6809.asm):01477             lda #$0             F4F1: 7D 00 1B    CMP %>0,R27
-EAEE 911B             (      ssc6809.asm):01478             cmpa <27
+EAEC 961B             (      ssc6809.asm):01477             lda <27             F4F1: 7D 00 1B    CMP %>0,R27
+EAEE 8100             (      ssc6809.asm):01478             cmpa #$0
 EAF0 2713             (      ssc6809.asm):01479             beq LF4FC           F4F4: E2 06       JEQ $F4FC
                       (      ssc6809.asm):01480             tdec 27             F4F6: D2 1B       DEC R27
 EAF2 1A01             (             tdec):00001          orcc #1
@@ -1582,8 +1582,8 @@ EB0B 17008D           (      ssc6809.asm):01489             bsr TRAP_16         
 EB0E 9E3D             (      ssc6809.asm):01490             ldx <62-1           F4FF: 9A 3E       LDA *R62
 EB10 A684             (      ssc6809.asm):01491             lda ,x
 EB12 9700             (      ssc6809.asm):01492             sta <0
-EB14 86FF             (      ssc6809.asm):01493             lda #$FF            F501: 2D FF       CMP %>FF,A
-EB16 9100             (      ssc6809.asm):01494             cmpa <0
+EB14 9600             (      ssc6809.asm):01493             lda <0              F501: 2D FF       CMP %>FF,A
+EB16 81FF             (      ssc6809.asm):01494             cmpa #$FF
 EB18 2601             (      ssc6809.asm):01495             bne LF506           F503: E6 01       JNZ $F506
 EB1A 39               (      ssc6809.asm):01496             rts                 F505: 0A          RETS
 EB1B                  (      ssc6809.asm):01497         LF506
@@ -1615,8 +1615,8 @@ EB4A 963D             (      ssc6809.asm):01522             lda <61             
 EB4C 8B01             (      ssc6809.asm):01523             adda #1
 EB4E 973D             (      ssc6809.asm):01524             sta <61
 EB50                  (      ssc6809.asm):01525         LF51D
-EB50 8601             (      ssc6809.asm):01526             lda #$1             F51D: 7D 01 1C    CMP %>1,R28
-EB52 911C             (      ssc6809.asm):01527             cmpa <28
+EB50 961C             (      ssc6809.asm):01526             lda <28             F51D: 7D 01 1C    CMP %>1,R28
+EB52 8101             (      ssc6809.asm):01527             cmpa #$1
 EB54 26C5             (      ssc6809.asm):01528             bne LF506           F520: E6 E4       JNZ $F506
 EB56 39               (      ssc6809.asm):01529             rts                 F522: 0A          RETS
 EB57                  (      ssc6809.asm):01530         LF523
@@ -1677,8 +1677,8 @@ EBA8 2611             (      ssc6809.asm):01584             bne LF551
 EBAA 961C             (      ssc6809.asm):01585             lda <28             F54A: D3 1C       INC R28
 EBAC 8B01             (      ssc6809.asm):01586             adda #1
 EBAE 971C             (      ssc6809.asm):01587             sta <28
-EBB0 961C             (      ssc6809.asm):01588             lda <28             F54C: 3D 1C       CMP R28,B
-EBB2 9101             (      ssc6809.asm):01589             cmpa <1
+EBB0 9601             (      ssc6809.asm):01588             lda <1              F54C: 3D 1C       CMP R28,B
+EBB2 911C             (      ssc6809.asm):01589             cmpa <28
 EBB4 1FA8             (      ssc6809.asm):01590             tfr cc,a            F54E: E4 01       JP $F551
 EBB6 840C             (      ssc6809.asm):01591             anda #$0C
 EBB8 2701             (      ssc6809.asm):01592             beq LF551
@@ -1703,14 +1703,14 @@ EBD4 1CFE             (      ssc6809.asm):01610             andcc #$fe
 EBD6 9E3D             (      ssc6809.asm):01611             ldx <62-1           F561: 9A 3E       LDA *R62
 EBD8 A684             (      ssc6809.asm):01612             lda ,x
 EBDA 9700             (      ssc6809.asm):01613             sta <0
-EBDC 86FF             (      ssc6809.asm):01614             lda #$FF            F563: 2D FF       CMP %>FF,A
-EBDE 9100             (      ssc6809.asm):01615             cmpa <0
+EBDC 9600             (      ssc6809.asm):01614             lda <0              F563: 2D FF       CMP %>FF,A
+EBDE 81FF             (      ssc6809.asm):01615             cmpa #$FF
 EBE0 2603             (      ssc6809.asm):01616             bne LF569           F565: E6 02       JNZ $F569
 EBE2 1CFE             (      ssc6809.asm):01617             andcc #$fe          F567: B0          CLRC
 EBE4 39               (      ssc6809.asm):01618             rts                 F568: 0A          RETS
 EBE5                  (      ssc6809.asm):01619         LF569
-EBE5 8601             (      ssc6809.asm):01620             lda #$1             F569: 7D 01 19    CMP %>1,R25
-EBE7 9119             (      ssc6809.asm):01621             cmpa <25
+EBE5 9619             (      ssc6809.asm):01620             lda <25             F569: 7D 01 19    CMP %>1,R25
+EBE7 8101             (      ssc6809.asm):01621             cmpa #$1
 EBE9 2606             (      ssc6809.asm):01622             bne LF570           F56C: E6 02       JNZ $F570
 EBEB                  (      ssc6809.asm):01623         LF56E
 EBEB 9618             (      ssc6809.asm):01624             lda <24             F56E: D3 18       INC R24
@@ -1718,15 +1718,15 @@ EBED 8B01             (      ssc6809.asm):01625             adda #1
 EBEF 9718             (      ssc6809.asm):01626             sta <24
 EBF1                  (      ssc6809.asm):01627         LF570
 EBF1 17041A           (      ssc6809.asm):01628             bsr TRAP_10         F570: F5          TRAP 10
-EBF4 8661             (      ssc6809.asm):01629             lda #$61            F571: 2D 61       CMP %>61,A
-EBF6 9100             (      ssc6809.asm):01630             cmpa <0
+EBF4 9600             (      ssc6809.asm):01629             lda <0              F571: 2D 61       CMP %>61,A
+EBF6 8161             (      ssc6809.asm):01630             cmpa #$61
 EBF8 2B06             (      ssc6809.asm):01631             bmi LF577           F573: E1 02       JN $F577
-EBFA 8620             (      ssc6809.asm):01632             lda #$20            F575: 2A 20       SUB %>20,A
-EBFC 9000             (      ssc6809.asm):01633             suba <0
+EBFA 9600             (      ssc6809.asm):01632             lda <0              F575: 2A 20       SUB %>20,A
+EBFC 8020             (      ssc6809.asm):01633             suba #$20
 EBFE 9700             (      ssc6809.asm):01634             sta <0
 EC00                  (      ssc6809.asm):01635         LF577
-EC00 8620             (      ssc6809.asm):01636             lda #$20            F577: 2A 20       SUB %>20,A
-EC02 9000             (      ssc6809.asm):01637             suba <0
+EC00 9600             (      ssc6809.asm):01636             lda <0              F577: 2A 20       SUB %>20,A
+EC02 8020             (      ssc6809.asm):01637             suba #$20
 EC04 9700             (      ssc6809.asm):01638             sta <0
 EC06 9600             (      ssc6809.asm):01639             lda <0              F579: C0          MOV A,B
 EC08 9701             (      ssc6809.asm):01640             sta <1
@@ -1750,22 +1750,22 @@ EC27 863F             (      ssc6809.asm):01657             lda #$3F            
 EC29 9400             (      ssc6809.asm):01658             anda <0
 EC2B 9700             (      ssc6809.asm):01659             sta <0
 EC2D 1CFE             (      ssc6809.asm):01660             andcc #$fe
-EC2F 9600             (      ssc6809.asm):01661             lda <0              F586: 3D 00       CMP R0,B
-EC31 9101             (      ssc6809.asm):01662             cmpa <1
+EC2F 9601             (      ssc6809.asm):01661             lda <1              F586: 3D 00       CMP R0,B
+EC31 9100             (      ssc6809.asm):01662             cmpa <0
 EC33 2705             (      ssc6809.asm):01663             beq LF58E           F588: E2 04       JEQ $F58E
 EC35 0F1B             (      ssc6809.asm):01664             clr <27             F58A: D5 1B       CLR R27
 EC37 1A01             (      ssc6809.asm):01665             orcc #$01           F58C: 07          SETC
 EC39 39               (      ssc6809.asm):01666             rts                 F58D: 0A          RETS
 EC3A                  (      ssc6809.asm):01667         LF58E
-EC3A 8601             (      ssc6809.asm):01668             lda #$1             F58E: 7D 01 19    CMP %>1,R25
-EC3C 9119             (      ssc6809.asm):01669             cmpa <25
+EC3A 9619             (      ssc6809.asm):01668             lda <25             F58E: 7D 01 19    CMP %>1,R25
+EC3C 8101             (      ssc6809.asm):01669             cmpa #$1
 EC3E 2606             (      ssc6809.asm):01670             bne LF595           F591: E6 02       JNZ $F595
 EC40 961B             (      ssc6809.asm):01671             lda <27             F593: D3 1B       INC R27
 EC42 8B01             (      ssc6809.asm):01672             adda #1
 EC44 971B             (      ssc6809.asm):01673             sta <27
 EC46                  (      ssc6809.asm):01674         LF595
-EC46 8601             (      ssc6809.asm):01675             lda #$1             F595: 7D 01 1D    CMP %>1,R29
-EC48 911D             (      ssc6809.asm):01676             cmpa <29
+EC46 961D             (      ssc6809.asm):01675             lda <29             F595: 7D 01 1D    CMP %>1,R29
+EC48 8101             (      ssc6809.asm):01676             cmpa #$1
 EC4A 2603             (      ssc6809.asm):01677             bne LF59C           F598: E6 02       JNZ $F59C
 EC4C 1CFE             (      ssc6809.asm):01678             andcc #$fe          F59A: B0          CLRC
 EC4E 39               (      ssc6809.asm):01679             rts                 F59B: 0A          RETS
@@ -1837,15 +1837,15 @@ ECB3 9601             (      ssc6809.asm):01724             lda <1              
 ECB5 3402             (      ssc6809.asm):01725             pshs a
 ECB7 0F01             (      ssc6809.asm):01726             clr <1              F5BE: C5          CLR B
 ECB9 170352           (      ssc6809.asm):01727             bsr TRAP_10         F5BF: F5          TRAP 10
-ECBC 8661             (      ssc6809.asm):01728             lda #$61            F5C0: 2D 61       CMP %>61,A
-ECBE 9100             (      ssc6809.asm):01729             cmpa <0
+ECBC 9600             (      ssc6809.asm):01728             lda <0              F5C0: 2D 61       CMP %>61,A
+ECBE 8161             (      ssc6809.asm):01729             cmpa #$61
 ECC0 2B06             (      ssc6809.asm):01730             bmi LF5C6           F5C2: E1 02       JN $F5C6
-ECC2 8620             (      ssc6809.asm):01731             lda #$20            F5C4: 2A 20       SUB %>20,A
-ECC4 9000             (      ssc6809.asm):01732             suba <0
+ECC2 9600             (      ssc6809.asm):01731             lda <0              F5C4: 2A 20       SUB %>20,A
+ECC4 8020             (      ssc6809.asm):01732             suba #$20
 ECC6 9700             (      ssc6809.asm):01733             sta <0
 ECC8                  (      ssc6809.asm):01734         LF5C6
-ECC8 8641             (      ssc6809.asm):01735             lda #$41            F5C6: 2A 41       SUB %>41,A
-ECCA 9000             (      ssc6809.asm):01736             suba <0
+ECC8 9600             (      ssc6809.asm):01735             lda <0              F5C6: 2A 41       SUB %>41,A
+ECCA 8041             (      ssc6809.asm):01736             suba #$41
 ECCC 9700             (      ssc6809.asm):01737             sta <0
 ECCE 9601             (      ssc6809.asm):01738             lda <1              F5C8: 68          ADD B,A
 ECD0 9B00             (      ssc6809.asm):01739             adda <0
@@ -1853,13 +1853,13 @@ ECD2 9700             (      ssc6809.asm):01740             sta <0
 ECD4 9600             (      ssc6809.asm):01741             lda <0              F5C9: C0          MOV A,B
 ECD6 9701             (      ssc6809.asm):01742             sta <1
 ECD8 1CFE             (      ssc6809.asm):01743             andcc #$fe
-ECDA 861A             (      ssc6809.asm):01744             lda #$1A            F5CA: 5D 1A       CMP %>1A,B
-ECDC 9101             (      ssc6809.asm):01745             cmpa <1
+ECDA 9601             (      ssc6809.asm):01744             lda <1              F5CA: 5D 1A       CMP %>1A,B
+ECDC 811A             (      ssc6809.asm):01745             cmpa #$1A
 ECDE 1FA8             (      ssc6809.asm):01746             tfr cc,a            F5CC: E4 09       JP $F5D7
 ECE0 840C             (      ssc6809.asm):01747             anda #$0C
 ECE2 2715             (      ssc6809.asm):01748             beq LF5D7
-ECE4 8600             (      ssc6809.asm):01749             lda #$0             F5CE: 5D 00       CMP %>0,B
-ECE6 9101             (      ssc6809.asm):01750             cmpa <1
+ECE4 9601             (      ssc6809.asm):01749             lda <1              F5CE: 5D 00       CMP %>0,B
+ECE6 8100             (      ssc6809.asm):01750             cmpa #$0
 ECE8 2B0F             (      ssc6809.asm):01751             bmi LF5D7           F5D0: E1 05       JN $F5D7
 ECEA D601             (      ssc6809.asm):01752             ldb <1              F5D2: AA F7 F6    LDA @>F7F6(B)
 ECEC 8EF7F6           (      ssc6809.asm):01753             ldx #LF7F6
@@ -1910,8 +1910,8 @@ ED3E 7EEE74           (      ssc6809.asm):01788             jmp LF69A           
                       (      ssc6809.asm):01792         ;**************************
 ED41                  (      ssc6809.asm):01793         TRAP_15
 ED41                  (      ssc6809.asm):01794         LF607
-ED41 8600             (      ssc6809.asm):01795             lda #$0             F607: 7D 00 1E    CMP %>0,R30
-ED43 911E             (      ssc6809.asm):01796             cmpa <30
+ED41 961E             (      ssc6809.asm):01795             lda <30             F607: 7D 00 1E    CMP %>0,R30
+ED43 8100             (      ssc6809.asm):01796             cmpa #$0
 ED45 2616             (      ssc6809.asm):01797             bne LF616           F60A: E6 0A       JNZ $F616
 ED47 8640             (      ssc6809.asm):01798             lda #$40            F60C: 52 40       MOV %>40,B
 ED49 9701             (      ssc6809.asm):01799             sta <1
@@ -1948,8 +1948,8 @@ ED7D 9600             (      ssc6809.asm):01819             lda <0              
 ED7F 43               (      ssc6809.asm):01820             coma
 ED80 9401             (      ssc6809.asm):01821             anda <1
 ED82 2630             (      ssc6809.asm):01822             bne LF630
-ED84 8600             (      ssc6809.asm):01823             lda #$0             F61E: 7D 00 1E    CMP %>0,R30
-ED86 911E             (      ssc6809.asm):01824             cmpa <30
+ED84 961E             (      ssc6809.asm):01823             lda <30             F61E: 7D 00 1E    CMP %>0,R30
+ED86 8100             (      ssc6809.asm):01824             cmpa #$0
 ED88 2616             (      ssc6809.asm):01825             bne LF627           F621: E6 04       JNZ $F627
                       (      ssc6809.asm):01826             tdecd 62            F623: DB 3E       DECD R62
 ED8A DC3D             (            tdecd):00001          ldd <62-1
@@ -1977,31 +1977,31 @@ EDB0 39               (      ssc6809.asm):01838             rts                 
 EDB1 170343           (      ssc6809.asm):01839             bsr TRAP_11         F62F: F4          TRAP 11
 EDB4                  (      ssc6809.asm):01840         LF630
 EDB4 170257           (      ssc6809.asm):01841             bsr TRAP_10         F630: F5          TRAP 10
-EDB7 8661             (      ssc6809.asm):01842             lda #$61            F631: 2D 61       CMP %>61,A
-EDB9 9100             (      ssc6809.asm):01843             cmpa <0
+EDB7 9600             (      ssc6809.asm):01842             lda <0              F631: 2D 61       CMP %>61,A
+EDB9 8161             (      ssc6809.asm):01843             cmpa #$61
 EDBB 2B06             (      ssc6809.asm):01844             bmi LF637           F633: E1 02       JN $F637
-EDBD 8620             (      ssc6809.asm):01845             lda #$20            F635: 2A 20       SUB %>20,A
-EDBF 9000             (      ssc6809.asm):01846             suba <0
+EDBD 9600             (      ssc6809.asm):01845             lda <0              F635: 2A 20       SUB %>20,A
+EDBF 8020             (      ssc6809.asm):01846             suba #$20
 EDC1 9700             (      ssc6809.asm):01847             sta <0
 EDC3                  (      ssc6809.asm):01848         LF637
-EDC3 8620             (      ssc6809.asm):01849             lda #$20            F637: 2A 20       SUB %>20,A
-EDC5 9000             (      ssc6809.asm):01850             suba <0
+EDC3 9600             (      ssc6809.asm):01849             lda <0              F637: 2A 20       SUB %>20,A
+EDC5 8020             (      ssc6809.asm):01850             suba #$20
 EDC7 9700             (      ssc6809.asm):01851             sta <0
 EDC9 9600             (      ssc6809.asm):01852             lda <0              F639: D0 1A       MOV A,R26
 EDCB 971A             (      ssc6809.asm):01853             sta <26
 EDCD 1CFE             (      ssc6809.asm):01854             andcc #$fe
-EDCF 8600             (      ssc6809.asm):01855             lda #$0             F63B: 7D 00 1E    CMP %>0,R30
-EDD1 911E             (      ssc6809.asm):01856             cmpa <30
+EDCF 961E             (      ssc6809.asm):01855             lda <30             F63B: 7D 00 1E    CMP %>0,R30
+EDD1 8100             (      ssc6809.asm):01856             cmpa #$0
 EDD3 2717             (      ssc6809.asm):01857             beq LF64D           F63E: E2 0D       JEQ $F64D
-EDD5 8621             (      ssc6809.asm):01858             lda #$21            F640: 7D 21 18    CMP %>21,R24
-EDD7 9118             (      ssc6809.asm):01859             cmpa <24
+EDD5 9618             (      ssc6809.asm):01858             lda <24             F640: 7D 21 18    CMP %>21,R24
+EDD7 8121             (      ssc6809.asm):01859             cmpa #$21
 EDD9 2611             (      ssc6809.asm):01860             bne LF64D           F643: E6 08       JNZ $F64D
 EDDB 8613             (      ssc6809.asm):01861             lda #$13            F645: 22 13       MOV %>13,A
 EDDD 9700             (      ssc6809.asm):01862             sta <0
 EDDF 1CFE             (      ssc6809.asm):01863             andcc #$fe
 EDE1 9E3D             (      ssc6809.asm):01864             ldx <62-1           F647: 9D 3E       CMPA *R62
-EDE3 9600             (      ssc6809.asm):01865             lda <0
-EDE5 A184             (      ssc6809.asm):01866             cmpa ,x
+EDE3 A684             (      ssc6809.asm):01865             lda ,x
+EDE5 9100             (      ssc6809.asm):01866             cmpa <0
 EDE7 27C5             (      ssc6809.asm):01867             beq LF62D           F649: E2 E2       JEQ $F62D
 EDE9 1A01             (      ssc6809.asm):01868             orcc #$01           F64B: 07          SETC
 EDEB 39               (      ssc6809.asm):01869             rts                 F64C: 0A          RETS
@@ -2009,20 +2009,20 @@ EDEC                  (      ssc6809.asm):01870         LF64D
 EDEC 9E3D             (      ssc6809.asm):01871             ldx <62-1           F64D: 9A 3E       LDA *R62
 EDEE A684             (      ssc6809.asm):01872             lda ,x
 EDF0 9700             (      ssc6809.asm):01873             sta <0
-EDF2 8615             (      ssc6809.asm):01874             lda #$15            F64F: 2D 15       CMP %>15,A
-EDF4 9100             (      ssc6809.asm):01875             cmpa <0
+EDF2 9600             (      ssc6809.asm):01874             lda <0              F64F: 2D 15       CMP %>15,A
+EDF4 8115             (      ssc6809.asm):01875             cmpa #$15
 EDF6 2B1A             (      ssc6809.asm):01876             bmi LF666           F651: E1 13       JN $F666
 EDF8                  (      ssc6809.asm):01877         LF653
 EDF8 0F1D             (      ssc6809.asm):01878             clr <29             F653: D5 1D       CLR R29
-EDFA 9600             (      ssc6809.asm):01879             lda <0              F655: 4D 00 1A    CMP R0,R26
-EDFC 911A             (      ssc6809.asm):01880             cmpa <26
+EDFA 961A             (      ssc6809.asm):01879             lda <26             F655: 4D 00 1A    CMP R0,R26
+EDFC 9100             (      ssc6809.asm):01880             cmpa <0
 EDFE 2703             (      ssc6809.asm):01881             beq LF65C           F658: E2 02       JEQ $F65C
 EE00 1A01             (      ssc6809.asm):01882             orcc #$01           F65A: 07          SETC
 EE02 39               (      ssc6809.asm):01883             rts                 F65B: 0A          RETS
 EE03                  (      ssc6809.asm):01884         LF65C
 EE03 170273           (      ssc6809.asm):01885             bsr TRAP_17         F65C: EE          TRAP 17
-EE06 8601             (      ssc6809.asm):01886             lda #$1             F65D: 7D 01 1D    CMP %>1,R29
-EE08 911D             (      ssc6809.asm):01887             cmpa <29
+EE06 961D             (      ssc6809.asm):01886             lda <29             F65D: 7D 01 1D    CMP %>1,R29
+EE08 8101             (      ssc6809.asm):01887             cmpa #$1
 EE0A 2703             (      ssc6809.asm):01888             beq LF664           F660: E2 02       JEQ $F664
 EE0C                  (      ssc6809.asm):01889         LF662
 EE0C 16FF32           (      ssc6809.asm):01890             bra LF607           F662: E0 A3       JMP $F607
@@ -2030,14 +2030,14 @@ EE0F                  (      ssc6809.asm):01891         LF664
 EE0F 1CFE             (      ssc6809.asm):01892             andcc #$fe          F664: B0          CLRC
 EE11 39               (      ssc6809.asm):01893             rts                 F665: 0A          RETS
 EE12                  (      ssc6809.asm):01894         LF666
-EE12 8607             (      ssc6809.asm):01895             lda #$7             F666: 2D 07       CMP %>7,A
-EE14 9100             (      ssc6809.asm):01896             cmpa <0
+EE12 9600             (      ssc6809.asm):01895             lda <0              F666: 2D 07       CMP %>7,A
+EE14 8107             (      ssc6809.asm):01896             cmpa #$7
 EE16 27E0             (      ssc6809.asm):01897             beq LF653           F668: E2 E9       JEQ $F653
 EE18 9600             (      ssc6809.asm):01898             lda <0              F66A: C0          MOV A,B
 EE1A 9701             (      ssc6809.asm):01899             sta <1
 EE1C 1CFE             (      ssc6809.asm):01900             andcc #$fe
-EE1E 8609             (      ssc6809.asm):01901             lda #$9             F66B: 5A 09       SUB %>9,B
-EE20 9001             (      ssc6809.asm):01902             suba <1
+EE1E 9601             (      ssc6809.asm):01901             lda <1              F66B: 5A 09       SUB %>9,B
+EE20 8009             (      ssc6809.asm):01902             suba #$9
 EE22 9701             (      ssc6809.asm):01903             sta <1
 EE24 8603             (      ssc6809.asm):01904             lda #$3             F66D: 5C 03       MPY %>3,B
 EE26 D601             (      ssc6809.asm):01905             ldb <1
@@ -2048,11 +2048,11 @@ EE2E D601             (      ssc6809.asm):01909             ldb <1
 EE30 3A               (      ssc6809.asm):01910             abx
 EE31 6E84             (      ssc6809.asm):01911             jmp ,x
 EE33                  (      ssc6809.asm):01912         LF672
-EE33 8621             (      ssc6809.asm):01913             lda #$21            F672: 7D 21 1A    CMP %>21,R26
-EE35 911A             (      ssc6809.asm):01914             cmpa <26
+EE33 961A             (      ssc6809.asm):01913             lda <26             F672: 7D 21 1A    CMP %>21,R26
+EE35 8121             (      ssc6809.asm):01914             cmpa #$21
 EE37 2B0D             (      ssc6809.asm):01915             bmi LF67E           F675: E1 07       JN $F67E
-EE39 863A             (      ssc6809.asm):01916             lda #$3A            F677: 7D 3A 1A    CMP %>3A,R26
-EE3B 911A             (      ssc6809.asm):01917             cmpa <26
+EE39 961A             (      ssc6809.asm):01916             lda <26             F677: 7D 3A 1A    CMP %>3A,R26
+EE3B 813A             (      ssc6809.asm):01917             cmpa #$3A
 EE3D 1FA8             (      ssc6809.asm):01918             tfr cc,a            F67A: E4 02       JP $F67E
 EE3F 840C             (      ssc6809.asm):01919             anda #$0C
 EE41 2703             (      ssc6809.asm):01920             beq LF67E
@@ -2060,8 +2060,8 @@ EE43 1A01             (      ssc6809.asm):01921             orcc #$01           
 EE45 39               (      ssc6809.asm):01922             rts                 F67D: 0A          RETS
 EE46                  (      ssc6809.asm):01923         LF67E
 EE46 170230           (      ssc6809.asm):01924             bsr TRAP_17         F67E: EE          TRAP 17
-EE49 8601             (      ssc6809.asm):01925             lda #$1             F67F: 7D 01 1D    CMP %>1,R29
-EE4B 911D             (      ssc6809.asm):01926             cmpa <29
+EE49 961D             (      ssc6809.asm):01925             lda <29             F67F: 7D 01 1D    CMP %>1,R29
+EE4B 8101             (      ssc6809.asm):01926             cmpa #$1
 EE4D 2702             (      ssc6809.asm):01927             beq LF686           F682: E2 02       JEQ $F686
 EE4F 20BB             (      ssc6809.asm):01928             bra LF662           F684: E0 DC       JMP $F662
 EE51                  (      ssc6809.asm):01929         LF686
@@ -2079,8 +2079,8 @@ EE60 8608             (      ssc6809.asm):01940             lda #$8             
 EE62 9701             (      ssc6809.asm):01941             sta <1
 EE64 1CFE             (      ssc6809.asm):01942             andcc #$fe
 EE66 170261           (      ssc6809.asm):01943             bsr TRAP_18         F690: ED          TRAP 18
-EE69 8601             (      ssc6809.asm):01944             lda #$1             F691: 7D 01 1D    CMP %>1,R29
-EE6B 911D             (      ssc6809.asm):01945             cmpa <29
+EE69 961D             (      ssc6809.asm):01944             lda <29             F691: 7D 01 1D    CMP %>1,R29
+EE6B 8101             (      ssc6809.asm):01945             cmpa #$1
 EE6D 2702             (      ssc6809.asm):01946             beq LF698           F694: E2 02       JEQ $F698
 EE6F 209B             (      ssc6809.asm):01947             bra LF662           F696: E0 CA       JMP $F662
 EE71                  (      ssc6809.asm):01948         LF698
@@ -2106,8 +2106,8 @@ EE8F 8680             (      ssc6809.asm):01967             lda #$80            
 EE91 9701             (      ssc6809.asm):01968             sta <1
 EE93 1CFE             (      ssc6809.asm):01969             andcc #$fe
 EE95 170232           (      ssc6809.asm):01970             bsr TRAP_18         F6A9: ED          TRAP 18
-EE98 8601             (      ssc6809.asm):01971             lda #$1             F6AA: 7D 01 1D    CMP %>1,R29
-EE9A 911D             (      ssc6809.asm):01972             cmpa <29
+EE98 961D             (      ssc6809.asm):01971             lda <29             F6AA: 7D 01 1D    CMP %>1,R29
+EE9A 8101             (      ssc6809.asm):01972             cmpa #$1
 EE9C 2703             (      ssc6809.asm):01973             beq LF6B1           F6AD: E2 02       JEQ $F6B1
 EE9E 16FF6B           (      ssc6809.asm):01974             bra LF662           F6AF: E0 B1       JMP $F662
 EEA1                  (      ssc6809.asm):01975         LF6B1
@@ -2119,8 +2119,8 @@ EEA7 8608             (      ssc6809.asm):01980             lda #$8             
 EEA9 9400             (      ssc6809.asm):01981             anda <0
 EEAB 2612             (      ssc6809.asm):01982             bne LF6C2
 EEAD 1701C9           (      ssc6809.asm):01983             bsr TRAP_17         F6B7: EE          TRAP 17
-EEB0 8601             (      ssc6809.asm):01984             lda #$1             F6B8: 7D 01 1D    CMP %>1,R29
-EEB2 911D             (      ssc6809.asm):01985             cmpa <29
+EEB0 961D             (      ssc6809.asm):01984             lda <29             F6B8: 7D 01 1D    CMP %>1,R29
+EEB2 8101             (      ssc6809.asm):01985             cmpa #$1
 EEB4 2706             (      ssc6809.asm):01986             beq LF6C0           F6BB: E2 03       JEQ $F6C0
 EEB6 170257           (      ssc6809.asm):01987             bsr TRAP_19         F6BD: EC          TRAP 19
 EEB9                  (      ssc6809.asm):01988         LF6BE
@@ -2133,8 +2133,8 @@ EEBF 8608             (      ssc6809.asm):01994             lda #$8             
 EEC1 9701             (      ssc6809.asm):01995             sta <1
 EEC3 1CFE             (      ssc6809.asm):01996             andcc #$fe
 EEC5 170202           (      ssc6809.asm):01997             bsr TRAP_18         F6C4: ED          TRAP 18
-EEC8 8601             (      ssc6809.asm):01998             lda #$1             F6C5: 7D 01 1D    CMP %>1,R29
-EECA 911D             (      ssc6809.asm):01999             cmpa <29
+EEC8 961D             (      ssc6809.asm):01998             lda <29             F6C5: 7D 01 1D    CMP %>1,R29
+EECA 8101             (      ssc6809.asm):01999             cmpa #$1
 EECC 2702             (      ssc6809.asm):02000             beq LF6CC           F6C8: E2 02       JEQ $F6CC
 EECE                  (      ssc6809.asm):02001         LF6CA
 EECE 20E9             (      ssc6809.asm):02002             bra LF6BE           F6CA: E0 F2       JMP $F6BE
@@ -2147,8 +2147,8 @@ EED6 8601             (      ssc6809.asm):02008             lda #$1             
 EED8 9400             (      ssc6809.asm):02009             anda <0
 EEDA 2627             (      ssc6809.asm):02010             bne LF6E7
 EEDC 17012F           (      ssc6809.asm):02011             bsr TRAP_10         F6D2: F5          TRAP 10
-EEDF 8649             (      ssc6809.asm):02012             lda #$49            F6D3: 2D 49       CMP %>49,A
-EEE1 9100             (      ssc6809.asm):02013             cmpa <0
+EEDF 9600             (      ssc6809.asm):02012             lda <0              F6D3: 2D 49       CMP %>49,A
+EEE1 8149             (      ssc6809.asm):02013             cmpa #$49
 EEE3 2703             (      ssc6809.asm):02014             beq LF6D9           F6D5: E2 02       JEQ $F6D9
 EEE5                  (      ssc6809.asm):02015         LF6D7
 EEE5 1A01             (      ssc6809.asm):02016             orcc #$01           F6D7: 07          SETC
@@ -2156,38 +2156,38 @@ EEE7 39               (      ssc6809.asm):02017             rts                 
 EEE8                  (      ssc6809.asm):02018         LF6D9
 EEE8 17020C           (      ssc6809.asm):02019             bsr TRAP_11         F6D9: F4          TRAP 11
 EEEB 170120           (      ssc6809.asm):02020             bsr TRAP_10         F6DA: F5          TRAP 10
-EEEE 864E             (      ssc6809.asm):02021             lda #$4E            F6DB: 2D 4E       CMP %>4E,A
-EEF0 9100             (      ssc6809.asm):02022             cmpa <0
+EEEE 9600             (      ssc6809.asm):02021             lda <0              F6DB: 2D 4E       CMP %>4E,A
+EEF0 814E             (      ssc6809.asm):02022             cmpa #$4E
 EEF2 26F1             (      ssc6809.asm):02023             bne LF6D7           F6DD: E6 F8       JNZ $F6D7
 EEF4 170200           (      ssc6809.asm):02024             bsr TRAP_11         F6DF: F4          TRAP 11
 EEF7 170114           (      ssc6809.asm):02025             bsr TRAP_10         F6E0: F5          TRAP 10
-EEFA 8647             (      ssc6809.asm):02026             lda #$47            F6E1: 2D 47       CMP %>47,A
-EEFC 9100             (      ssc6809.asm):02027             cmpa <0
+EEFA 9600             (      ssc6809.asm):02026             lda <0              F6E1: 2D 47       CMP %>47,A
+EEFC 8147             (      ssc6809.asm):02027             cmpa #$47
 EEFE 273A             (      ssc6809.asm):02028             beq LF706           F6E3: E2 21       JEQ $F706
 EF00 1A01             (      ssc6809.asm):02029             orcc #$01           F6E5: 07          SETC
 EF02 39               (      ssc6809.asm):02030             rts                 F6E6: 0A          RETS
 EF03                  (      ssc6809.asm):02031         LF6E7
 EF03 1701F1           (      ssc6809.asm):02032             bsr TRAP_11         F6E7: F4          TRAP 11
 EF06 170105           (      ssc6809.asm):02033             bsr TRAP_10         F6E8: F5          TRAP 10
-EF09 8652             (      ssc6809.asm):02034             lda #$52            F6E9: 2D 52       CMP %>52,A
-EF0B 9100             (      ssc6809.asm):02035             cmpa <0
+EF09 9600             (      ssc6809.asm):02034             lda <0              F6E9: 2D 52       CMP %>52,A
+EF0B 8152             (      ssc6809.asm):02035             cmpa #$52
 EF0D 272B             (      ssc6809.asm):02036             beq LF706           F6EB: E2 19       JEQ $F706
-EF0F 8653             (      ssc6809.asm):02037             lda #$53            F6ED: 2D 53       CMP %>53,A
-EF11 9100             (      ssc6809.asm):02038             cmpa <0
+EF0F 9600             (      ssc6809.asm):02037             lda <0              F6ED: 2D 53       CMP %>53,A
+EF11 8153             (      ssc6809.asm):02038             cmpa #$53
 EF13 2725             (      ssc6809.asm):02039             beq LF706           F6EF: E2 15       JEQ $F706
-EF15 8644             (      ssc6809.asm):02040             lda #$44            F6F1: 2D 44       CMP %>44,A
-EF17 9100             (      ssc6809.asm):02041             cmpa <0
+EF15 9600             (      ssc6809.asm):02040             lda <0              F6F1: 2D 44       CMP %>44,A
+EF17 8144             (      ssc6809.asm):02041             cmpa #$44
 EF19 271F             (      ssc6809.asm):02042             beq LF706           F6F3: E2 11       JEQ $F706
-EF1B 864C             (      ssc6809.asm):02043             lda #$4C            F6F5: 2D 4C       CMP %>4C,A
-EF1D 9100             (      ssc6809.asm):02044             cmpa <0
+EF1B 9600             (      ssc6809.asm):02043             lda <0              F6F5: 2D 4C       CMP %>4C,A
+EF1D 814C             (      ssc6809.asm):02044             cmpa #$4C
 EF1F 2705             (      ssc6809.asm):02045             beq LF6FC           F6F7: E2 03       JEQ $F6FC
 EF21 1701EC           (      ssc6809.asm):02046             bsr TRAP_19         F6F9: EC          TRAP 19
 EF24 2014             (      ssc6809.asm):02047             bra LF706           F6FA: E0 0A       JMP $F706
 EF26                  (      ssc6809.asm):02048         LF6FC
 EF26 1701CE           (      ssc6809.asm):02049             bsr TRAP_11         F6FC: F4          TRAP 11
 EF29 1700E2           (      ssc6809.asm):02050             bsr TRAP_10         F6FD: F5          TRAP 10
-EF2C 8659             (      ssc6809.asm):02051             lda #$59            F6FE: 2D 59       CMP %>59,A
-EF2E 9100             (      ssc6809.asm):02052             cmpa <0
+EF2C 9600             (      ssc6809.asm):02051             lda <0              F6FE: 2D 59       CMP %>59,A
+EF2E 8159             (      ssc6809.asm):02052             cmpa #$59
 EF30 2708             (      ssc6809.asm):02053             beq LF706           F700: E2 04       JEQ $F706
 EF32 1701DB           (      ssc6809.asm):02054             bsr TRAP_19         F702: EC          TRAP 19
 EF35 1701D8           (      ssc6809.asm):02055             bsr TRAP_19         F703: EC          TRAP 19
@@ -2195,8 +2195,8 @@ EF38 203C             (      ssc6809.asm):02056             bra LF726           
 EF3A                  (      ssc6809.asm):02057         LF706
 EF3A 1701BA           (      ssc6809.asm):02058             bsr TRAP_11         F706: F4          TRAP 11
 EF3D 1700CE           (      ssc6809.asm):02059             bsr TRAP_10         F707: F5          TRAP 10
-EF40 8620             (      ssc6809.asm):02060             lda #$20            F708: 2D 20       CMP %>20,A
-EF42 9100             (      ssc6809.asm):02061             cmpa <0
+EF40 9600             (      ssc6809.asm):02060             lda <0              F708: 2D 20       CMP %>20,A
+EF42 8120             (      ssc6809.asm):02061             cmpa #$20
 EF44 2730             (      ssc6809.asm):02062             beq LF726           F70A: E2 1A       JEQ $F726
 EF46 1A01             (      ssc6809.asm):02063             orcc #$01           F70C: 07          SETC
 EF48 39               (      ssc6809.asm):02064             rts                 F70D: 0A          RETS
@@ -2212,8 +2212,8 @@ EF55 8680             (      ssc6809.asm):02073             lda #$80            
 EF57 9701             (      ssc6809.asm):02074             sta <1
 EF59 1CFE             (      ssc6809.asm):02075             andcc #$fe
 EF5B 17016C           (      ssc6809.asm):02076             bsr TRAP_18         F716: ED          TRAP 18
-EF5E 8601             (      ssc6809.asm):02077             lda #$1             F717: 7D 01 1D    CMP %>1,R29
-EF60 911D             (      ssc6809.asm):02078             cmpa <29
+EF5E 961D             (      ssc6809.asm):02077             lda <29             F717: 7D 01 1D    CMP %>1,R29
+EF60 8101             (      ssc6809.asm):02078             cmpa #$1
 EF62 2703             (      ssc6809.asm):02079             beq LF71E           F71A: E2 02       JEQ $F71E
 EF64                  (      ssc6809.asm):02080         LF71C
 EF64 16FF67           (      ssc6809.asm):02081             bra LF6CA           F71C: E0 AC       JMP $F6CA
@@ -2229,8 +2229,8 @@ EF73 1A01             (      ssc6809.asm):02090             orcc #$01           
 EF75 39               (      ssc6809.asm):02091             rts                 F725: 0A          RETS
 EF76                  (      ssc6809.asm):02092         LF726
 EF76 170100           (      ssc6809.asm):02093             bsr TRAP_17         F726: EE          TRAP 17
-EF79 8601             (      ssc6809.asm):02094             lda #$1             F727: 7D 01 1D    CMP %>1,R29
-EF7B 911D             (      ssc6809.asm):02095             cmpa <29
+EF79 961D             (      ssc6809.asm):02094             lda <29             F727: 7D 01 1D    CMP %>1,R29
+EF7B 8101             (      ssc6809.asm):02095             cmpa #$1
 EF7D 2702             (      ssc6809.asm):02096             beq LF72E           F72A: E2 02       JEQ $F72E
 EF7F 20E3             (      ssc6809.asm):02097             bra LF71C           F72C: E0 EE       JMP $F71C
 EF81                  (      ssc6809.asm):02098         LF72E
@@ -2269,8 +2269,8 @@ EFB4 8620             (      ssc6809.asm):02130             lda #$20            
 EFB6 9701             (      ssc6809.asm):02131             sta <1
 EFB8 1CFE             (      ssc6809.asm):02132             andcc #$fe
 EFBA 17010D           (      ssc6809.asm):02133             bsr TRAP_18         F74A: ED          TRAP 18
-EFBD 8601             (      ssc6809.asm):02134             lda #$1             F74B: 7D 01 1D    CMP %>1,R29
-EFBF 911D             (      ssc6809.asm):02135             cmpa <29
+EFBD 961D             (      ssc6809.asm):02134             lda <29             F74B: 7D 01 1D    CMP %>1,R29
+EFBF 8101             (      ssc6809.asm):02135             cmpa #$1
 EFC1 2702             (      ssc6809.asm):02136             beq LF752           F74E: E2 02       JEQ $F752
 EFC3                  (      ssc6809.asm):02137         LF750
 EFC3 209F             (      ssc6809.asm):02138             bra LF71C           F750: E0 CA       JMP $F71C
@@ -2283,32 +2283,32 @@ EFCB 8610             (      ssc6809.asm):02144             lda #$10            
 EFCD 9400             (      ssc6809.asm):02145             anda <0
 EFCF 2619             (      ssc6809.asm):02146             bne LF767
 EFD1 8D3B             (      ssc6809.asm):02147             bsr TRAP_10         F758: F5          TRAP 10
-EFD3 8623             (      ssc6809.asm):02148             lda #$23            F759: 2D 23       CMP %>23,A
-EFD5 9100             (      ssc6809.asm):02149             cmpa <0
+EFD3 9600             (      ssc6809.asm):02148             lda <0              F759: 2D 23       CMP %>23,A
+EFD5 8123             (      ssc6809.asm):02149             cmpa #$23
 EFD7 2703             (      ssc6809.asm):02150             beq LF75F           F75B: E2 02       JEQ $F75F
 EFD9 1A01             (      ssc6809.asm):02151             orcc #$01           F75D: 07          SETC
 EFDB 39               (      ssc6809.asm):02152             rts                 F75E: 0A          RETS
 EFDC                  (      ssc6809.asm):02153         LF75F
 EFDC 170118           (      ssc6809.asm):02154             bsr TRAP_11         F75F: F4          TRAP 11
 EFDF 8D2D             (      ssc6809.asm):02155             bsr TRAP_10         F760: F5          TRAP 10
-EFE1 8648             (      ssc6809.asm):02156             lda #$48            F761: 2D 48       CMP %>48,A
-EFE3 9100             (      ssc6809.asm):02157             cmpa <0
+EFE1 9600             (      ssc6809.asm):02156             lda <0              F761: 2D 48       CMP %>48,A
+EFE3 8148             (      ssc6809.asm):02157             cmpa #$48
 EFE5 278F             (      ssc6809.asm):02158             beq LF726           F763: E2 C1       JEQ $F726
 EFE7 1A01             (      ssc6809.asm):02159             orcc #$01           F765: 07          SETC
 EFE9 39               (      ssc6809.asm):02160             rts                 F766: 0A          RETS
 EFEA                  (      ssc6809.asm):02161         LF767
 EFEA 8D22             (      ssc6809.asm):02162             bsr TRAP_10         F767: F5          TRAP 10
-EFEC 8634             (      ssc6809.asm):02163             lda #$34            F768: 2D 34       CMP %>34,A
-EFEE 9100             (      ssc6809.asm):02164             cmpa <0
+EFEC 9600             (      ssc6809.asm):02163             lda <0              F768: 2D 34       CMP %>34,A
+EFEE 8134             (      ssc6809.asm):02164             cmpa #$34
 EFF0 2708             (      ssc6809.asm):02165             beq LF770           F76A: E2 04       JEQ $F770
-EFF2 8633             (      ssc6809.asm):02166             lda #$33            F76C: 2D 33       CMP %>33,A
-EFF4 9100             (      ssc6809.asm):02167             cmpa <0
+EFF2 9600             (      ssc6809.asm):02166             lda <0              F76C: 2D 33       CMP %>33,A
+EFF4 8133             (      ssc6809.asm):02167             cmpa #$33
 EFF6 1026FF7C         (      ssc6809.asm):02168             bne LF726           F76E: E6 B6       JNZ $F726
 EFFA                  (      ssc6809.asm):02169         LF770
 EFFA 1700FA           (      ssc6809.asm):02170             bsr TRAP_11         F770: F4          TRAP 11
 EFFD 8D0F             (      ssc6809.asm):02171             bsr TRAP_10         F771: F5          TRAP 10
-EFFF 8648             (      ssc6809.asm):02172             lda #$48            F772: 2D 48       CMP %>48,A
-F001 9100             (      ssc6809.asm):02173             cmpa <0
+EFFF 9600             (      ssc6809.asm):02172             lda <0              F772: 2D 48       CMP %>48,A
+F001 8148             (      ssc6809.asm):02173             cmpa #$48
 F003 2703             (      ssc6809.asm):02174             beq LF777           F774: E2 01       JEQ $F777
 F005 170108           (      ssc6809.asm):02175             bsr TRAP_19         F776: EC          TRAP 19
 F008                  (      ssc6809.asm):02176         LF777
@@ -2323,8 +2323,8 @@ F00D 39               (      ssc6809.asm):02180             rts                 
 F00E                  (      ssc6809.asm):02185         TRAP_10
 F00E 9601             (      ssc6809.asm):02186             lda <1              F77C: C8          PUSH B
 F010 3402             (      ssc6809.asm):02187             pshs a
-F012 8600             (      ssc6809.asm):02188             lda #$0             F77D: 7D 00 48    CMP %>0,R72
-F014 9148             (      ssc6809.asm):02189             cmpa <72
+F012 9648             (      ssc6809.asm):02188             lda <72             F77D: 7D 00 48    CMP %>0,R72
+F014 8100             (      ssc6809.asm):02189             cmpa #$0
 F016 2614             (      ssc6809.asm):02190             bne LF78B           F780: E6 09       JNZ $F78B
 F018 9620             (      ssc6809.asm):02191             lda <32             F782: 42 20 04    MOV R32,R4
 F01A 9704             (      ssc6809.asm):02192             sta <4
@@ -2386,8 +2386,8 @@ F078 39               (      ssc6809.asm):02229             rts                 
                       (      ssc6809.asm):02232         ; TRAP 17
                       (      ssc6809.asm):02233         ;**************************
 F079                  (      ssc6809.asm):02234         TRAP_17
-F079 8600             (      ssc6809.asm):02235             lda #$0             F7A6: 7D 00 1E    CMP %>0,R30
-F07B 911E             (      ssc6809.asm):02236             cmpa <30
+F079 961E             (      ssc6809.asm):02235             lda <30             F7A6: 7D 00 1E    CMP %>0,R30
+F07B 8100             (      ssc6809.asm):02236             cmpa #$0
 F07D 2604             (      ssc6809.asm):02237             bne LF7AF           F7A9: E6 04       JNZ $F7AF
 F07F 17FBE4           (      ssc6809.asm):02238             bsr LF5A7           F7AB: 8E F5 A7    CALL $F5A7
 F082 39               (      ssc6809.asm):02239             rts                 F7AE: 0A          RETS
@@ -2438,8 +2438,8 @@ F0C9 39               (      ssc6809.asm):02271             rts                 
                       (      ssc6809.asm):02274         ; TRAP 18
                       (      ssc6809.asm):02275         ;**************************
 F0CA                  (      ssc6809.asm):02276         TRAP_18
-F0CA 8600             (      ssc6809.asm):02277             lda #$0             F7C9: 7D 00 1E    CMP %>0,R30
-F0CC 911E             (      ssc6809.asm):02278             cmpa <30
+F0CA 961E             (      ssc6809.asm):02277             lda <30             F7C9: 7D 00 1E    CMP %>0,R30
+F0CC 8100             (      ssc6809.asm):02278             cmpa #$0
 F0CE 2604             (      ssc6809.asm):02279             bne LF7D2           F7CC: E6 04       JNZ $F7D2
 F0D0 17FC2D           (      ssc6809.asm):02280             bsr LF5DA           F7CE: 8E F5 DA    CALL $F5DA
 F0D3 39               (      ssc6809.asm):02281             rts                 F7D1: 0A          RETS
@@ -2451,8 +2451,8 @@ F0D8 2602             (             tdec):00003          bne @skip
 F0DA 1CFE             (             tdec):00004          andcc #$fe
 F0DC 4A               (             tdec):00005         @skip deca
 F0DD 9718             (             tdec):00006          sta <24
-F0DF 8621             (      ssc6809.asm):02284             lda #$21            F7D4: 7D 21 18    CMP %>21,R24
-F0E1 9118             (      ssc6809.asm):02285             cmpa <24
+F0DF 9618             (      ssc6809.asm):02284             lda <24             F7D4: 7D 21 18    CMP %>21,R24
+F0E1 8121             (      ssc6809.asm):02285             cmpa #$21
 F0E3 2709             (      ssc6809.asm):02286             beq LF7DC           F7D7: E2 03       JEQ $F7DC
 F0E5 17FBCB           (      ssc6809.asm):02287             bsr TRAP_9          F7D9: F6          TRAP 9
 F0E8 9601             (      ssc6809.asm):02288             lda <1              F7DA: 66 F6       BTJO B,A,$F7D2
@@ -2469,8 +2469,8 @@ F0F6 39               (      ssc6809.asm):02296             rts                 
                       (      ssc6809.asm):02299         ; TRAP 11
                       (      ssc6809.asm):02300         ;**************************
 F0F7                  (      ssc6809.asm):02301         TRAP_11
-F0F7 8600             (      ssc6809.asm):02302             lda #$0             F7E0: 7D 00 1E    CMP %>0,R30
-F0F9 911E             (      ssc6809.asm):02303             cmpa <30
+F0F7 961E             (      ssc6809.asm):02302             lda <30             F7E0: 7D 00 1E    CMP %>0,R30
+F0F9 8100             (      ssc6809.asm):02303             cmpa #$0
 F0FB 2607             (      ssc6809.asm):02304             bne LF7E8           F7E3: E6 03       JNZ $F7E8
 F0FD 9618             (      ssc6809.asm):02305             lda <24             F7E5: D3 18       INC R24
 F0FF 8B01             (      ssc6809.asm):02306             adda #1
@@ -2490,8 +2490,8 @@ F10F 39               (      ssc6809.asm):02311             rts                 
                       (      ssc6809.asm):02314         ; TRAP 19
                       (      ssc6809.asm):02315         ;**************************
 F110                  (      ssc6809.asm):02316         TRAP_19
-F110 8600             (      ssc6809.asm):02317             lda #$0             F7EB: 7D 00 1E    CMP %>0,R30
-F112 911E             (      ssc6809.asm):02318             cmpa <30
+F110 961E             (      ssc6809.asm):02317             lda <30             F7EB: 7D 00 1E    CMP %>0,R30
+F112 8100             (      ssc6809.asm):02318             cmpa #$0
 F114 260C             (      ssc6809.asm):02319             bne LF7F3           F7EE: E6 03       JNZ $F7F3
                       (      ssc6809.asm):02320             tdec 24             F7F0: D2 18       DEC R24
 F116 1A01             (             tdec):00001          orcc #1
