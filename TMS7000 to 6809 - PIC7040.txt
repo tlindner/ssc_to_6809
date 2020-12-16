@@ -54,7 +54,7 @@
 1	CLR R(\d+)	clr <$1
 1	CLRC	andcc #\$fe
 1	SETC	orcc #\$01
-1	CMPA \*R(\d+)	ldx <$1-1\\nlda ,x\\ncmpa <0
+1	CMPA \*R(\d+)	ldx <$1-1\\nlda <0\\ncmpa ,x
 1	CMP %>([0-9A-F]{1,2}),A	lda <0\\ncmpa #\$$1
 1	CMP %>([0-9A-F]{1,2}),B	lda <1\\ncmpa #\$$1
 1	CMP %>([0-9A-F]{1,2}),R(\d+)	lda <$2\\ncmpa #\$$1

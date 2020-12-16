@@ -41,6 +41,10 @@ F032: 0B          RETI
 ;**************************
 XXXX: TIMER1
 XXXX:     pshs a,b,x
+XXXX:     lda $100
+XXXX:     anda #$d5
+XXXX:     ora #$08 ; clear INT2 (TIMER) interrupt
+XXXX:     sta $100
 F033: B8          PUSH A
 F034: C8          PUSH B
 F035: 52 05       MOV %>5,B             ; Set r1 == 5

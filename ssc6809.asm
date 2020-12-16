@@ -96,6 +96,10 @@ LF02C
 ;**************************
 TIMER1
     pshs a,b,x
+    lda $100
+    anda #$d5 ; clear all flag
+    ora #$08 ; set INT2 clear
+    sta $100
 INT2
     lda <0              F033: B8          PUSH A
     pshs a
@@ -379,8 +383,8 @@ LF117
 LF126
     tdec 35             F126: D2 23       DEC R35
     ldx <35-1           F128: 9D 23       CMPA *R35
-    lda ,x
-    cmpa <0
+    lda <0
+    cmpa ,x
     beq LF156           F12A: E2 2A       JEQ $F156                 ; Jump to $f156 if r0 + 1 == r35 - 1
     lda <16             F12C: 77 FF 10 04 BTJZ %>FF,R16,$F134       ; If R16 contains any 0 bits jump to $F134
     coma
@@ -1862,8 +1866,8 @@ LF637
     sta <0
     andcc #$fe
     ldx <62-1           F647: 9D 3E       CMPA *R62
-    lda ,x
-    cmpa <0
+    lda <0
+    cmpa ,x
     beq LF62D           F649: E2 E2       JEQ $F62D
     orcc #$01           F64B: 07          SETC
     rts                 F64C: 0A          RETS
