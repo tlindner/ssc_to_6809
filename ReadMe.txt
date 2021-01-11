@@ -2,11 +2,11 @@ This is an attempt to transcode a TMS7000 program to m6809.
 
 The TMS7000 program is 4k and resides in a TMS7040 microcontroller inside a Radio Shack Color Computer Speech / Sound cartridge.
 
-The program handles commands from the Color computer and subsequently controls the internal PSG, Speech chip, and 2k of RAM.
+The program handles commands from the Color Computer and subsequently controls the internal PSG, Speech chip, and 2k of RAM.
 
 Currently I am targeting an emulated device that can be found in one of my MAME branches.
 
-https://github.com/tlindner/mame/tree/coco_ssc6809
+https://github.com/tlindner/mame/tree/coco_ssc6809-2
 
 But the ultimate goal is to create a new cartridge.
 
