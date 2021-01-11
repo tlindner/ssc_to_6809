@@ -97,8 +97,8 @@ LF02C
 TIMER1
     pshs a,b,x
     lda $100
-    anda #$d5 ; clear all flag
-    ora #$08 ; set INT2 clear
+    anda #$d5
+    ora #$08 ; clear INT2 (TIMER) interrupt
     sta $100
 INT2
     lda <0              F033: B8          PUSH A
@@ -923,6 +923,8 @@ LF300
     sta <0
     andcc #$fe
     lda <0              F302: B7          SWAP A
+    tfr a,b
+    rorb
     rora
     rora
     rora
@@ -1063,6 +1065,8 @@ LF36D
     cmpa #$60
     beq LF3BF           F373: E2 4A       JEQ $F3BF
     lda <0              F375: B7          SWAP A
+    tfr a,b
+    rorb
     rora
     rora
     rora
@@ -1216,7 +1220,11 @@ LF3DD
     com <70             F3E8: D4 46       INV R70
 LF3EA
     rts                 F3EA: 0A          RETS
-    fcb $0a,$01,$03,$05,$0c,$06 original location F3EB-F3EF
+    fcb $01
+    fcb $03
+    fcb $05
+    fcb $0c
+    fcb $06
 LF3F0
     lda <11             F3F0: 4D 0A 0B    CMP R10,R11
     cmpa <10
@@ -2329,40 +2337,55 @@ LF7F3
     sta <24
     rts                 F7F5: 0A          RETS
 ;**************************
-    zmb $f3ea-*
-    fcb $0A
-    fcb $0a,$01,$03,$05,$0c,$06 original location F3EB-F3EF
-    zmb $f7f6-*
-    org $F7F6
+
 LF7F6
-    fcb $80,$48
+    fcb $80
+    fcb $48
     fcb $68
-    fcb $58,$85
+    fcb $58
+    fcb $85
     fcb $08
     fcb $68
-    fcb $28,$84
-    fcb $78,$08,$58
-    fcb $48,$58,$82
+    fcb $28
+    fcb $84
+    fcb $78
+    fcb $08
+    fcb $58
+    fcb $48
+    fcb $58
+    fcb $82
     fcb $08
     fcb $08
-    fcb $58,$38
-    fcb $18,$82
-    fcb $48,$48,$28
-    fcb $84,$78
+    fcb $58
+    fcb $38
+    fcb $18
+    fcb $82
+    fcb $48
+    fcb $48
+    fcb $28
+    fcb $84
+    fcb $78
     fcb $FF
     fcb $C0
     fcb $C1
     fcb $CD
     fcb $C0
     fcb $0A
-    fcb $47,$B3,$EB,$09
-    fcb $10
-    fcb $0A
-    fcb $25,$47
+    fcb $47
     fcb $B3
     fcb $EB
     fcb $09
-    fcb $47,$B3,$EB,$47
+    fcb $10
+    fcb $0A
+    fcb $25
+    fcb $47
+    fcb $B3
+    fcb $EB
+    fcb $09
+    fcb $47
+    fcb $B3
+    fcb $EB
+    fcb $47
     fcb $B3
     fcb $F7
     fcb $C7
@@ -2370,325 +2393,524 @@ LF7F6
     fcb $CC
     fcb $C3
     fcb $FF
-    fcb $44,$84,$DF
-    fcb $44,$84,$DB
+    fcb $44
+    fcb $84
+    fcb $DF
+    fcb $44
+    fcb $84
+    fcb $DB
     fcb $C3
     fcb $C2
     fcb $FF
     fcb $C1
-    fcb $44,$84,$C8
+    fcb $44
+    fcb $84
+    fcb $C8
     fcb $C4
     fcb $C9
     fcb $C4
-    fcb $DA,$C4,$13
+    fcb $DA
+    fcb $C4
+    fcb $13
     fcb $FF
-    fcb $13,$D4
+    fcb $13
+    fcb $D4
     fcb $FF
-LF843
-    fcb $13,$CF
-    fcb $13,$72
-    fcb $A5,$13,$FB
-    fcb $13,$F2
-    fcb $2F,$4F
-    fcb $A7,$13,$FF,$0E
-LF852
-    fcb $32,$CF
+    fcb $13
+    fcb $CF
+    fcb $13
+    fcb $72
+    fcb $A5
+    fcb $13
+    fcb $FB
+    fcb $13
+    fcb $F2
+    fcb $2F
+    fcb $4F
+    fcb $A7
+    fcb $13
+    fcb $FF
+    fcb $0E
+    fcb $32
+    fcb $CF
     fcb $F2
     fcb $09
     fcb $EF
-    fcb $13,$10
+    fcb $13
+    fcb $10
     fcb $6E
     fcb $B9
-    fcb $47,$0B,$93,$67
+    fcb $47
+    fcb $0B
+    fcb $93
+    fcb $67
     fcb $21
-    fcb $29,$AE
-    fcb $4F,$01,$3D
+    fcb $29
+    fcb $AE
+    fcb $4F
+    fcb $01
+    fcb $3D
     fcb $07
     fcb $07
-    fcb $8B,$13,$FF
+    fcb $8B
+    fcb $13
+    fcb $FF
     fcb $0E
     fcb $09
-LF86C
     fcb $CF
     fcb $0E
     fcb $F3
     fcb $09
-    fcb $54,$B7
+    fcb $54
+    fcb $B7
     fcb $FF
-    fcb $37,$21,$CF
+    fcb $37
+    fcb $21
+    fcb $CF
     fcb $F7
-LF877
-    fcb $57,$97,$FF
+    fcb $57
+    fcb $97
+    fcb $FF
     fcb $0E
     fcb $0F
     fcb $09
-    fcb $D4,$09
+    fcb $D4
+    fcb $09
     fcb $10
-    fcb $E7,$25
-    fcb $4C,$01,$8A
+    fcb $E7
+    fcb $25
+    fcb $4C
+    fcb $01
+    fcb $8A
     fcb $FF
     fcb $0E
     fcb $0B
-    fcb $D4,$FF
+    fcb $D4
+    fcb $FF
     fcb $0E
     fcb $0F
     fcb $10
     fcb $09
-    fcb $DA,$72,$B2
-    fcb $5A,$A7
-    fcb $13,$10
+    fcb $DA
+    fcb $72
+    fcb $B2
+    fcb $5A
+    fcb $A7
+    fcb $13
+    fcb $10
     fcb $F2
-    fcb $13,$FB
+    fcb $13
+    fcb $FB
     fcb $F2
-    fcb $13,$F3
+    fcb $13
+    fcb $F3
     fcb $F2
     fcb $FB
     fcb $69
     fcb $B2
-    fcb $47,$AF,$E9,$D4
+    fcb $47
+    fcb $AF
+    fcb $E9
+    fcb $D4
     fcb $F9
-    fcb $D4,$F5
-    fcb $D7,$09
+    fcb $D4
+    fcb $F5
+    fcb $D7
+    fcb $09
     fcb $10
     fcb $EC
-    fcb $13,$FE
+    fcb $13
+    fcb $FE
     fcb $09
     fcb $10
     fcb $6C
     fcb $B3
-    fcb $13,$7E
-    fcb $AB,$6C,$AB
-    fcb $57,$02,$A9
+    fcb $13
+    fcb $7E
+    fcb $AB
+    fcb $6C
+    fcb $AB
+    fcb $57
+    fcb $02
+    fcb $A9
     fcb $EC
     fcb $0E
-    fcb $57,$AD,$13
+    fcb $57
+    fcb $AD
+    fcb $13
     fcb $10
     fcb $62
-    fcb $2C,$A5
-    fcb $54,$01
-    fcb $3F,$BE
-    fcb $6E
-LF8C6
-    fcb $A7,$0F,$54,$0B
+    fcb $2C
+    fcb $A5
+    fcb $54
     fcb $01
-    fcb $8A,$FF,$DA
-    fcb $13,$FF
-    fcb $13,$41
-    fcb $3F,$93
-    fcb $13,$E5
+    fcb $3F
+    fcb $BE
+    fcb $6E
+    fcb $A7
+    fcb $0F
+    fcb $54
+    fcb $0B
+    fcb $01
+    fcb $8A
+    fcb $FF
+    fcb $DA
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $41
+    fcb $3F
+    fcb $93
+    fcb $13
+    fcb $E5
     fcb $0E
     fcb $09
     fcb $41
-    fcb $3F,$93
-    fcb $13,$65
-    fcb $25,$AE
-    fcb $13,$7F
+    fcb $3F
+    fcb $93
+    fcb $13
+    fcb $65
+    fcb $25
+    fcb $AE
+    fcb $13
+    fcb $7F
     fcb $0C
-    fcb $8B,$65,$29
-    fcb $2E,$A7
+    fcb $8B
+    fcb $65
+    fcb $29
+    fcb $2E
+    fcb $A7
     fcb $41
-    fcb $3F,$13
+    fcb $3F
+    fcb $13
     fcb $0C
-    fcb $AC,$13,$6F
-    fcb $34,$A8
-    fcb $13,$41
-    fcb $3F,$35
-    fcb $9D,$13
-    fcb $75,$B3,$09
+    fcb $AC
+    fcb $13
+    fcb $6F
+    fcb $34
+    fcb $A8
+    fcb $13
     fcb $41
-    fcb $3F,$0C
-    fcb $AB,$75,$29
-    fcb $AC,$41,$3F
+    fcb $3F
+    fcb $35
+    fcb $9D
+    fcb $13
+    fcb $75
+    fcb $B3
+    fcb $09
+    fcb $41
+    fcb $3F
+    fcb $0C
+    fcb $AB
+    fcb $75
+    fcb $29
+    fcb $AC
+    fcb $41
+    fcb $3F
     fcb $0C
     fcb $0C
-    fcb $AD,$FF,$22
+    fcb $AD
+    fcb $FF
+    fcb $22
     fcb $FF
     fcb $FF
-    fcb $13,$41
-    fcb $9C,$FF
-    fcb $33,$41
-    fcb $9C,$13
+    fcb $13
+    fcb $41
+    fcb $9C
+    fcb $FF
+    fcb $33
+    fcb $41
+    fcb $9C
+    fcb $13
     fcb $FF
     fcb $0E
     fcb $41
-    fcb $9C,$FF
+    fcb $9C
+    fcb $FF
     fcb $41
     fcb $BF
-    fcb $13,$FF
-    fcb $13,$77
-    fcb $37,$93,$13
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $77
+    fcb $37
+    fcb $93
+    fcb $13
     fcb $E8
     fcb $0E
-    fcb $42,$AA,$0E
-    fcb $25,$E8
-    fcb $42,$AA,$E8
-    fcb $42,$B2,$33
+    fcb $42
+    fcb $AA
+    fcb $0E
+    fcb $25
+    fcb $E8
+    fcb $42
+    fcb $AA
+    fcb $E8
+    fcb $42
+    fcb $B2
+    fcb $33
     fcb $E9
     fcb $09
-    fcb $77,$37,$86,$E9
+    fcb $77
+    fcb $37
+    fcb $86
+    fcb $E9
     fcb $09
-    fcb $E5,$FF
+    fcb $E5
+    fcb $FF
     fcb $0F
-    fcb $77,$B7,$23,$FF
+    fcb $77
+    fcb $B7
+    fcb $23
+    fcb $FF
     fcb $FF
     fcb $EB
     fcb $09
-    fcb $42,$AA,$EB
-    fcb $42,$A9,$FF
-    fcb $13,$42
+    fcb $42
+    fcb $AA
+    fcb $EB
+    fcb $42
     fcb $A9
     fcb $FF
-    fcb $33,$42
+    fcb $13
+    fcb $42
     fcb $A9
     fcb $FF
-    fcb $12,$42
-    fcb $88,$FF,$42,$AA
-    fcb $13,$FF
-    fcb $13,$41
+    fcb $33
+    fcb $42
+    fcb $A9
+    fcb $FF
+    fcb $12
+    fcb $42
+    fcb $88
+    fcb $FF
+    fcb $42
+    fcb $AA
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $41
     fcb $21
-    fcb $93,$FF
-    fcb $24,$FF
+    fcb $93
+    fcb $FF
+    fcb $24
+    fcb $FF
     fcb $09
     fcb $10
     fcb $65
-    fcb $A4,$13,$41
+    fcb $A4
+    fcb $13
+    fcb $41
     fcb $21
     fcb $0C
     fcb $01
-    fcb $95,$0A
-    fcb $25,$FF
-    fcb $13,$41
-    fcb $95,$09
+    fcb $95
+    fcb $0A
+    fcb $25
+    fcb $FF
+    fcb $13
+    fcb $41
+    fcb $95
+    fcb $09
     fcb $11
-LF96C
-    fcb $25,$FF
-    fcb $13,$42
-    fcb $8D,$13,$E5
-LF973
+    fcb $25
+    fcb $FF
+    fcb $13
+    fcb $42
+    fcb $8D
+    fcb $13
+    fcb $E5
     fcb $0E
     fcb $09
     fcb $41
     fcb $21
-    fcb $8C,$EF,$13
+    fcb $8C
+    fcb $EF
+    fcb $13
     fcb $41
     fcb $21
     fcb $9F
     fcb $6F
-    fcb $25,$B3
+    fcb $25
+    fcb $B3
     fcb $41
     fcb $21
     fcb $0F
-    fcb $AB,$6F,$29
-    fcb $2E,$A7
+    fcb $AB
+    fcb $6F
+    fcb $29
+    fcb $2E
+    fcb $A7
     fcb $41
     fcb $21
-    fcb $1F,$0C
-    fcb $AC,$09,$F5
+    fcb $1F
+    fcb $0C
+    fcb $AC
+    fcb $09
+    fcb $F5
     fcb $10
     fcb $21
     fcb $41
     fcb $0A
-    fcb $96,$E7,$41
-    fcb $8A,$EA,$41
-    fcb $8A,$FF,$13
+    fcb $96
+    fcb $E7
     fcb $41
-    fcb $95,$FF
-    fcb $33,$41
-    fcb $95,$FF
+    fcb $8A
+    fcb $EA
+    fcb $41
+    fcb $8A
+    fcb $FF
+    fcb $13
+    fcb $41
+    fcb $95
+    fcb $FF
+    fcb $33
+    fcb $41
+    fcb $95
+    fcb $FF
     fcb $41
     fcb $A1
-    fcb $13,$FF
-    fcb $13,$D3
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $D3
     fcb $09
     fcb $10
     fcb $FF
-    fcb $13,$FF
+    fcb $13
+    fcb $FF
     fcb $07
     fcb $11
     fcb $FF
-    fcb $13,$FF
-    fcb $13,$10
+    fcb $13
     fcb $FF
-    fcb $13,$D3
-    fcb $09
-    fcb $E4,$13
-    fcb $41
-    fcb $95,$09
+    fcb $13
     fcb $10
     fcb $FF
-    fcb $24,$13
+    fcb $13
+    fcb $D3
+    fcb $09
+    fcb $E4
+    fcb $13
+    fcb $41
+    fcb $95
+    fcb $09
+    fcb $10
+    fcb $FF
+    fcb $24
+    fcb $13
     fcb $FF
     fcb $F6
-    fcb $25,$32
-    fcb $47,$A3,$72,$A9
+    fcb $25
+    fcb $32
+    fcb $47
+    fcb $A3
+    fcb $72
+    fcb $A9
     fcb $09
-    fcb $7C,$93,$09
-LF9CE
+    fcb $7C
+    fcb $93
+    fcb $09
     fcb $10
     fcb $F2
     fcb $09
     fcb $F3
     fcb $F2
     fcb $09
-    fcb $47,$AF,$FF,$0E
+    fcb $47
+    fcb $AF
+    fcb $FF
+    fcb $0E
     fcb $0B
-    fcb $D3,$72
+    fcb $D3
+    fcb $72
     fcb $A9
-    fcb $47,$07,$0E,$8C
+    fcb $47
+    fcb $07
+    fcb $0E
+    fcb $8C
     fcb $F2
     fcb $F3
-    fcb $13,$76
-    fcb $25,$AE
-LF9E6
-    fcb $13,$53
-    fcb $23,$0C
-    fcb $8B,$13,$76
-    fcb $25,$AE
-    fcb $53,$23
+    fcb $13
+    fcb $76
+    fcb $25
+    fcb $AE
+    fcb $13
+    fcb $53
+    fcb $23
+    fcb $0C
+    fcb $8B
+    fcb $13
+    fcb $76
+    fcb $25
+    fcb $AE
+    fcb $53
+    fcb $23
     fcb $07
     fcb $07
-    fcb $8B,$09,$10
+    fcb $8B
+    fcb $09
+    fcb $10
     fcb $FF
-    fcb $37,$FF,$0D
+    fcb $37
+    fcb $FF
+    fcb $0D
     fcb $F7
-    fcb $DF,$F7
+    fcb $DF
+    fcb $F7
     fcb $71
     fcb $9F
-LF9FF
     fcb $FF
-    fcb $2F,$D3
+    fcb $2F
+    fcb $D3
     fcb $09
     fcb $10
     fcb $0C
     fcb $F3
-    fcb $13,$4C
-    fcb $AB,$09,$10
+    fcb $13
+    fcb $4C
+    fcb $AB
+    fcb $09
+    fcb $10
     fcb $FF
-    fcb $33,$13
+    fcb $33
+    fcb $13
     fcb $FF
     fcb $09
     fcb $10
     fcb $6C
     fcb $B9
-    fcb $13,$6D
-    fcb $93,$09
+    fcb $13
+    fcb $6D
+    fcb $93
+    fcb $09
     fcb $10
     fcb $6D
-    fcb $25,$2E
+    fcb $25
+    fcb $2E
     fcb $B4
     fcb $50
     fcb $0C
     fcb $0B
-LFA1F
     fcb $02
-    fcb $8D,$66,$35
-    fcb $AC,$68,$1E
-    fcb $AD,$65,$B2
+    fcb $8D
+    fcb $66
+    fcb $35
+    fcb $AC
+    fcb $68
+    fcb $1E
+    fcb $AD
+    fcb $65
+    fcb $B2
     fcb $FC
-    fcb $E5,$D3
+    fcb $E5
+    fcb $D3
     fcb $61
-    fcb $32,$AE
-    fcb $74,$8B,$13
+    fcb $32
+    fcb $AE
+    fcb $74
+    fcb $8B
+    fcb $13
     fcb $61
     fcb $B2
     fcb $0E
@@ -2698,63 +2920,100 @@ LFA1F
     fcb $B2
     fcb $FC
     fcb $61
-    fcb $A4,$47,$07
+    fcb $A4
+    fcb $47
+    fcb $07
     fcb $01
-    fcb $95,$09
+    fcb $95
+    fcb $09
     fcb $10
-    fcb $E1,$13
-    fcb $53,$8F
-    fcb $E1,$33
-    fcb $35,$C7
-    fcb $E1,$D3
+    fcb $E1
+    fcb $13
+    fcb $53
+    fcb $8F
+    fcb $E1
+    fcb $33
+    fcb $35
+    fcb $C7
+    fcb $E1
+    fcb $D3
     fcb $69
-    fcb $27,$A8,$D4
+    fcb $27
+    fcb $A8
+    fcb $D4
     fcb $E9
-    fcb $D3,$13
+    fcb $D3
+    fcb $13
     fcb $F9
     fcb $C6
     fcb $F9
-    fcb $D3,$F5
-    fcb $D6,$FF
+    fcb $D3
+    fcb $F5
+    fcb $D6
+    fcb $FF
     fcb $C7
-    fcb $13,$FF
-    fcb $13,$47
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $47
     fcb $07
-    fcb $A8,$75,$AC,$68
-    fcb $1E,$AD
-    fcb $6F
-    fcb $35,$B2
+    fcb $A8
+    fcb $75
+    fcb $AC
     fcb $68
-    fcb $BA,$FF
+    fcb $1E
+    fcb $AD
+    fcb $6F
+    fcb $35
+    fcb $B2
+    fcb $68
+    fcb $BA
+    fcb $FF
     fcb $E8
-    fcb $13,$FF
-    fcb $13,$41
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $41
     fcb $0A
-    fcb $93,$69
+    fcb $93
+    fcb $69
     fcb $B6
     fcb $41
-    fcb $3D,$0C
-    fcb $A3,$13,$FF
-LFA7B
-    fcb $29,$0E
+    fcb $3D
+    fcb $0C
+    fcb $A3
+    fcb $13
+    fcb $FF
+    fcb $29
+    fcb $0E
     fcb $41
     fcb $BD
-    fcb $E5,$34
+    fcb $E5
+    fcb $34
     fcb $41
-    fcb $3D,$87
-    fcb $33,$35
-    fcb $67,$25
+    fcb $3D
+    fcb $87
+    fcb $33
+    fcb $35
+    fcb $67
+    fcb $25
     fcb $B3
     fcb $41
-    fcb $24,$01
+    fcb $24
+    fcb $01
     fcb $0A
     fcb $07
     fcb $07
     fcb $B7
-    fcb $E7,$41
-    fcb $A4,$FF,$13
+    fcb $E7
     fcb $41
-    fcb $A2,$13,$22
+    fcb $A4
+    fcb $FF
+    fcb $13
+    fcb $41
+    fcb $A2
+    fcb $13
+    fcb $22
     fcb $09
     fcb $FF
     fcb $41
@@ -2762,80 +3021,126 @@ LFA7B
     fcb $FF
     fcb $0F
     fcb $41
-    fcb $8A,$72,$25
+    fcb $8A
+    fcb $72
+    fcb $25
     fcb $A1
     fcb $41
-    fcb $22,$27
-    fcb $94,$09
+    fcb $22
+    fcb $27
+    fcb $94
+    fcb $09
     fcb $E8
     fcb $E8
     fcb $E8
     fcb $41
-    fcb $A4,$FF,$41
-    fcb $A4,$13,$FF
-    fcb $13,$54
-LFAB5
+    fcb $A4
+    fcb $FF
+    fcb $41
+    fcb $A4
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $54
     fcb $02
     fcb $B2
-    fcb $13,$61
+    fcb $13
+    fcb $61
     fcb $B6
-    fcb $5B,$1A
-    fcb $A3,$13,$65
-    fcb $32,$A5
-    fcb $5B,$BC
-    fcb $13,$6F
-    fcb $35,$B2
+    fcb $5B
+    fcb $1A
+    fcb $A3
+    fcb $13
+    fcb $65
+    fcb $32
+    fcb $A5
+    fcb $5B
+    fcb $BC
+    fcb $13
+    fcb $6F
+    fcb $35
+    fcb $B2
     fcb $60
     fcb $B3
     fcb $6F
     fcb $B7
-    fcb $5B,$A0
+    fcb $5B
+    fcb $A0
     fcb $65
     fcb $21
     fcb $B2
-    fcb $34,$5B
+    fcb $34
+    fcb $5B
     fcb $BB
-LFAD3
     fcb $F9
     fcb $0E
-    fcb $2E,$5B
-    fcb $8C,$FF,$12
+    fcb $2E
+    fcb $5B
+    fcb $8C
+    fcb $FF
+    fcb $12
     fcb $F9
     fcb $FF
     fcb $09
-    fcb $DB,$FF
+    fcb $DB
     fcb $FF
-    fcb $13,$EE
-LFAE2
-    fcb $4C,$8B,$FF
-    fcb $13,$C6
+    fcb $FF
+    fcb $13
     fcb $EE
-    fcb $24,$46
-    fcb $8B,$13,$10
+    fcb $4C
+    fcb $8B
+    fcb $FF
+    fcb $13
+    fcb $C6
+    fcb $EE
+    fcb $24
+    fcb $46
+    fcb $8B
+    fcb $13
+    fcb $10
     fcb $65
-    fcb $A4,$13,$46
+    fcb $A4
+    fcb $13
+    fcb $46
     fcb $01
-    fcb $95,$09
+    fcb $95
+    fcb $09
     fcb $11
     fcb $65
-    fcb $A4,$13,$53
+    fcb $A4
+    fcb $13
+    fcb $53
     fcb $01
-    fcb $95,$65
-    fcb $AE,$53,$0C
-    fcb $8B,$E5,$34
-    fcb $46,$8C,$13,$10
+    fcb $95
+    fcb $65
+    fcb $AE
+    fcb $53
+    fcb $0C
+    fcb $8B
+    fcb $E5
+    fcb $34
+    fcb $46
+    fcb $8C
+    fcb $13
+    fcb $10
     fcb $FF
     fcb $0B
     fcb $C6
     fcb $65
     fcb $B2
-    fcb $53,$B3
+    fcb $53
+    fcb $B3
     fcb $FF
     fcb $0B
-    fcb $D3,$E5
-    fcb $D3,$F2
+    fcb $D3
+    fcb $E5
+    fcb $D3
+    fcb $F2
     fcb $09
-    fcb $46,$B3,$FF,$0E
+    fcb $46
+    fcb $B3
+    fcb $FF
+    fcb $0E
     fcb $0B
     fcb $C6
     fcb $FF
@@ -2850,7 +3155,6 @@ LFAE2
     fcb $0E
     fcb $0F
     fcb $CC
-LFB26
     fcb $09
     fcb $11
     fcb $FF
@@ -2865,218 +3169,363 @@ LFB26
     fcb $F4
     fcb $11
     fcb $FF
-    fcb $2F,$2E
+    fcb $2F
+    fcb $2E
     fcb $F1
-    fcb $67,$A8
+    fcb $67
+    fcb $A8
     fcb $C6
     fcb $6C
-    fcb $A4,$46,$3E
+    fcb $A4
+    fcb $46
+    fcb $3E
     fcb $01
-    fcb $95,$67
-    fcb $AE,$46,$8B
+    fcb $95
+    fcb $67
+    fcb $AE
+    fcb $46
+    fcb $8B
     fcb $71
-    fcb $35,$A5
-    fcb $53,$02
+    fcb $35
+    fcb $A5
+    fcb $53
+    fcb $02
     fcb $A9
     fcb $FF
     fcb $CC
-    fcb $13,$FF
-    fcb $13,$41
-    fcb $0A
-    fcb $94,$FF
-    fcb $41
-    fcb $8A,$13,$FF
-    fcb $13,$42
-    fcb $2A,$94
-    fcb $13,$FF
-    fcb $2E,$FF
+    fcb $13
     fcb $FF
-    fcb $13,$42
+    fcb $13
+    fcb $41
+    fcb $0A
+    fcb $94
+    fcb $FF
+    fcb $41
+    fcb $8A
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $42
+    fcb $2A
+    fcb $94
+    fcb $13
+    fcb $FF
+    fcb $2E
+    fcb $FF
+    fcb $FF
+    fcb $13
+    fcb $42
     fcb $A9
     fcb $FF
-    fcb $42,$AA,$13
+    fcb $42
+    fcb $AA
+    fcb $13
     fcb $FF
-    fcb $13,$47
+    fcb $13
+    fcb $47
     fcb $07
-    fcb $AD,$EF,$23
+    fcb $AD
+    fcb $EF
+    fcb $23
     fcb $09
     fcb $6D
     fcb $B5
-    fcb $2C,$FF
+    fcb $2C
+    fcb $FF
     fcb $FF
     fcb $65
     fcb $21
-    fcb $A4,$6D,$13
+    fcb $A4
+    fcb $6D
+    fcb $13
     fcb $01
-    fcb $95,$61
-    fcb $35,$27
-    fcb $A8,$6D,$1A,$A8
+    fcb $95
+    fcb $61
+    fcb $35
+    fcb $27
+    fcb $A8
+    fcb $6D
+    fcb $1A
+    fcb $A8
     fcb $FF
     fcb $ED
-    fcb $E2,$D0
-    fcb $13,$FF
-    fcb $13,$47
+    fcb $E2
+    fcb $D0
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $47
     fcb $07
     fcb $90
     fcb $6F
     fcb $B6
     fcb $50
-    fcb $1F,$A3
+    fcb $1F
+    fcb $A3
     fcb $FF
-    fcb $2D,$FF
+    fcb $2D
     fcb $FF
-    fcb $D0,$13
     fcb $FF
-    fcb $13,$47
+    fcb $D0
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $47
     fcb $07
-    fcb $8B,$25,$E7
+    fcb $8B
+    fcb $25
+    fcb $E7
     fcb $0F
-    fcb $4B,$01,$8A
-    fcb $E7,$32
+    fcb $4B
+    fcb $01
+    fcb $8A
+    fcb $E7
+    fcb $32
     fcb $6C
     fcb $01
-    fcb $A4,$E7,$09
+    fcb $A4
+    fcb $E7
+    fcb $09
     fcb $6C
     fcb $01
-    fcb $A4,$67,$AC
+    fcb $A4
+    fcb $67
+    fcb $AC
     fcb $0B
     fcb $6C
     fcb $01
-    fcb $24,$BE
-    fcb $E7,$EC
+    fcb $24
+    fcb $BE
+    fcb $E7
+    fcb $EC
     fcb $EB
-    fcb $13,$6C
+    fcb $13
+    fcb $6C
     fcb $02
     fcb $A9
     fcb $EB
-    fcb $33,$6C
+    fcb $33
+    fcb $6C
     fcb $02
     fcb $A9
     fcb $EB
     fcb $6C
     fcb $02
-    fcb $AA,$13,$6F
+    fcb $AA
+    fcb $13
+    fcb $6F
     fcb $B7
-    fcb $13,$4B
+    fcb $13
+    fcb $4B
     fcb $A0
-    fcb $2E,$FF
+    fcb $2E
+    fcb $FF
     fcb $FF
     fcb $09
     fcb $10
     fcb $F5
-    fcb $4B,$31,$96
+    fcb $4B
+    fcb $31
+    fcb $96
     fcb $FF
-    fcb $12,$F8
-    fcb $47,$B4,$4B,$02
-    fcb $8D,$FF,$CB
-    fcb $13,$FF
-    fcb $13,$F5
-    fcb $E6,$13
-    fcb $4F,$A3,$09
+    fcb $12
+    fcb $F8
+    fcb $47
+    fcb $B4
+    fcb $4B
+    fcb $02
+    fcb $8D
+    fcb $FF
+    fcb $CB
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $F5
+    fcb $E6
+    fcb $13
+    fcb $4F
+    fcb $A3
+    fcb $09
     fcb $10
     fcb $F2
-    fcb $13,$F3
+    fcb $13
+    fcb $F3
     fcb $09
     fcb $10
-    fcb $72,$B3,$13
-    fcb $73,$AB,$F2
+    fcb $72
+    fcb $B3
+    fcb $13
+    fcb $73
+    fcb $AB
+    fcb $F2
     fcb $FA
-    fcb $13,$6E
-    fcb $A5,$6E,$0F
-    fcb $8B,$0F,$6E
-    fcb $A5,$6E,$0F
-    fcb $8B,$11,$F7
-    fcb $2E,$E0
+    fcb $13
+    fcb $6E
+    fcb $A5
+    fcb $6E
+    fcb $0F
+    fcb $8B
+    fcb $0F
+    fcb $6E
+    fcb $A5
+    fcb $6E
+    fcb $0F
+    fcb $8B
+    fcb $11
+    fcb $F7
+    fcb $2E
+    fcb $E0
     fcb $F7
     fcb $F5
-    fcb $13,$76
-    fcb $25,$B2
-    fcb $75,$23,$B3
+    fcb $13
+    fcb $76
+    fcb $25
+    fcb $B2
+    fcb $75
+    fcb $23
+    fcb $B3
     fcb $F6
-    fcb $4F,$A3,$11
+    fcb $4F
+    fcb $A3
+    fcb $11
     fcb $ED
-    fcb $4F,$90,$FF
+    fcb $4F
+    fcb $90
+    fcb $FF
     fcb $0E
     fcb $0B
     fcb $F5
     fcb $FF
     fcb $0E
-    fcb $25,$2E
+    fcb $25
+    fcb $2E
     fcb $F5
     fcb $FF
     fcb $0E
-    fcb $29,$09
+    fcb $29
+    fcb $09
     fcb $F5
     fcb $EC
-    fcb $24,$75
-    fcb $AD,$75,$27
-    fcb $28,$B4
-    fcb $57,$17,$02
-    fcb $8D,$75,$27
-    fcb $A8,$4F,$0F,$A8
+    fcb $24
+    fcb $75
+    fcb $AD
+    fcb $75
+    fcb $27
+    fcb $28
+    fcb $B4
+    fcb $57
+    fcb $17
+    fcb $02
+    fcb $8D
+    fcb $75
+    fcb $27
+    fcb $A8
+    fcb $4F
+    fcb $0F
+    fcb $A8
     fcb $0C
-    fcb $75,$B2,$FA
+    fcb $75
+    fcb $B2
+    fcb $FA
     fcb $10
-    fcb $75,$B2,$60
+    fcb $75
+    fcb $B2
+    fcb $60
     fcb $B3
-    fcb $13,$F5
-    fcb $E0,$10
+    fcb $13
     fcb $F5
-    fcb $33,$09
-    fcb $E0,$75
+    fcb $E0
+    fcb $10
+    fcb $F5
+    fcb $33
+    fcb $09
+    fcb $E0
+    fcb $75
     fcb $B3
-    fcb $4F,$B7,$75
-    fcb $2C,$A4
-    fcb $5E,$01
-    fcb $95,$0E
-    fcb $F5
-LFC4F
+    fcb $4F
+    fcb $B7
+    fcb $75
+    fcb $2C
+    fcb $A4
+    fcb $5E
+    fcb $01
+    fcb $95
     fcb $0E
-    fcb $2C,$CF
-    fcb $75,$B0,$5F
+    fcb $F5
+    fcb $0E
+    fcb $2C
+    fcb $CF
+    fcb $75
+    fcb $B0
+    fcb $5F
     fcb $02
     fcb $89
     fcb $F5
-    fcb $E0,$F9
+    fcb $E0
+    fcb $F9
     fcb $C5
     fcb $69
-    fcb $2E,$A7
-    fcb $75,$0C,$AC
+    fcb $2E
+    fcb $A7
+    fcb $75
+    fcb $0C
+    fcb $AC
     fcb $E9
     fcb $C5
     fcb $6F
     fcb $B2
     fcb $FA
     fcb $6F
-    fcb $AB,$13,$5E
+    fcb $AB
+    fcb $13
+    fcb $5E
     fcb $02
     fcb $A9
     fcb $6F
-    fcb $AB,$33,$5E
+    fcb $AB
+    fcb $33
+    fcb $5E
     fcb $02
     fcb $A9
     fcb $6F
-    fcb $AB,$5E,$02
-    fcb $AA,$6F,$A4
-    fcb $13,$5E
+    fcb $AB
+    fcb $5E
+    fcb $02
+    fcb $AA
+    fcb $6F
+    fcb $A4
+    fcb $13
+    fcb $5E
     fcb $01
-    fcb $95,$EF
-    fcb $24,$DE
+    fcb $95
     fcb $EF
-    fcb $DF,$FF
-    fcb $25,$F5
+    fcb $24
+    fcb $DE
+    fcb $EF
+    fcb $DF
     fcb $FF
-    fcb $13,$F5
+    fcb $25
+    fcb $F5
+    fcb $FF
+    fcb $13
+    fcb $F5
     fcb $61
     fcb $B2
     fcb $FA
-    fcb $E1,$F5
-    fcb $13,$6E
-    fcb $2C,$B9
-    fcb $75,$0B,$2D
-    fcb $93,$13
+    fcb $E1
+    fcb $F5
+    fcb $13
     fcb $6E
-    fcb $23,$A5
+    fcb $2C
+    fcb $B9
+    fcb $75
+    fcb $0B
+    fcb $2D
+    fcb $93
+    fcb $13
+    fcb $6E
+    fcb $23
+    fcb $A5
     fcb $6E
     fcb $0F
     fcb $0B
@@ -3084,140 +3533,243 @@ LFC4F
     fcb $6E
     fcb $07
     fcb $B4
-    fcb $75,$0B,$02
-    fcb $8D,$23,$FF
-    fcb $2E,$CF
+    fcb $75
+    fcb $0B
+    fcb $02
+    fcb $8D
+    fcb $23
     fcb $FF
-    fcb $2E,$27
-    fcb $D7,$13
+    fcb $2E
+    fcb $CF
+    fcb $FF
+    fcb $2E
+    fcb $27
+    fcb $D7
+    fcb $13
     fcb $11
     fcb $FF
-    fcb $2E,$CF
-    fcb $29,$EE
-    fcb $4F,$8B,$09
+    fcb $2E
+    fcb $CF
+    fcb $29
+    fcb $EE
+    fcb $4F
+    fcb $8B
+    fcb $09
     fcb $10
     fcb $EE
-    fcb $13,$4F
-    fcb $8B,$FF,$33
-    fcb $34,$13
+    fcb $13
+    fcb $4F
+    fcb $8B
+    fcb $FF
+    fcb $33
+    fcb $34
+    fcb $13
     fcb $F5
-    fcb $E6,$0E
-    fcb $57,$A8,$74
-    fcb $28,$25
+    fcb $E6
+    fcb $0E
+    fcb $57
+    fcb $A8
+    fcb $74
+    fcb $28
+    fcb $25
     fcb $B2
-    fcb $4F,$36,$B3
-    fcb $73,$B3,$13
-    fcb $57,$17,$37
+    fcb $4F
+    fcb $36
+    fcb $B3
+    fcb $73
+    fcb $B3
+    fcb $13
+    fcb $57
+    fcb $17
+    fcb $37
     fcb $B7
     fcb $FF
-    fcb $D8,$73
-    fcb $39,$23
-    fcb $A8,$77,$37,$06
+    fcb $D8
+    fcb $73
+    fcb $39
+    fcb $23
+    fcb $A8
+    fcb $77
+    fcb $37
+    fcb $06
     fcb $01
-    fcb $AA,$13,$FF
-    fcb $13,$42
+    fcb $AA
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $42
     fcb $09
-LFCE2
-    fcb $93,$E8
+    fcb $93
+    fcb $E8
     fcb $E8
     fcb $65
-    fcb $2F,$B0
-    fcb $42,$09,$13
+    fcb $2F
+    fcb $B0
+    fcb $42
+    fcb $09
+    fcb $13
     fcb $02
     fcb $89
     fcb $6F
     fcb $B7
-    fcb $42,$09,$A0
-    fcb $75,$B4,$13
-LFCF5
-    fcb $42,$09,$1E
+    fcb $42
+    fcb $09
+    fcb $A0
+    fcb $75
+    fcb $B4
+    fcb $13
+    fcb $42
+    fcb $09
+    fcb $1E
     fcb $02
-    fcb $8D,$FF,$30
+    fcb $8D
+    fcb $FF
+    fcb $30
     fcb $FF
     fcb $FF
-    fcb $42,$89,$13
+    fcb $42
+    fcb $89
+    fcb $13
     fcb $FF
-    fcb $13,$42
-    fcb $2A,$31
+    fcb $13
+    fcb $42
+    fcb $2A
+    fcb $31
     fcb $9F
-    fcb $75,$21,$B2
-    fcb $42,$08,$30
-    fcb $BA,$75
-    fcb $A5,$13,$42
-    fcb $2A,$31
+    fcb $75
+    fcb $21
+    fcb $B2
+    fcb $42
+    fcb $08
+    fcb $30
+    fcb $BA
+    fcb $75
+    fcb $A5
+    fcb $13
+    fcb $42
+    fcb $2A
+    fcb $31
     fcb $9F
     fcb $F5
-    fcb $42,$08,$B0
-    fcb $13,$FF
-    fcb $13,$FB
-    fcb $13,$E5
+    fcb $42
+    fcb $08
+    fcb $B0
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $FB
+    fcb $13
+    fcb $E5
     fcb $0E
     fcb $09
-    fcb $4E,$93,$32
+    fcb $4E
+    fcb $93
+    fcb $32
     fcb $FF
     fcb $FF
     fcb $11
     fcb $FF
-    fcb $E7,$FF
+    fcb $E7
+    fcb $FF
     fcb $CE
-    fcb $13,$FF
-    fcb $13,$47
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $47
     fcb $07
-    fcb $37,$B7,$E8
-    fcb $E5,$09
-    fcb $69
-    fcb $2F,$AE
-    fcb $66,$0F
-    fcb $8B,$09,$75
-    fcb $B2
-LFD3E
+    fcb $37
+    fcb $B7
+    fcb $E8
+    fcb $E5
     fcb $09
-    fcb $66,$B3
-    fcb $75,$B2,$09
+    fcb $69
+    fcb $2F
+    fcb $AE
+    fcb $66
+    fcb $0F
+    fcb $8B
+    fcb $09
+    fcb $75
+    fcb $B2
+    fcb $09
+    fcb $66
+    fcb $B3
+    fcb $75
+    fcb $B2
+    fcb $09
     fcb $65
     fcb $B3
     fcb $09
     fcb $F5
     fcb $09
-    fcb $66,$96
+    fcb $66
+    fcb $96
     fcb $09
-    fcb $73,$B5,$09
+    fcb $73
+    fcb $B5
+    fcb $09
     fcb $65
-    fcb $96,$09,$65
-    fcb $A4,$13,$6B
+    fcb $96
+    fcb $09
+    fcb $65
+    fcb $A4
+    fcb $13
+    fcb $6B
     fcb $01
-    fcb $95,$61
-    fcb $29,$A4
-    fcb $77,$37,$07,$07
+    fcb $95
+    fcb $61
+    fcb $29
+    fcb $A4
+    fcb $77
+    fcb $37
+    fcb $07
+    fcb $07
     fcb $01
-    fcb $95,$0E
+    fcb $95
+    fcb $0E
     fcb $69
-    fcb $2F,$AE
+    fcb $2F
+    fcb $AE
     fcb $65
-LFD66
     fcb $0F
-    fcb $8B,$0A,$FF
-    fcb $13,$EB
+    fcb $8B
+    fcb $0A
+    fcb $FF
+    fcb $13
+    fcb $EB
     fcb $09
     fcb $10
     fcb $0A
-    fcb $25,$FF
-    fcb $13,$EB
+    fcb $25
+    fcb $FF
+    fcb $13
+    fcb $EB
     fcb $09
     fcb $11
-    fcb $14,$FF
-    fcb $13,$EB
-    fcb $35,$FF
-    fcb $13,$F7
-    fcb $13,$10
+    fcb $14
+    fcb $FF
+    fcb $13
+    fcb $EB
+    fcb $35
+    fcb $FF
+    fcb $13
+    fcb $F7
+    fcb $13
+    fcb $10
     fcb $09
     fcb $FF
-    fcb $13,$EB
-    fcb $13,$63
-    fcb $A8,$77,$37,$02
+    fcb $13
+    fcb $EB
+    fcb $13
+    fcb $63
+    fcb $A8
+    fcb $77
+    fcb $37
+    fcb $02
     fcb $A9
     fcb $FF
-    fcb $23,$0F
+    fcb $23
+    fcb $0F
     fcb $FF
     fcb $09
     fcb $ED
@@ -3225,212 +3777,339 @@ LFD66
     fcb $90
     fcb $09
     fcb $FF
-    fcb $2E,$07
+    fcb $2E
+    fcb $07
     fcb $EB
     fcb $FF
     fcb $F7
     fcb $FF
     fcb $07
-    fcb $33,$42
-    fcb $91,$63
-    fcb $A8,$42,$B2,$13
+    fcb $33
+    fcb $42
+    fcb $91
+    fcb $63
+    fcb $A8
+    fcb $42
+    fcb $B2
+    fcb $13
     fcb $FF
-    fcb $13,$42
+    fcb $13
+    fcb $42
     fcb $0D
-    fcb $93,$13
+    fcb $93
+    fcb $13
     fcb $68
-    fcb $25,$80
+    fcb $25
+    fcb $80
     fcb $09
-    fcb $52,$93
-    fcb $13,$68
-    fcb $A5,$13,$52
+    fcb $52
+    fcb $93
+    fcb $13
+    fcb $68
+    fcb $A5
+    fcb $13
+    fcb $52
     fcb $8F
     fcb $EF
-    fcb $13,$42
+    fcb $13
+    fcb $42
     fcb $0D
     fcb $9F
     fcb $6F
-    fcb $24,$21
-    fcb $B9
-    fcb $42,$0D,$1F
+    fcb $24
     fcb $21
-    fcb $94,$68
+    fcb $B9
+    fcb $42
+    fcb $0D
+    fcb $1F
+    fcb $21
+    fcb $94
+    fcb $68
     fcb $A1
     fcb $0E
-    fcb $13,$52
-    fcb $9A,$13
+    fcb $13
+    fcb $52
+    fcb $9A
+    fcb $13
     fcb $68
-    fcb $29,$B3
-    fcb $13,$52
+    fcb $29
+    fcb $B3
+    fcb $13
+    fcb $52
     fcb $0C
-    fcb $37,$B7,$13
+    fcb $37
+    fcb $B7
+    fcb $13
     fcb $68
-    fcb $25,$B9
-    fcb $52,$94
-    fcb $13,$68
-    fcb $25,$32
-    fcb $A5,$52,$AF
+    fcb $25
+    fcb $B9
+    fcb $52
+    fcb $94
+    fcb $13
     fcb $68
-    fcb $25,$B2
-    fcb $76,$B3,$68,$25
-    fcb $29,$B2
-    fcb $52,$AF
-    fcb $13,$68
-    fcb $25,$AD
+    fcb $25
+    fcb $32
+    fcb $A5
+    fcb $52
+    fcb $AF
+    fcb $68
+    fcb $25
+    fcb $B2
+    fcb $76
+    fcb $B3
+    fcb $68
+    fcb $25
+    fcb $29
+    fcb $B2
+    fcb $52
+    fcb $AF
+    fcb $13
+    fcb $68
+    fcb $25
+    fcb $AD
     fcb $10
-    fcb $52,$07
+    fcb $52
+    fcb $07
     fcb $90
     fcb $68
-    fcb $25,$33
-    fcb $A5,$13,$52
-    fcb $13,$AB
-    fcb $13,$68
-    fcb $25,$AE
-    fcb $52,$07
-    fcb $8B,$68,$32
-    fcb $2F,$35
-    fcb $27,$A8,$13
-    fcb $5D,$27
-    fcb $9F
-LFE0B
+    fcb $25
+    fcb $33
+    fcb $A5
+    fcb $13
+    fcb $52
+    fcb $13
+    fcb $AB
+    fcb $13
     fcb $68
-    fcb $2F,$33
-    fcb $A5,$52,$35
+    fcb $25
+    fcb $AE
+    fcb $52
+    fcb $07
+    fcb $8B
+    fcb $68
+    fcb $32
+    fcb $2F
+    fcb $35
+    fcb $27
+    fcb $A8
+    fcb $13
+    fcb $5D
+    fcb $27
+    fcb $9F
+    fcb $68
+    fcb $2F
+    fcb $33
+    fcb $A5
+    fcb $52
+    fcb $35
     fcb $B7
     fcb $68
-    fcb $2F,$35
-    fcb $27,$A8,$13
-    fcb $52,$B5
-    fcb $13,$68
-    fcb $35,$B3
-    fcb $52,$0F
-    fcb $37,$B7,$68
-    fcb $A5,$13,$D2
+    fcb $2F
+    fcb $35
+    fcb $27
+    fcb $A8
+    fcb $13
+    fcb $52
+    fcb $B5
+    fcb $13
+    fcb $68
+    fcb $35
+    fcb $B3
+    fcb $52
+    fcb $0F
+    fcb $37
+    fcb $B7
+    fcb $68
+    fcb $A5
+    fcb $13
+    fcb $D2
     fcb $E8
-    fcb $DD,$09
+    fcb $DD
+    fcb $09
     fcb $10
     fcb $65
-LFE2B
-    fcb $A4,$13,$42
+    fcb $A4
+    fcb $13
+    fcb $42
     fcb $0D
     fcb $0C
     fcb $01
-    fcb $95,$33
+    fcb $95
+    fcb $33
     fcb $E9
     fcb $09
-    fcb $2E,$42
+    fcb $2E
+    fcb $42
     fcb $B2
     fcb $E9
     fcb $09
-    fcb $E5,$75
+    fcb $E5
+    fcb $75
     fcb $B2
     fcb $09
-    fcb $42,$32,$B3
+    fcb $42
+    fcb $32
+    fcb $B3
     fcb $F5
     fcb $21
-    fcb $42,$32,$96
-    fcb $13,$77
+    fcb $42
+    fcb $32
+    fcb $96
+    fcb $13
+    fcb $77
     fcb $AF
-    fcb $42,$0D,$9F
+    fcb $42
+    fcb $0D
+    fcb $9F
     fcb $FF
-    fcb $34,$FF
+    fcb $34
     fcb $FF
-    fcb $33,$42
-    fcb $91,$FF
-    fcb $42,$8D,$13
     fcb $FF
-    fcb $13,$71
+    fcb $33
+    fcb $42
+    fcb $91
+    fcb $FF
+    fcb $42
+    fcb $8D
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $71
     fcb $9F
     fcb $EE
-    fcb $29,$59
-    fcb $16,$8B,$13
+    fcb $29
+    fcb $59
+    fcb $16
+    fcb $8B
+    fcb $13
     fcb $EE
-    fcb $4F,$8B,$13
+    fcb $4F
+    fcb $8B
+    fcb $13
     fcb $70
     fcb $AF
-    fcb $4F,$02,$09
-    fcb $98,$0D,$F2
+    fcb $4F
+    fcb $02
     fcb $09
-    fcb $56,$B3,$F2
+    fcb $98
+    fcb $0D
+    fcb $F2
+    fcb $09
+    fcb $56
+    fcb $B3
+    fcb $F2
     fcb $09
     fcb $71
-    fcb $16,$B3,$F2
+    fcb $16
+    fcb $B3
+    fcb $F2
     fcb $11
     fcb $F3
     fcb $FF
     fcb $0E
-    fcb $13,$CF
+    fcb $13
+    fcb $CF
     fcb $FF
     fcb $0E
     fcb $0E
     fcb $CF
     fcb $F9
     fcb $C6
-    fcb $13,$27
+    fcb $13
+    fcb $27
     fcb $FF
     fcb $09
     fcb $FF
-    fcb $27,$FF,$0B
+    fcb $27
     fcb $FF
-    fcb $27,$FF,$09
+    fcb $0B
+    fcb $FF
+    fcb $27
+    fcb $FF
+    fcb $09
     fcb $EE
     fcb $0D
     fcb $FF
-    fcb $DF,$FF
+    fcb $DF
+    fcb $FF
     fcb $71
-    fcb $96,$13,$FF
-LFE97
-    fcb $13,$63
-    fcb $93,$69
-    fcb $25,$B7
+    fcb $96
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $63
+    fcb $93
+    fcb $69
+    fcb $25
+    fcb $B7
     fcb $63
     fcb $31
     fcb $9F
     fcb $FF
-    fcb $E3,$13
+    fcb $E3
+    fcb $13
     fcb $FF
-    fcb $13,$41
+    fcb $13
+    fcb $41
     fcb $21
     fcb $0F
     fcb $01
-    fcb $3F,$3E
+    fcb $3F
+    fcb $3E
     fcb $31
-    fcb $96,$13,$65
-    fcb $32,$A5
-LFEB1
+    fcb $96
+    fcb $13
+    fcb $65
+    fcb $32
+    fcb $A5
     fcb $6E
     fcb $B4
-    fcb $13,$61
+    fcb $13
+    fcb $61
     fcb $B3
-LFEB6
-    fcb $13,$6E
+    fcb $13
+    fcb $6E
     fcb $0F
-    fcb $AB,$E1,$33
+    fcb $AB
+    fcb $E1
+    fcb $33
     fcb $6E
-    fcb $98,$E1,$34
+    fcb $98
+    fcb $E1
+    fcb $34
     fcb $6E
-    fcb $97,$61,$AE
+    fcb $97
+    fcb $61
+    fcb $AE
     fcb $6E
-    fcb $18,$8B
+    fcb $18
+    fcb $8B
     fcb $68
     fcb $21
     fcb $B4
     fcb $70
-    fcb $18,$02
-    fcb $8D,$E8,$2F
+    fcb $18
+    fcb $02
+    fcb $8D
+    fcb $E8
+    fcb $2F
     fcb $11
     fcb $F9
     fcb $68
     fcb $AF
-    fcb $79,$9F,$EF
-    fcb $2D,$6E
+    fcb $79
+    fcb $9F
+    fcb $EF
+    fcb $2D
+    fcb $6E
     fcb $8F
     fcb $E8
     fcb $F0
     fcb $61
     fcb $B2
     fcb $6E
-    fcb $BA,$6F
+    fcb $BA
+    fcb $6F
     fcb $B2
     fcb $0E
     fcb $6E
@@ -3439,137 +4118,208 @@ LFEB6
     fcb $CE
     fcb $FF
     fcb $EE
-    fcb $13,$FF
-    fcb $13,$47
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $47
     fcb $02
-    fcb $29,$B7
-    fcb $13,$FF
+    fcb $29
+    fcb $B7
+    fcb $13
+    fcb $FF
     fcb $EB
     fcb $FF
-    fcb $42,$29,$B7
+    fcb $42
+    fcb $29
+    fcb $B7
     fcb $6F
-    fcb $35,$B2
-    fcb $59,$BA
-    fcb $13,$FF
-    fcb $13,$6E
-    fcb $86,$6F,$35
-    fcb $2E,$A7
-    fcb $59,$0F
-    fcb $AC,$13,$6F
+    fcb $35
+    fcb $B2
+    fcb $59
+    fcb $BA
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $6E
+    fcb $86
+    fcb $6F
+    fcb $35
+    fcb $2E
+    fcb $A7
+    fcb $59
+    fcb $0F
+    fcb $AC
+    fcb $13
+    fcb $6F
     fcb $B5
-    fcb $59,$9F
+    fcb $59
+    fcb $9F
     fcb $65
     fcb $21
     fcb $B2
     fcb $10
-    fcb $59,$BC
-    fcb $13,$65
+    fcb $59
+    fcb $BC
+    fcb $13
+    fcb $65
     fcb $B3
-    fcb $59,$07
-    fcb $37,$B7,$13
+    fcb $59
+    fcb $07
+    fcb $37
+    fcb $B7
+    fcb $13
     fcb $FF
-    fcb $D9,$09
-    fcb $11
-    fcb $FF
-    fcb $13,$D3
+    fcb $D9
     fcb $09
     fcb $11
     fcb $FF
-    fcb $29,$D3
-    fcb $13,$10
+    fcb $13
+    fcb $D3
+    fcb $09
+    fcb $11
     fcb $FF
-    fcb $13,$C6
-    fcb $13,$10
+    fcb $29
+    fcb $D3
+    fcb $13
+    fcb $10
+    fcb $FF
+    fcb $13
+    fcb $C6
+    fcb $13
+    fcb $10
     fcb $FF
     fcb $09
     fcb $C6
-    fcb $13,$10
+    fcb $13
+    fcb $10
     fcb $FF
-LFF34
     fcb $0E
     fcb $0F
     fcb $10
     fcb $09
     fcb $CC
-    fcb $13,$10
+    fcb $13
+    fcb $10
     fcb $FF
     fcb $0E
     fcb $09
     fcb $C6
     fcb $FF
     fcb $CC
-    fcb $13,$FF
-    fcb $13,$6B
-    fcb $93,$FF
-    fcb $3A,$FF
+    fcb $13
+    fcb $FF
+    fcb $13
+    fcb $6B
+    fcb $93
+    fcb $FF
+    fcb $3A
+    fcb $FF
     fcb $FF
     fcb $EB
-    fcb $D0,$6B
-    fcb $3C,$B5
-    fcb $D1,$6E
+    fcb $D0
+    fcb $6B
+    fcb $3C
+    fcb $B5
+    fcb $D1
+    fcb $6E
     fcb $0F
-    fcb $8B,$D2,$42
+    fcb $8B
+    fcb $D2
+    fcb $42
     fcb $0D
     fcb $9F
-    fcb $D3,$5D
+    fcb $D3
+    fcb $5D
     fcb $0E
-    fcb $93,$D4
+    fcb $93
+    fcb $D4
     fcb $68
-    fcb $BA,$D5
+    fcb $BA
+    fcb $D5
     fcb $68
     fcb $06
-    fcb $A3,$D6,$77
-    fcb $37,$0C,$02
-    fcb $29,$B7
-    fcb $D7,$77
-    fcb $37,$07,$23
+    fcb $A3
+    fcb $D6
+    fcb $77
+    fcb $37
     fcb $0C
-    fcb $8B,$D8,$54
     fcb $02
-    fcb $8D,$D9,$4B
+    fcb $29
+    fcb $B7
+    fcb $D7
+    fcb $77
+    fcb $37
+    fcb $07
+    fcb $23
+    fcb $0C
+    fcb $8B
+    fcb $D8
+    fcb $54
+    fcb $02
+    fcb $8D
+    fcb $D9
+    fcb $4B
     fcb $06
-    fcb $8B,$FE
+    fcb $8B
+    fcb $FE
 LFF79
     fcb $F8
 LFF7A
     fcb $11
     fcb $F8
-    fcb $3E,$F8
+    fcb $3E
+    fcb $F8
     fcb $CE
     fcb $F9
-    fcb $18,$F9
+    fcb $18
+    fcb $F9
     fcb $51
     fcb $F9
-    fcb $A5,$FA,$5B
+    fcb $A5
+    fcb $FA
+    fcb $5B
     fcb $FA
     fcb $6D
-LFF89
     fcb $FA
     fcb $B1
     fcb $FA
-    fcb $E0,$FB
-    fcb $4C,$FB,$55
+    fcb $E0
     fcb $FB
-    fcb $66,$FB
-    fcb $84,$FB
-    fcb $96,$FB,$DC
+    fcb $4C
+    fcb $FB
+    fcb $55
+    fcb $FB
+    fcb $66
+    fcb $FB
+    fcb $84
+    fcb $FB
+    fcb $96
+    fcb $FB
+    fcb $DC
     fcb $FC
-    fcb $D4,$FD
+    fcb $D4
+    fcb $FD
     fcb $00
     fcb $FD
-    fcb $19,$FD
-    fcb $2B,$FD
+    fcb $19
+    fcb $FD
+    fcb $2B
+    fcb $FD
     fcb $99
     fcb $FE
-    fcb $56,$FE,$95
+    fcb $56
     fcb $FE
-    fcb $A2,$FE,$E9
+    fcb $95
+    fcb $FE
+    fcb $A2
+    fcb $FE
+    fcb $E9
     fcb $FE
     fcb $F7
     fcb $FF
     fcb $41
     fcb $FF
-    fcb $4B,$00,$00
+    fcb $4B
     fcb $00
     fcb $00
     fcb $00
@@ -3599,7 +4349,8 @@ LFF89
     fcb $00
     fcb $00
     fcb $00
-    zmb 32
+    fcb $00
+    fcb $00
 ***** FFD0: 00 00     ; TRAP_23
 ***** FFD2: 00 00     ; TRAP_22
 ***** FFD4: 00 00     ; TRAP_21
@@ -3624,6 +4375,7 @@ LFF89
 ***** FFFA: F0 33     ; INT2
 ***** FFFC: F2 1C     ; INT1
 ***** FFFE: F0 00     ; RESET (INT0)
+    zmb $ff00-*
     FDB RESET1 6309 Trap Vector
     FDB RESET1 SWI3
     FDB RESET1 SWI2
