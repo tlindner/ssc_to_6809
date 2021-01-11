@@ -3142,7 +3142,7 @@ FFF8: F0 12     ; INT3
 FFFA: F0 33     ; INT2
 FFFC: F2 1C     ; INT1
 FFFE: F0 00     ; RESET (INT0)
-XXXX:     zmb $ff00-*
+XXXX:     zmb $fff0-*
 XXXX:     FDB RESET1 6309 Trap Vector
 XXXX:     FDB RESET1 SWI3
 XXXX:     FDB RESET1 SWI2

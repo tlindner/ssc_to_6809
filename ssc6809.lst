@@ -4557,7 +4557,37 @@ F911 00               (      ssc6809.asm):04353             fcb $00
                       (      ssc6809.asm):04375         ***** FFFA: F0 33     ; INT2
                       (      ssc6809.asm):04376         ***** FFFC: F2 1C     ; INT1
                       (      ssc6809.asm):04377         ***** FFFE: F0 00     ; RESET (INT0)
-F912 0000000000000000 (      ssc6809.asm):04378             zmb $ff00-*
+F912 0000000000000000 (      ssc6809.asm):04378             zmb $fff0-*
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
+     0000000000000000
      0000000000000000
      0000000000000000
      0000000000000000
@@ -4747,12 +4777,12 @@ F912 0000000000000000 (      ssc6809.asm):04378             zmb $ff00-*
      0000000000000000
      0000000000000000
      000000000000
-FF00 E000             (      ssc6809.asm):04379             FDB RESET1 6309 Trap Vector
-FF02 E000             (      ssc6809.asm):04380             FDB RESET1 SWI3
-FF04 E000             (      ssc6809.asm):04381             FDB RESET1 SWI2
-FF06 E073             (      ssc6809.asm):04382             FDB TIMER1 FIRQ - TIMER
-FF08 E484             (      ssc6809.asm):04383             FDB INT1 IRQ - Allophone Load Request
-FF0A E000             (      ssc6809.asm):04384             FDB RESET1 SWI
-FF0C E01F             (      ssc6809.asm):04385             FDB INT3 - NMI New Byte from Host
-FF0E E000             (      ssc6809.asm):04386             FDB RESET1 - RESET
+FFF0 E000             (      ssc6809.asm):04379             FDB RESET1 6309 Trap Vector
+FFF2 E000             (      ssc6809.asm):04380             FDB RESET1 SWI3
+FFF4 E000             (      ssc6809.asm):04381             FDB RESET1 SWI2
+FFF6 E073             (      ssc6809.asm):04382             FDB TIMER1 FIRQ - TIMER
+FFF8 E484             (      ssc6809.asm):04383             FDB INT1 IRQ - Allophone Load Request
+FFFA E000             (      ssc6809.asm):04384             FDB RESET1 SWI
+FFFC E01F             (      ssc6809.asm):04385             FDB INT3 - NMI New Byte from Host
+FFFE E000             (      ssc6809.asm):04386             FDB RESET1 - RESET
                       (      ssc6809.asm):04387         
