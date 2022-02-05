@@ -53,8 +53,8 @@
 1	CLR A	clr <0
 1	CLR B	clr <1
 1	CLR R(\d+)	clr <$1
-1	CLRC	andcc #\$fe
-1	SETC	orcc #\$01
+1	CLRC	andcc #~1\\ntst <0
+1	SETC	orcc #5\\nandcc #~8
 1	CMPA \*R(\d+)	ldx <$1-1\\nlda <0\\ncmpa ,x
 1	CMP %>([0-9A-F]{1,2}),A	lda <0\\ncmpa #\$$1
 1	CMP %>([0-9A-F]{1,2}),B	lda <1\\ncmpa #\$$1
@@ -122,7 +122,7 @@
 1	PUSH A	lda <0\\npshs a
 1	PUSH B	lda <1\\npshs a
 1	PUSH R(\d+)	lda <$1\\npshs a
-1	RETI	rti
+1	RETI	puls a,b,cc,x\\nrti
 1	RETS	rts
 1	RR A	lda <0\\ntfr a,b\\nrorb\\nrora\\nsta <0
 1	RR B	lda <1\\ntfr a,b\\nrorb\\nrora\\nsta <1

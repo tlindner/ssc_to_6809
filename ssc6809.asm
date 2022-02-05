@@ -50,6 +50,8 @@ LF007
 ; INT3 vector: New byte from host
 ;**************************
 INT3
+    orcc #$50
+    pshs a,b,cc,x
     lda <0              F012: B8          PUSH A
     pshs a
     lda <1              F013: C8          PUSH B
@@ -89,18 +91,21 @@ LF02C
     sta <1
     puls a              F031: B9          POP A
     sta <0
-    rti                 F032: 0B          RETI
+    puls a,b,cc,x       F032: 0B          RETI
+    rti
 
 ;**************************
 ; INT2 (Timer1) vector:
 ;**************************
 TIMER1
-    pshs a,b,x
+    pshs a,b,cc,x
     lda $100
     anda #$d5
     ora #$08 ; clear INT2 (TIMER) interrupt
     sta $100
 INT2
+    orcc #$50
+    pshs a,b,cc,x
     lda <0              F033: B8          PUSH A
     pshs a
     lda <1              F034: C8          PUSH B
@@ -144,8 +149,8 @@ LF04A
     sta <1
     puls a              F04F: B9          POP A
     sta <0
-    puls a,b,x
-    rti                 F050: 0B          RETI
+    puls a,b,cc,x       F050: 0B          RETI
+    rti
 LF051
     lda #$10            F051: A4 10 00    ORP %>10,P0           ; Set INT3 enable
     ora 256+0
@@ -158,7 +163,7 @@ LF051
     std <17-1
     andcc #$fe
     bsr TRAP_4          F05D: FB          TRAP 4                ; turn off interrupts; Process data
-    lda <7              F05E: 7D AF 07    CMP %>AF,R7
+    lda <7              F05E: 7D AF 07    CMP %>AF,R7			; test for psg direct mode
     cmpa #$AF
     beq LF083           F061: E2 20       JEQ $F083
     lda <7              F063: 7D 00 07    CMP %>0,R7
@@ -169,10 +174,10 @@ LF06B
     lda <0              F06B: 2D 00       CMP %>0,A
     cmpa #$0
     beq LF000           F06D: E2 91       JEQ $F000             ; Jump to reset
-    lda <0              F06F: 2D C7       CMP %>C7,A
+    lda <0              F06F: 2D C7       CMP %>C7,A			; Stop all speech?
     cmpa #$C7
     beq LF0ED           F071: E2 7A       JEQ $F0ED
-    lda <0              F073: 2D CF       CMP %>CF,A
+    lda <0              F073: 2D CF       CMP %>CF,A			; Stop all sound?
     cmpa #$CF
     beq LF0CA           F075: E2 53       JEQ $F0CA
     lda <0              F077: 2D 80       CMP %>80,A
@@ -449,7 +454,7 @@ LF153
 LF156
     rts                 F156: 0A          RETS
 LF157
-    lda <7              F157: 7D 8F 07    CMP %>8F,R7
+    lda <7              F157: 7D 8F 07    CMP %>8F,R7				; flag to Load timer base value?
     cmpa #$8F
     bne LF160           F15A: E6 04       JNZ $F160
     lda <0              F15C: 82 02       MOVP A,P2                 ; Write timer reload register
@@ -463,7 +468,7 @@ LF160
     lda #$20            F163: 76 20 07 07 BTJO %>20,R7,$F16E        ; If bit 6 of R7 is 1 Jump to $F16E
     anda <7
     bne LF16E
-    lda #$8             F167: 76 08 07 05 BTJO %>8,R7,$F170         ; if bit 4 of R7 is 1 jump to $Ff170
+    lda #$8             F167: 76 08 07 05 BTJO %>8,R7,$F170         ; if bit 4 of R7 is 1 jump to $F170
     anda <7
     bne LF170
     lda #$D             F16B: 72 0D 13    MOV %>D,R19
@@ -481,7 +486,8 @@ LF170
     lda <22             F178: D3 16       INC R22
     adda #1
     sta <22
-    andcc #$fe          F17A: B0          CLRC
+    andcc #~1           F17A: B0          CLRC
+    tst <0
     bmi LF17F           F17B: E1 02       JN $F17F
     lda <21             F17D: D3 15       INC R21
     adda #1
@@ -528,7 +534,8 @@ LF195
     lda <21             F1A7: D3 15       INC R21
     adda #1
     sta <21
-    andcc #$fe          F1A9: B0          CLRC
+    andcc #~1           F1A9: B0          CLRC
+    tst <0
     bmi LF1B8           F1AA: E1 0C       JN $F1B8
     lda <21             F1AC: D3 15       INC R21
     adda #1
@@ -671,6 +678,8 @@ TRAP_8
 ;       the phonem.
 ;**************************
 INT1
+    orcc #$50
+    pshs a,b,cc,x
     lda <0              F21C: B8          PUSH A
     pshs a
     lda <1              F21D: C8          PUSH B
@@ -1622,7 +1631,8 @@ LF55A
     lda <0              F563: 2D FF       CMP %>FF,A
     cmpa #$FF
     bne LF569           F565: E6 02       JNZ $F569
-    andcc #$fe          F567: B0          CLRC
+    andcc #~1           F567: B0          CLRC
+    tst <0
     rts                 F568: 0A          RETS
 LF569
     lda <25             F569: 7D 01 19    CMP %>1,R25
@@ -1670,7 +1680,8 @@ LF584
     cmpa <0
     beq LF58E           F588: E2 04       JEQ $F58E
     clr <27             F58A: D5 1B       CLR R27
-    orcc #$01           F58C: 07          SETC
+    orcc #5             F58C: 07          SETC
+    andcc #~8
     rts                 F58D: 0A          RETS
 LF58E
     lda <25             F58E: 7D 01 19    CMP %>1,R25
@@ -1683,7 +1694,8 @@ LF595
     lda <29             F595: 7D 01 1D    CMP %>1,R29
     cmpa #$1
     bne LF59C           F598: E6 02       JNZ $F59C
-    andcc #$fe          F59A: B0          CLRC
+    andcc #~1           F59A: B0          CLRC
+    tst <0
     rts                 F59B: 0A          RETS
 LF59C
     lda <62             F59C: D3 3E       INC R62
@@ -1842,7 +1854,8 @@ LF627
     adda #1
     sta <61
 LF62D
-    andcc #$fe          F62D: B0          CLRC
+    andcc #~1           F62D: B0          CLRC
+    tst <0
     rts                 F62E: 0A          RETS
     bsr TRAP_11         F62F: F4          TRAP 11
 LF630
@@ -1873,7 +1886,8 @@ LF637
     lda <0
     cmpa ,x
     beq LF62D           F649: E2 E2       JEQ $F62D
-    orcc #$01           F64B: 07          SETC
+    orcc #5             F64B: 07          SETC
+    andcc #~8
     rts                 F64C: 0A          RETS
 LF64D
     ldx <62-1           F64D: 9A 3E       LDA *R62
@@ -1887,7 +1901,8 @@ LF653
     lda <26             F655: 4D 00 1A    CMP R0,R26
     cmpa <0
     beq LF65C           F658: E2 02       JEQ $F65C
-    orcc #$01           F65A: 07          SETC
+    orcc #5             F65A: 07          SETC
+    andcc #~8
     rts                 F65B: 0A          RETS
 LF65C
     bsr TRAP_17         F65C: EE          TRAP 17
@@ -1897,7 +1912,8 @@ LF65C
 LF662
     bra LF607           F662: E0 A3       JMP $F607
 LF664
-    andcc #$fe          F664: B0          CLRC
+    andcc #~1           F664: B0          CLRC
+    tst <0
     rts                 F665: 0A          RETS
 LF666
     lda <0              F666: 2D 07       CMP %>7,A
@@ -1926,7 +1942,8 @@ LF672
     tfr cc,a            F67A: E4 02       JP $F67E
     anda #$0C
     beq LF67E
-    orcc #$01           F67C: 07          SETC
+    orcc #5             F67C: 07          SETC
+    andcc #~8
     rts                 F67D: 0A          RETS
 LF67E
     bsr TRAP_17         F67E: EE          TRAP 17
@@ -1935,14 +1952,16 @@ LF67E
     beq LF686           F682: E2 02       JEQ $F686
     bra LF662           F684: E0 DC       JMP $F662
 LF686
-    andcc #$fe          F686: B0          CLRC
+    andcc #~1           F686: B0          CLRC
+    tst <0
     rts                 F687: 0A          RETS
 LF688
     bsr TRAP_9          F688: F6          TRAP 9
     lda #$8             F689: 26 08 02    BTJO %>8,A,$F68E
     anda <0
     bne LF68E
-    orcc #$01           F68C: 07          SETC
+    orcc #5             F68C: 07          SETC
+    andcc #~8
     rts                 F68D: 0A          RETS
 LF68E
     lda #$8             F68E: 52 08       MOV %>8,B
@@ -1954,14 +1973,16 @@ LF68E
     beq LF698           F694: E2 02       JEQ $F698
     bra LF662           F696: E0 CA       JMP $F662
 LF698
-    andcc #$fe          F698: B0          CLRC
+    andcc #~1           F698: B0          CLRC
+    tst <0
     rts                 F699: 0A          RETS
 LF69A
     bsr TRAP_9          F69A: F6          TRAP 9
     lda #$80            F69B: 26 80 02    BTJO %>80,A,$F6A0
     anda <0
     bne LF6A0
-    orcc #$01           F69E: 07          SETC
+    orcc #5             F69E: 07          SETC
+    andcc #~8
     rts                 F69F: 0A          RETS
 LF6A0
     bsr TRAP_11         F6A0: F4          TRAP 11
@@ -1969,7 +1990,8 @@ LF6A0
     lda #$80            F6A2: 26 80 02    BTJO %>80,A,$F6A7
     anda <0
     bne LF6A7
-    orcc #$01           F6A5: 07          SETC
+    orcc #5             F6A5: 07          SETC
+    andcc #~8
     rts                 F6A6: 0A          RETS
 LF6A7
     lda #$80            F6A7: 52 80       MOV %>80,B
@@ -1981,7 +2003,8 @@ LF6A7
     beq LF6B1           F6AD: E2 02       JEQ $F6B1
     bra LF662           F6AF: E0 B1       JMP $F662
 LF6B1
-    andcc #$fe          F6B1: B0          CLRC
+    andcc #~1           F6B1: B0          CLRC
+    tst <0
     rts                 F6B2: 0A          RETS
 LF6B3
     bsr TRAP_9          F6B3: F6          TRAP 9
@@ -1996,7 +2019,8 @@ LF6B3
 LF6BE
     bra LF662           F6BE: E0 A2       JMP $F662
 LF6C0
-    andcc #$fe          F6C0: B0          CLRC
+    andcc #~1           F6C0: B0          CLRC
+    tst <0
     rts                 F6C1: 0A          RETS
 LF6C2
     lda #$8             F6C2: 52 08       MOV %>8,B
@@ -2009,7 +2033,8 @@ LF6C2
 LF6CA
     bra LF6BE           F6CA: E0 F2       JMP $F6BE
 LF6CC
-    andcc #$fe          F6CC: B0          CLRC
+    andcc #~1           F6CC: B0          CLRC
+    tst <0
     rts                 F6CD: 0A          RETS
 LF6CE
     bsr TRAP_9          F6CE: F6          TRAP 9
@@ -2021,7 +2046,8 @@ LF6CE
     cmpa #$49
     beq LF6D9           F6D5: E2 02       JEQ $F6D9
 LF6D7
-    orcc #$01           F6D7: 07          SETC
+    orcc #5             F6D7: 07          SETC
+    andcc #~8
     rts                 F6D8: 0A          RETS
 LF6D9
     bsr TRAP_11         F6D9: F4          TRAP 11
@@ -2034,7 +2060,8 @@ LF6D9
     lda <0              F6E1: 2D 47       CMP %>47,A
     cmpa #$47
     beq LF706           F6E3: E2 21       JEQ $F706
-    orcc #$01           F6E5: 07          SETC
+    orcc #5             F6E5: 07          SETC
+    andcc #~8
     rts                 F6E6: 0A          RETS
 LF6E7
     bsr TRAP_11         F6E7: F4          TRAP 11
@@ -2068,14 +2095,16 @@ LF706
     lda <0              F708: 2D 20       CMP %>20,A
     cmpa #$20
     beq LF726           F70A: E2 1A       JEQ $F726
-    orcc #$01           F70C: 07          SETC
+    orcc #5             F70C: 07          SETC
+    andcc #~8
     rts                 F70D: 0A          RETS
 LF70E
     bsr TRAP_9          F70E: F6          TRAP 9
     lda #$80            F70F: 26 80 02    BTJO %>80,A,$F714
     anda <0
     bne LF714
-    orcc #$01           F712: 07          SETC
+    orcc #5             F712: 07          SETC
+    andcc #~8
     rts                 F713: 0A          RETS
 LF714
     lda #$80            F714: 52 80       MOV %>80,B
@@ -2088,14 +2117,16 @@ LF714
 LF71C
     bra LF6CA           F71C: E0 AC       JMP $F6CA
 LF71E
-    andcc #$fe          F71E: B0          CLRC
+    andcc #~1           F71E: B0          CLRC
+    tst <0
     rts                 F71F: 0A          RETS
 LF720
     bsr TRAP_9          F720: F6          TRAP 9
     lda #$40            F721: 26 40 02    BTJO %>40,A,$F726
     anda <0
     bne LF726
-    orcc #$01           F724: 07          SETC
+    orcc #5             F724: 07          SETC
+    andcc #~8
     rts                 F725: 0A          RETS
 LF726
     bsr TRAP_17         F726: EE          TRAP 17
@@ -2104,35 +2135,40 @@ LF726
     beq LF72E           F72A: E2 02       JEQ $F72E
     bra LF71C           F72C: E0 EE       JMP $F71C
 LF72E
-    andcc #$fe          F72E: B0          CLRC
+    andcc #~1           F72E: B0          CLRC
+    tst <0
     rts                 F72F: 0A          RETS
 LF730
     bsr TRAP_9          F730: F6          TRAP 9
     lda #$8             F731: 26 08 F2    BTJO %>8,A,$F726
     anda <0
     bne LF726
-    orcc #$01           F734: 07          SETC
+    orcc #5             F734: 07          SETC
+    andcc #~8
     rts                 F735: 0A          RETS
 LF736
     bsr TRAP_9          F736: F6          TRAP 9
     lda #$4             F737: 26 04 EC    BTJO %>4,A,$F726
     anda <0
     bne LF726
-    orcc #$01           F73A: 07          SETC
+    orcc #5             F73A: 07          SETC
+    andcc #~8
     rts                 F73B: 0A          RETS
 LF73C
     bsr TRAP_9          F73C: F6          TRAP 9
     lda #$2             F73D: 26 02 E6    BTJO %>2,A,$F726
     anda <0
     bne LF726
-    orcc #$01           F740: 07          SETC
+    orcc #5             F740: 07          SETC
+    andcc #~8
     rts                 F741: 0A          RETS
 LF742
     bsr TRAP_9          F742: F6          TRAP 9
     lda #$20            F743: 26 20 02    BTJO %>20,A,$F748
     anda <0
     bne LF748
-    orcc #$01           F746: 07          SETC
+    orcc #5             F746: 07          SETC
+    andcc #~8
     rts                 F747: 0A          RETS
 LF748
     lda #$20            F748: 52 20       MOV %>20,B
@@ -2145,7 +2181,8 @@ LF748
 LF750
     bra LF71C           F750: E0 CA       JMP $F71C
 LF752
-    andcc #$fe          F752: B0          CLRC
+    andcc #~1           F752: B0          CLRC
+    tst <0
     rts                 F753: 0A          RETS
 LF754
     bsr TRAP_9          F754: F6          TRAP 9
@@ -2156,7 +2193,8 @@ LF754
     lda <0              F759: 2D 23       CMP %>23,A
     cmpa #$23
     beq LF75F           F75B: E2 02       JEQ $F75F
-    orcc #$01           F75D: 07          SETC
+    orcc #5             F75D: 07          SETC
+    andcc #~8
     rts                 F75E: 0A          RETS
 LF75F
     bsr TRAP_11         F75F: F4          TRAP 11
@@ -2164,7 +2202,8 @@ LF75F
     lda <0              F761: 2D 48       CMP %>48,A
     cmpa #$48
     beq LF726           F763: E2 C1       JEQ $F726
-    orcc #$01           F765: 07          SETC
+    orcc #5             F765: 07          SETC
+    andcc #~8
     rts                 F766: 0A          RETS
 LF767
     bsr TRAP_10         F767: F5          TRAP 10
@@ -2184,7 +2223,8 @@ LF770
 LF777
     bra LF750           F777: E0 D7       JMP $F750
     rts                 F779: 0A          RETS
-    orcc #$01           F77A: 07          SETC
+    orcc #5             F77A: 07          SETC
+    andcc #~8
     rts                 F77B: 0A          RETS
 
 ;**************************
