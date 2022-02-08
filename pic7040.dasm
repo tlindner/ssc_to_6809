@@ -41,6 +41,7 @@ F032: 0B          RETI
 ;**************************
 XXXX: TIMER1
 XXXX:     pshs a,b,cc,x
+XXXX:     orcc #$50
 XXXX:     lda $100
 XXXX:     anda #$d5
 XXXX:     ora #$08 ; clear INT2 (TIMER) interrupt
@@ -70,7 +71,7 @@ F061: E2 20       JEQ $F083
 F063: 7D 00 07    CMP %>0,R7
 F066: E2 03       JEQ $F06B
 F068: 8C F1 57    BR $F157
-F06B: 2D 00       CMP %>0,A
+F06B: 2D 00       CMP %>0,A				; Test for software reset
 F06D: E2 91       JEQ $F000             ; Jump to reset
 F06F: 2D C7       CMP %>C7,A			; Stop all speech?
 F071: E2 7A       JEQ $F0ED
@@ -93,7 +94,7 @@ F095: 12 3F       MOV R63,A
 F097: F8          TRAP 7                ; Load PSG, A = Address, R60 = data
 F098: D5 16       CLR R22
 F09A: 0A          RETS
-F09B: 2D 0D       CMP %>D,A
+F09B: 2D 0D       CMP %>D,A				; Look for carriage return
 F09D: E6 09       JNZ $F0A8
 F09F: 22 20       MOV %>20,A            ; Jump if not zero
 F0A1: 88 FF 02 11 MOVD %>FF02,R17
@@ -808,7 +809,7 @@ F614: E0 04       JMP $F61A
 F616: 52 80       MOV %>80,B
 F618: DB 3E       DECD R62
 F61A: 9A 3E       LDA *R62
-F61C: 67 11       BTJZ B,A,$F630
+F61C: 67 11       BTJZ B,A,$F62F
 F61E: 7D 00 1E    CMP %>0,R30
 F621: E6 04       JNZ $F627
 F623: DB 3E       DECD R62
@@ -3141,7 +3142,8 @@ FFF8: F0 12     ; INT3
 FFFA: F0 33     ; INT2
 FFFC: F2 1C     ; INT1
 FFFE: F0 00     ; RESET (INT0)
-XXXX:     zmb $fff0-*
+XXXX:     zmb $f000-*
+XXXX:INCLUDEBIN pic-7040-510-novectors.bin
 XXXX:     FDB RESET1 6309 Trap Vector
 XXXX:     FDB RESET1 SWI3
 XXXX:     FDB RESET1 SWI2

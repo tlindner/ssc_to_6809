@@ -1,4 +1,4 @@
- org $e000
+ org $8000
  setdp 0
  PRAGMA autobranchlength
  PRAGMA noforwardrefmax
@@ -99,13 +99,13 @@ LF02C
 ;**************************
 TIMER1
     pshs a,b,cc,x
+    orcc #$50
     lda $100
     anda #$d5
     ora #$08 ; clear INT2 (TIMER) interrupt
     sta $100
 INT2
-    orcc #$50
-    pshs a,b,cc,x
+
     lda <0              F033: B8          PUSH A
     pshs a
     lda <1              F034: C8          PUSH B
@@ -171,7 +171,7 @@ LF051
     beq LF06B           F066: E2 03       JEQ $F06B
     jmp LF157           F068: 8C F1 57    BR $F157
 LF06B
-    lda <0              F06B: 2D 00       CMP %>0,A
+    lda <0              F06B: 2D 00       CMP %>0,A				; Test for software reset
     cmpa #$0
     beq LF000           F06D: E2 91       JEQ $F000             ; Jump to reset
     lda <0              F06F: 2D C7       CMP %>C7,A			; Stop all speech?
@@ -216,7 +216,7 @@ LF093
     clr <22             F098: D5 16       CLR R22
     rts                 F09A: 0A          RETS
 LF09B
-    lda <0              F09B: 2D 0D       CMP %>D,A
+    lda <0              F09B: 2D 0D       CMP %>D,A				; Look for carriage return
     cmpa #$D
     bne LF0A8           F09D: E6 09       JNZ $F0A8
     lda #$20            F09F: 22 20       MOV %>20,A            ; Jump if not zero
@@ -1365,18 +1365,12 @@ LF47E
 TRAP_14
     lda <0              F481: 2D 30       CMP %>30,A
     cmpa #$30
-    tfr cc,a            F483: E5 02       JPZ $F487
-    anda #$0C
-    cmpa #$08
-    beq LF487
+    bpl LF487           F483: E5 02       JPZ $F487
     bra LF4B8           F485: E0 31       JMP $F4B8
 LF487
     lda <0              F487: 2D 3A       CMP %>3A,A
     cmpa #$3A
-    tfr cc,a            F489: E5 06       JPZ $F491
-    anda #$0C
-    cmpa #$08
-    beq LF491
+    bpl LF491           F489: E5 06       JPZ $F491
     ldd #$FF4B          F48B: 88 FF 4B 3E MOVD %>FF4B,R62
     std <62-1
     andcc #$fe
@@ -1384,18 +1378,12 @@ LF487
 LF491
     lda <0              F491: 2D 41       CMP %>41,A
     cmpa #$41
-    tfr cc,a            F493: E5 02       JPZ $F497
-    anda #$0C
-    cmpa #$08
-    beq LF497
+    bpl LF497           F493: E5 02       JPZ $F497
     bra LF4B8           F495: E0 21       JMP $F4B8
 LF497
     lda <0              F497: 2D 5B       CMP %>5B,A
     cmpa #$5B
-    tfr cc,a            F499: E5 09       JPZ $F4A4
-    anda #$0C
-    cmpa #$08
-    beq LF4A4
+    bpl LF4A4           F499: E5 09       JPZ $F4A4
     ldd #$F83E          F49B: 88 F8 3E 3E MOVD %>F83E,R62
     std <62-1
     andcc #$fe
@@ -1406,18 +1394,12 @@ LF497
 LF4A4
     lda <0              F4A4: 2D 61       CMP %>61,A
     cmpa #$61
-    tfr cc,a            F4A6: E5 02       JPZ $F4AA
-    anda #$0C
-    cmpa #$08
-    beq LF4AA
+    bpl LF4AA           F4A6: E5 02       JPZ $F4AA
     bra LF4B8           F4A8: E0 0E       JMP $F4B8
 LF4AA
     lda <0              F4AA: 2D 7B       CMP %>7B,A
     cmpa #$7B
-    tfr cc,a            F4AC: E5 0A       JPZ $F4B8
-    anda #$0C
-    cmpa #$08
-    beq LF4B8
+    bpl LF4B8           F4AC: E5 0A       JPZ $F4B8
     lda <0              F4AE: 2A 20       SUB %>20,A
     suba #$20
     sta <0
@@ -1836,10 +1818,10 @@ LF61A
     ldx <62-1           F61A: 9A 3E       LDA *R62
     lda ,x
     sta <0
-    lda <0              F61C: 67 11       BTJZ B,A,$F630
+    lda <0              F61C: 67 11       BTJZ B,A,$F62F
     coma
     anda <1
-    bne LF630
+    bne LF62F
     lda <30             F61E: 7D 00 1E    CMP %>0,R30
     cmpa #$0
     bne LF627           F621: E6 04       JNZ $F627
@@ -1857,8 +1839,8 @@ LF62D
     andcc #~1           F62D: B0          CLRC
     tst <0
     rts                 F62E: 0A          RETS
+LF62F
     bsr TRAP_11         F62F: F4          TRAP 11
-LF630
     bsr TRAP_10         F630: F5          TRAP 10
     lda <0              F631: 2D 61       CMP %>61,A
     cmpa #$61
@@ -2655,7 +2637,8 @@ LFF7A
 ***** FFFA: F0 33     ; INT2
 ***** FFFC: F2 1C     ; INT1
 ***** FFFE: F0 00     ; RESET (INT0)
-    zmb $fff0-*
+    zmb $f000-*
+    XXXX:INCLUDEBIN pic-7040-510-novectors.bin XXXX:INCLUDEBIN pic-7040-510-novectors.bin
     FDB RESET1 6309 Trap Vector
     FDB RESET1 SWI3
     FDB RESET1 SWI2

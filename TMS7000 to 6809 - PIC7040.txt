@@ -1,4 +1,4 @@
-0	 org $e000
+0	 org $8000
 0	 setdp 0
 0	 PRAGMA autobranchlength
 0	 PRAGMA noforwardrefmax
@@ -84,7 +84,7 @@
 1	JNC \$([0-9A-F]{4})	bcc L$1	1
 1	JNZ \$([0-9A-F]{4})	bne L$1	1
 1	JN \$([0-9A-F]{4})	bmi L$1	1
-1	JPZ \$([0-9A-F]{4})	tfr cc,a\\nanda #\$0C\\ncmpa #\$08\\nbeq L$1	1
+1	JPZ \$([0-9A-F]{4})	bpl L$1	1
 1	JP \$([0-9A-F]{4})	tfr cc,a\\nanda #\$0C\\nbeq L$1	1
 1	LDA @>([0-9A-F]{4})\(B\)	ldb <1\\nldx #L$1\\nabx\\nlda ,x\\nsta <0	1
 1	LDA \*R(\d+)	ldx <$1-1\\nlda ,x\\nsta <0
