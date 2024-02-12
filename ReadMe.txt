@@ -20,6 +20,6 @@ It produces ssc6809.asm that is assembled by lwasm. http://www.lwtools.ca
 
 The file 'build.sh' has all these steps baked into a script.
 
-November 6, 2020: It is currently not working.
+This proejct is done and working.
 
 tim lindner
